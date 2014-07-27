@@ -1,0 +1,267 @@
+﻿body 
+{
+    background-color: #000000;
+    font-family: Trebuchet MS;
+    font-size: 8pt;
+    color: #ffffff;
+}
+
+select
+{
+    width: 100%;
+}
+
+input[type=text].search
+{
+    width: 90%;
+}
+
+input[type=button].draft,
+input[type=button].remove
+{
+    width: 75%;
+}
+
+table.rightCol
+{
+    border: 1px solid #FFF;
+    width: 400px;
+    margin-top: 10px;
+}
+
+table.clock
+{
+    border: 2px solid #FFF;
+    width: 400px;
+}
+
+table.queue
+{
+    width: 100%;
+}
+
+td.splitCell,
+td.message
+{
+    width:50%;
+}
+
+td.top
+{
+    vertical-align: top;
+}
+
+td.chatsection
+{
+    padding-top: 20px;
+}
+
+td.colhead
+{
+    text-decoration: underline;
+}
+
+td.playerCell
+{
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+    font-size: 10pt;
+    color: #ffffff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
+td.message
+{
+    font: 8pt;
+    color: Yellow;
+}
+
+.pageHead
+{
+    height: 55px;
+}
+
+.whiteBack
+{
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 10pt;
+    text-align: center;
+    padding: 5px;
+    border-radius:12px;
+}
+
+div.clock
+{
+    background-color: #000000;
+    color: #FFF;
+    font-size: 22pt;
+    padding: 5px;
+    width: auto;
+}
+
+div.clockRed
+{
+    background-color: #FB0808;
+}
+
+table.draftBoard
+{
+    text-align: center;
+    background-color: #000000;
+    border: 1px #ffffff solid;
+}
+
+td.draftCell
+{
+    font-size: 8pt;
+    color: #ffffff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+    width: 100px;
+    text-align: center;
+}
+
+td.draftHead
+{
+    background-color: #000000;
+    padding: 10px;
+    border-color: #989898;
+    font-size: 9pt;
+}
+
+td.userHead
+{
+    background-color: #FF8F00;
+    padding: 10px;
+    border-color: #EF7100;
+    font-size: 10pt;
+}
+
+td.activeHead
+{
+    background-color: #ffffff;
+    color: #EF7100;
+    padding: 10px;
+    border-color: #E5E5E5;
+    font-size: 9pt;
+}
+
+td.draftPickKeeper
+{
+    background-color: #43BFC7;
+    border-color: #339396;
+    border-radius: 2px;
+}
+
+td.draftPickActive
+{
+    background-color: #E42217;
+    border-color: #C41E15;
+    border-radius: 2px;
+}
+
+td.draftPickOverride
+{
+    background-color: #A227C4;
+    border-color: #8921A5;
+    border-radius: 2px;
+}
+
+td.draftPick
+{
+    background-color: #2B78E0;
+    border-color: #215AA5;
+    border-radius: 2px;
+}
+
+td.draftEmpty
+{
+    background-color: #282828;
+    border-color: #0F0F0F;
+}
+
+td.chatCell
+{
+    padding: 5px;
+}
+
+div.chatRoom
+{
+    font-size: 8pt;
+    color: #ffffff;
+    height: 400px;
+    width: 380px;
+    vertical-align: top;
+    overflow: auto;
+}
+
+input.chatText
+{
+    width: 380px;
+}
+
+div.chatRow
+{
+    width: 100%;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    overflow: auto;   
+}
+
+.chatUser
+{
+    width: 100%;
+    font-size: 9pt;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+div.searchResults
+{
+    height: 200px; 
+    width: 100%; 
+    overflow: auto;
+    font-size: 9pt;
+}
+
+div.searchRow
+{
+    width: 100%;
+    word-wrap: break-word;
+    color: #ffffff;
+}
+
+a.result
+{
+    color: #FF8F00;
+}
+a.result:hover
+{
+    color: #FF8F00;
+}
+a.result:visited
+{
+    color: #FF8F00;
+}
+a.result:active
+{
+    color: #FF8F00;
+}
+
+.colorKennelz{color: #F10000;}
+.colorNannies{color: #4ED041;}
+.colorStepDads{color: #ffffff;}
+.colorSeattlites{color: #FB619F;}
+.colorMills{color: #868485;}
+.colorTomahawks{color: #F64F22;}
+.colorAficionados{color: #B456BE;}
+.colorMeathooks{color: #FEE933;}
+.colorJihad{color: #BEB78F;}
+.colorTitties{color: #E19267;}
+.colorTurner{color: #3E3ED8;}
+.colorGangGreen{color: #13764A;}

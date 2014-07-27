@@ -1,0 +1,46 @@
+﻿<% var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 }; %>
+<table id="ui_tblDraftBoard" class="draftBoard" cellspacing="6">
+	<thead>
+		<tr>
+			<td></td>
+			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
+				<% var user = users[orders[iPick]]; %>
+				<td id="header<%= iPick %>" class="draftCell <%= iPick == currentUser.Pick ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+        	<% } %>
+        	<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<% for (var iRnd = 1; iRnd <= settings.Rounds; iRnd++) { %>
+			<% var totalPicks = (iRnd - 1) * settings.Teams; %>
+			<tr>
+				<td class="whiteBack">Round <%= iRnd %></td>
+				<% for (var iPick = 1; iPick <= settings.Teams; iPick ++) { %>
+					<% var overallPick = (totalPicks + iPick); %>
+                    <% var pickData = pickMap[overallPick] %>
+                    <td id="Td<%= overallPick %>" class="draftCell <%= pickData ? pickData.className : 'draftEmpty' %>">
+                        <% if (pickData) { %>
+                            <% for (var i = 0; pickData.override && pickData.override.text && i < pickData.override.text.length; i++) { %>
+                                <div><%= pickData.override.text[i] %></div>
+                            <% } %>
+                            <% for (var i = 0; pickData.text && i < pickData.text.length; i++) { %>
+                                <div><%= pickData.text[i] %></div>
+                            <% } %>
+                        <% } %>
+                    </td>
+				<% } %>
+				<td class="whiteBack">Round <%= iRnd %></td>
+			</tr>
+        <% } %>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
+				<% var user = users[orders[iPick]]; %>
+				<td id="Td1" class="draftCell <%= iPick == currentUser.Pick ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+        	<% } %>
+        	<td></td>
+		</tr>
+	</tfoot>
+</table>

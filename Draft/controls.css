@@ -1,0 +1,99 @@
+﻿a:link { text-decoration: none}
+a:hover { text-decoration: underline}
+a:visited { text-decoration: none}
+a:active { text-decoration:none}
+
+input[type="text"]
+{
+    /*width: 18.544em;*/
+    padding: 4px 8px;
+    font-family: "Segoe UI", "Segoe UI Web Regular", "Helvetica Neue", "BBAlpha Sans"/*BlackBerry*/,  "S60 Sans"/*Series 60*/, Arial, "sans-serif"/* Opera Mobile */;
+    font-size: 100%;
+    color: #212121;
+    border: 1px solid rgba(0,0,0,0.27);
+    background-color: rgba(255,255,255,0.9);
+	height: 1.466em;
+}
+input[type=text]:hover,
+input[type=password]:hover,
+input[type=email]:hover,
+input[type=number]:hover,
+input[type=tel]:hover,
+textarea:hover
+{
+    border-color: rgba(0,0,0,0.44);
+}
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+input[type=tel]:focus,
+textarea:focus
+{
+    border-color: rgba(0,0,0,0.64);
+    outline: none;
+}
+input[type=text]:disabled,
+input[type=password]:disabled,
+input[type=email]:disabled,
+input[type=number]:disabled,
+input[type=tel]:disabled,
+textarea:disabled
+{
+    color: rgba(33,33,33,0.27);
+    background-color: rgba(202,202,202,0.49);
+    border-color: rgba(0,0,0,0.15);
+}
+div.pad { margin-top: 20px }
+input[type=button], 
+input[type=submit], 
+button 
+{
+    height: 2.25em;
+    min-width: 6em;
+    font-family: "Segoe UI Web Semibold", "Segoe UI Web Regular", "Segoe UI", "Helvetica Neue", Arial;
+    font-size: 100%;
+    background-color: rgba(182,182,182,0.7);
+    /*color: #212121;*/
+    color: #DDD;
+    padding: 3px 12px 5px;
+    border: 0px;
+}
+input[type=button]:hover, 
+input[type=submit]:hover, 
+button:hover
+{
+    background-color: rgba(205,205,205,0.82);
+}
+input[type=button]:active, 
+input[type=submit]:active, 
+button:active
+{
+    background-color: #212121;
+    color: #FFF;
+}
+input[type=button]:focus:not(.c_nobdr), 
+input[type=submit]:focus:not(.c_nobdr), 
+button:focus:not(.c_nobdr)
+{
+    outline: 1px dotted #212121;
+}
+input[type=button].default, 
+input[type=submit].default, 
+button.default 
+{
+    background-color: rgba(38,160,218,1.0);
+    color: #FFF;
+}
+input[type=button]:hover.default, 
+input[type=submit]:hover.default, 
+button:hover.default
+{
+    background-color: rgba(90,183,227,1.0);
+}
+input[type=button]:active.default, 
+input[type=submit]:active.default, 
+button:active.default
+{
+    background-color: #212121;
+}
