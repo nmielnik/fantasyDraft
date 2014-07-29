@@ -6,8 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Text;
-using Jayrock;
-using Jayrock.Json;
 
 public partial class Login : System.Web.UI.Page
 {

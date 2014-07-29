@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 /// <summary>
 /// Summary description for BallersDraftObj
@@ -89,6 +91,7 @@ public class BallersDraftObj
     {
         Dictionary<QuickPick, int> toRet = new Dictionary<QuickPick, int>();
         var allOverrides = from t in db.DraftOverrides
+                           where t.SeasonID == Settings.DraftSeasonID
                            select t;
         foreach (DraftOverride next in allOverrides)
             toRet[new QuickPick() { Round = next.Round, Pick = next.Pick }] = next.UserID;
@@ -662,12 +665,30 @@ public class DraftMoveObj
     }
 }
 
+[DataContract]
 public class ChatObj
 {
+    [DataMember]
     public DateTime Date { get; set; }
+
+    [DataMember]
     public int UserID { get; set; }
-    public String Username { get { return _Username; } }
+
+    [DataMember]
+    public String Username 
+    { 
+        get 
+        { 
+            return _Username; 
+        }
+        set
+        {
+            return;
+        }
+    }
     private String _Username;
+
+    [DataMember]
     public String Text
     {
         get

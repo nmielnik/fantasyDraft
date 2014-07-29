@@ -5,7 +5,7 @@
 			<td></td>
 			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
 				<% var user = users[orders[iPick]]; %>
-				<td id="header<%= iPick %>" class="draftCell <%= iPick == currentUser.Pick ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+				<td id="header<%= iPick %>" class="draftCell <%= (user.ID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.ID] ? 'activeHead' : 'draftHead') %>"><%= user.Team %></td>
         	<% } %>
         	<td></td>
 		</tr>
@@ -38,7 +38,7 @@
 			<td></td>
 			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
 				<% var user = users[orders[iPick]]; %>
-				<td id="Td1" class="draftCell <%= iPick == currentUser.Pick ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+				<td id="Td1" class="draftCell <%= (user.ID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.ID] ? 'activeHead' : 'draftHead') %>"><%= user.Team %></td>
         	<% } %>
         	<td></td>
 		</tr>

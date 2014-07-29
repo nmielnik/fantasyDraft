@@ -5,14 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for DraftAuthentication
 /// </summary>
-public static class DraftAuthentication
+public static class DraftAuthentication 
 {
-    private static DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(DraftUser));
 
     private static BallersDraftObj DraftObj = new BallersDraftObj();
 
@@ -20,7 +19,7 @@ public static class DraftAuthentication
     {
         get
         {
-            return "/Draft/Login.aspx";
+            return "/Draft/login";
         }
     }
 
@@ -38,11 +37,8 @@ public static class DraftAuthentication
             String base64Encoded = request.Cookies["DraftUser"].Value;
             byte[] bytes = Convert.FromBase64String(base64Encoded);
             byte[] decryptedBytes = MachineKey.Unprotect(bytes);
-
-            using (MemoryStream stream = new MemoryStream(decryptedBytes))
-            {
-                toRet = (DraftUser)ser.ReadObject(stream);
-            }
+            String final = Encoding.Unicode.GetString(decryptedBytes);
+            toRet = new JavaScriptSerializer().Deserialize<DraftUser>(final);
         }
         catch (Exception ex)
         {
@@ -71,17 +67,21 @@ public static class DraftAuthentication
 
         if (response != null)
         {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                ser.WriteObject(stream, user);
-
-                byte[] encryptedBytes = MachineKey.Protect(stream.ToArray());
-                response.Cookies["DraftUser"].Value = Convert.ToBase64String(encryptedBytes);
-                response.Cookies["DraftUser"].Expires = DateTime.Now.AddDays(1);
-            }
+            String rawString = new JavaScriptSerializer().Serialize(user);
+            byte[] rawBytes = Encoding.Unicode.GetBytes(rawString);
+            byte[] encryptedBytes = MachineKey.Protect(rawBytes);
+            response.Cookies["DraftUser"].Value = Convert.ToBase64String(encryptedBytes);
+            response.Cookies["DraftUser"].Expires = DateTime.Now.AddDays(1);
         }
 
         return user;
+    }
+
+    public static void Logout(HttpResponse response)
+    {
+        HttpCookie authCookie = new HttpCookie("DraftUser");
+        authCookie.Expires = DateTime.Now.AddDays(-1d);
+        response.Cookies.Add(authCookie);
     }
 }
 

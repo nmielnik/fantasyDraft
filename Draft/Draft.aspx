@@ -145,7 +145,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <form name="chat" onsubmit="evt_Chat_onclick(event);return false;" action="#">
+                            <form id="chat-form" name="chat" action="#">
                                 <table class="rightCol" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td class="chatCell" align="center">

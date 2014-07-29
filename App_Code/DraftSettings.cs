@@ -26,10 +26,10 @@ public class DraftSettings
         ClockWarningSeconds = 30;
         TeamsPerDraft = 12;
         RoundsPerDraft = 18;
-        DraftSeasonID = 6;
+        DraftSeasonID = 8;
         ChatRoomCache = 50;
         MSPerRefresh = 750;
         ActiveUserSeconds = 5;
-        ChatFilter = new DateTime(2013, 8, 25, 12, 0, 0);
+        ChatFilter = new DateTime(2010, 8, 25, 12, 0, 0);
 	}
 }
