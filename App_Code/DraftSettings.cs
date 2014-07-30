@@ -10,15 +10,15 @@ using System.IO;
 /// </summary>
 public class DraftSettings
 {
-    public int SecondsPerPick { get; private set; }
-    public int ClockWarningSeconds { get; private set; }
-    public int TeamsPerDraft { get; private set; }
-    public int RoundsPerDraft { get; private set; }
-    public int DraftSeasonID { get; private set; }
-    public int ChatRoomCache { get; private set; }
-    public int MSPerRefresh { get; private set; }
-    public int ActiveUserSeconds { get; private set; }
-    public DateTime ChatFilter { get; private set; }
+    public int SecondsPerPick { get; set; }
+    public int ClockWarningSeconds { get; set; }
+    public int TeamsPerDraft { get; set; }
+    public int RoundsPerDraft { get; set; }
+    public int DraftSeasonID { get; set; }
+    public int ChatRoomCache { get; set; }
+    public int MSPerRefresh { get; set; }
+    public int ActiveUserSeconds { get; set; }
+    public DateTime ChatFilter { get; set; }
 
 	public DraftSettings()
 	{

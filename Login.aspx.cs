@@ -22,7 +22,7 @@ public partial class Login : System.Web.UI.Page
             {
                 user = DraftAuthentication.AuthenticateRequest(Request);
             }
-            Response.Redirect("/Draft/Draft/Draft.aspx");
+            Response.Redirect("/Draft/draft");
         }
         catch (DraftAuthenticationException exc)
         {

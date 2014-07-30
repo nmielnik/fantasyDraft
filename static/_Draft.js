@@ -442,3 +442,122 @@ ChatScroll.prototype =
             el.scrollTop = height;
     }
 }
+
+var cellIdPrefix = 'Td';
+var g_oDraftGrid = drawDraftTable(cellIdPrefix);
+var g_oLastOnClock = null;
+var g_oSearchCache = {};
+
+doUpdate();
+
+function doUpdate() {
+    try {
+        getDraftData();
+    }
+    catch (exc) { }
+    setTimeout(showChat, Settings.RefreshRate);
+}
+
+function onDraftDataLoad(oData) {
+    // { 
+    //   TimeLeft: <seconds>, 
+    //   ActiveUsers: { <userid>: <userid>, <userid>: <userid> },
+    //   OnTheClock: [{Round: <round>, Pick: <pick>, Team: <userid>, Type: <inttype>}, {}],
+    //   DraftPicks: [{Round: <round>, Pick: <pick>, Team: <userid>, Type: <inttype>, Player: <playerid>}, {}]
+    // }
+
+    try {
+        // Update Clock
+        updateClock(GEId("ui_tdClock"), Settings, oData.TimeLeft, true);
+
+        // Update Picks/Keepers
+        updateDraftPicksUI(oData.DraftPicks, g_oDraftGrid, PlayerMap, ['draftCell draftEmpty', 'draftCell draftPickKeeper', 'draftCell draftPickActive', 'draftCell draftPick']);
+
+        // Update On-The-Clock
+        updateDraftPicksUI(oData.OnTheClock, g_oDraftGrid, PlayerMap, ['draftCell draftEmpty', 'draftCell draftPickKeeper', 'draftCell draftPickActive', 'draftCell draftPick']);
+
+        // Update Header & Footer
+        updateUserStatus(oData.ActiveUsers, CurrentUser.ID, Settings, OrderMap);
+
+        // Update the Last Pick to also be a clock
+        if (exists(g_oLastOnClock)) {
+            var sHeading = null;
+            if (g_oLastOnClock._override)
+                sHeading = '(' + g_oLastOnClock._overrideName + ')';
+            g_oLastOnClock.amount = oData.TimeLeft;
+            updateClockUI(g_oLastOnClock, 'draftCell draftPickActive', Settings, 'draftCell draftPickActive', sHeading);
+        }
+    }
+    catch (ex) { }
+}
+
+function showChat() {
+    try {
+        getChatData();
+    }
+    catch (ex) { }
+    setTimeout(doUpdate, Settings.RefreshRate);
+}
+
+function onChatDataLoad(oData) {
+    // ChatData: { Lines: [{User: <username>, Text: <text>}, { }] }
+
+    try {
+        // Update The Chat Room
+        updateChatBoxUI(GEId('ui_divChatRoom'), oData);
+    }
+    catch (ex) { }
+}
+
+function drawDraftTable(sCellIdPrefix) {
+    // Settings: { Teams: <count>, Rounds: <count>, PickSeconds: <seconds>, SeasonID: <id> }
+    // UserMap: { <id>: { ID: <id>, Name: <username>, Team: <teamname>, Pick: <order>}, <id>: { }...}
+    // CurrentUser: { ID: <id>, Name: <username>, Team: <teamname>, Pick: <order> }
+
+    var grid = [];
+
+    var numColumns = Settings.Teams + 2;
+    var iLastCol = numColumns - 1;
+    var tbl = GEId('ui_tblDraftBoard');
+    var tHead = tbl.createTHead();
+    var tHeadCells = _elNewCells(_elNewRow(tbl.tHead), numColumns);
+    for (var iPick = 1; iPick <= Settings.Teams; iPick++) {
+        var iUserID = OrderMap[iPick];
+        var oUser = UserMap[iUserID];
+        tHeadCells[iPick].appendChild(CTXT(oUser.Team));
+        tHeadCells[iPick].id = 'header' + iPick;
+        if (iPick == CurrentUser.Pick)
+            tHeadCells[iPick].className = 'draftCell userHead';
+        else
+            tHeadCells[iPick].className = 'draftCell draftHead';
+    }
+
+    for (var iRnd = 1; iRnd <= Settings.Rounds; iRnd++) {
+        grid[iRnd] = [];
+        var cells = _elNewCells(_elNewRow(tbl), numColumns);
+        var totalPicks = (iRnd - 1) * Settings.Teams;
+        for (var iPick = 1; iPick <= Settings.Teams; iPick++) {
+            var overallPick = (totalPicks + iPick);
+            cells[iPick].id = grid[iRnd][iPick] = sCellIdPrefix + overallPick;
+            cells[iPick].className = 'draftCell draftEmpty';
+        }
+        cells[0].className = cells[iLastCol].className = 'whiteBack';
+        cells[0].appendChild(CTXT('Round ' + iRnd));
+        cells[iLastCol].appendChild(CTXT('Round ' + iRnd));
+    }
+
+    var tFoot = tbl.createTFoot();
+    var tFootCells = _elNewCells(_elNewRow(tbl.tFoot), numColumns);
+    for (var iPick = 1; iPick <= Settings.Teams; iPick++) {
+        var iUserID = OrderMap[iPick];
+        var oUser = UserMap[iUserID];
+        tFootCells[iPick].appendChild(CTXT(oUser.Team));
+        tFootCells[iPick].id = 'footer' + iPick;
+        if (iPick == CurrentUser.Pick)
+            tFootCells[iPick].className = 'draftCell userHead';
+        else
+            tFootCells[iPick].className = 'draftCell draftHead';
+    }
+
+    return grid;
+}

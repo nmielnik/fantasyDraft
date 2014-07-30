@@ -733,6 +733,7 @@ public class PlayerObj
     public String Identity { get; set; }
     public String Team { get; set; }
     public String Position { get; set; }
+    public bool Picked { get; set; }
 
     public String Name
     {
@@ -748,12 +749,25 @@ public class PlayerObj
         }
     }
 
+    public String SearchName
+    {
+        get
+        {
+            return String.Format("{0} - {1}", Name, TeamInfo);
+        }
+    }
+
     public String TeamInfo
     {
         get
         {
             return String.Format("{0} ({1})", Position, Team);
         }
+    }
+
+    public PlayerObj()
+    {
+        Picked = false;
     }
 }
 

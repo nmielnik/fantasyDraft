@@ -18,10 +18,9 @@ public class chat : IHttpHandler {
             JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
             
             DraftUser user = DraftAuthentication.AuthenticateRequest(context.Request);
+            dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], context.Request.HttpMethod == "POST" ? UserActionType.ChatSubmit : UserActionType.ChatQuery);
             if (context.Request.HttpMethod == "POST")
             {
-                dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], UserActionType.ChatSubmit);
-
                 String jsonString = String.Empty;
 
                 context.Request.InputStream.Position = 0;

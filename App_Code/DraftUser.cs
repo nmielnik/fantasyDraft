@@ -10,16 +10,16 @@ using System.Web.Script.Serialization;
 /// </summary>
 public class DraftUser
 {
-    public String Username { get; private set; }
-    public String TeamName { get; private set; }
-    public DateTime Expires { get; private set; }
-    public int DraftOrder { get; private set; }
-    public int ID { get; private set; }
+    public String Username { get; set; }
+    public String TeamName { get; set; }
+    public DateTime Expires { get; set; }
+    public int DraftOrder { get; set; }
+    public int ID { get; set; }
 
     public DraftUser()
     {
         Username = null;
-        Expires = DateTime.Now.AddMinutes(30);
+        Expires = DateTime.Now.AddSeconds(5);
         DraftOrder = -1;
         ID = -1;
     }
