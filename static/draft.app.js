@@ -13,7 +13,24 @@
         url: 'picks',
         model: Backbone.Model.extend({
             idAttribute: "TotalPick"
-        })
+        }),
+
+        getTimeInfo: function (total) {
+            var minutes = "00";
+            var seconds = "00";
+            if (total && total > -1) {
+                minutes = Math.floor(total / 60);
+                seconds = total - (60 * minutes);
+
+                seconds = (seconds < 10) ? "0" + seconds : seconds + "";
+                minutes = minutes + "";
+            }
+            return {
+                total: total || 0,
+                minutes: minutes,
+                seconds: seconds
+            };
+        }
     });
 
     var Chats = Backbone.Collection.extend({
@@ -23,10 +40,17 @@
         })
     });
 
+    var Status = Backbone.Model.extend({
+        url: 'status'
+    });
+
     var picksModel = new DraftPicks();
-    var picksView = new DraftPicksView({ model: picksModel, el: $('#draft-board-holder') })
-        .render()
-        .startPolling(Settings.MSPerRefresh);
+    var picksView = new DraftPicksView({
+        model: picksModel,
+        el: $('#draft-board-holder'),
+        DraftPicks: picksModel,
+        Status: new Status()
+    }).render();
 
     var clockView = new ClockView({ model: picksModel, el: $('#ui_tdClockHolder') }).render();
 

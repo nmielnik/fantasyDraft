@@ -1,0 +1,8 @@
+﻿<tr>
+	<td></td>
+	<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick++) { %>
+        <% var user = users[orders[iPick]]; %>
+		<td id="header<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.UserID] ? 'activeHead' : 'draftHead') %>"><%= user.TeamName %></td>
+    <% } %>
+    <td></td>
+</tr>
