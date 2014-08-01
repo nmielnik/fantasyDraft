@@ -19,7 +19,7 @@ public class DraftUser
     public DraftUser()
     {
         Username = null;
-        Expires = DateTime.Now.AddSeconds(5);
+        Expires = DateTime.Now.AddHours(6);
         DraftOrder = -1;
         ID = -1;
     }

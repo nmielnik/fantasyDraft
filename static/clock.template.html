@@ -1,7 +1,7 @@
 ﻿<table class="clock" cellpadding="0" cellspacing="0">
     <tr>
         <td align="center">
-            <div id="ui_tdClock" class="clock<%= time.total < settings.ClockWarn ? ' clockRed' : '' %>"><%= time.minutes %>:<%= time.seconds %></div>
+            <div id="ui_tdClock" class="clock<%= time.total < settings.ClockWarningSeconds ? ' clockRed' : '' %>"><%= time.minutes %>:<%= time.seconds %></div>
         </td>
     </tr>
 </table>

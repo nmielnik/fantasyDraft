@@ -5,9 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link href="Draft/BallersDraft2010.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-    </style>
+    <link href="static/BallersDraft2010.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
      <!-- <%= LoginMessage %> -->
@@ -17,6 +15,9 @@
             <tr>
                 <td class="whiteBack pageHead" width="35%">Ballers Unite Draft Page</td>
                 <td class="pageHead"></td>
+            </tr>
+            <tr>
+                <td align="center"><% if (!String.IsNullOrEmpty(ErrorMessage)) { %><div class="clock clockRed" style="margin:0 auto;text-align:center;width:100%;"><%= ErrorMessage %></div><% } %></td>
             </tr>
             <tr>
                 <td align="center">

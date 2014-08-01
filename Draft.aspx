@@ -6,8 +6,8 @@
 <head id="Head1" runat="server">
     <title>Ballers Unite Draft</title>
 
-    <link rel="Stylesheet" href="controls.css" type="text/css" />
-    <link rel="Stylesheet" href="BallersDraft2010.css" type="text/css" />
+    <link rel="Stylesheet" href="static/controls.css" type="text/css" />
+    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script type="text/javascript">
         require.config({
@@ -56,7 +56,7 @@
     </script>
 
     <script type="text/javascript">
-        require(["draft.app.js"]);
+        require(["static/draft.app.js"]);
     </script>
 </head>
 <body>

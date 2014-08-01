@@ -11,11 +11,14 @@ public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        bool showError = false;
+        _ErrorMessage = String.Empty;
         try
         {
             DraftUser user = null;
             if (!String.IsNullOrWhiteSpace(Request.Form["username"]))
             {
+                showError = true;
                 user = DraftAuthentication.AuthenticateCredentials(Request.Form["username"], Request.Form["password"], Response);
             }
             else
@@ -29,11 +32,15 @@ public partial class Login : System.Web.UI.Page
             if (!String.IsNullOrWhiteSpace(exc.Username))
             {
                 _PrefillUsername = exc.Username;
-                _LoginMessage = exc.Username + " " + exc.Message + " " + exc.Expired.ToLongDateString();
+                _LoginMessage = exc.Username + " " + exc.Message + " " + exc.Expired.ToLongDateString() + " @ " + exc.Expired.ToLongTimeString();
             }
             else
             {
                 _LoginMessage = exc.Message;
+            }
+            if (showError)
+            {
+                _ErrorMessage = exc.Message;
             }
         }
     }
@@ -55,4 +62,13 @@ public partial class Login : System.Web.UI.Page
         }
     }
     private String _PrefillUsername;
+
+    protected String ErrorMessage
+    {
+        get
+        {
+            return _ErrorMessage;
+        }
+    }
+    private String _ErrorMessage;
 }

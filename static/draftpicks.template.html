@@ -1,21 +1,20 @@
-﻿<% var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 }; %>
-<table id="ui_tblDraftBoard" class="draftBoard" cellspacing="6">
+﻿<table id="ui_tblDraftBoard" class="draftBoard" cellspacing="6">
 	<thead>
 		<tr>
 			<td></td>
-			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
+			<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick++) { %>
                 <% var user = users[orders[iPick]]; %>
-				<td id="header<%= iPick %>" class="draftCell <%= (user.ID == currentUser.ID) ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+				<td id="header<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : 'draftHead' %>"><%= user.TeamName %></td>
         	<% } %>
         	<td></td>
 		</tr>
 	</thead>
 	<tbody>
-		<% for (var iRnd = 1; iRnd <= settings.Rounds; iRnd++) { %>
-			<% var totalPicks = (iRnd - 1) * settings.Teams; %>
+		<% for (var iRnd = 1; iRnd <= settings.RoundsPerDraft; iRnd++) { %>
+			<% var totalPicks = (iRnd - 1) * settings.TeamsPerDraft; %>
 			<tr>
 				<td class="whiteBack">Round <%= iRnd %></td>
-				<% for (var iPick = 1; iPick <= settings.Teams; iPick ++) { %>
+				<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick ++) { %>
 					<% var overallPick = (totalPicks + iPick); %>
                     <% var pickData = pickMap[overallPick] %>
                     <td id="Td<%= overallPick %>" class="draftCell <%= pickData ? pickData.className : 'draftEmpty' %>">
@@ -36,9 +35,9 @@
 	<tfoot>
 		<tr>
 			<td></td>
-			<% for (var iPick = 1; iPick <= settings.Teams; iPick++) { %>
+			<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick++) { %>
                 <% var user = users[orders[iPick]]; %>
-				<td id="footer<%= iPick %>" class="draftCell <%= (user.ID == currentUser.ID) ? 'userHead' : 'draftHead' %>"><%= user.Team %></td>
+				<td id="footer<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : 'draftHead' %>"><%= user.TeamName %></td>
         	<% } %>
         	<td></td>
 		</tr>

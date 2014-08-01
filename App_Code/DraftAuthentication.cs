@@ -45,7 +45,7 @@ public static class DraftAuthentication
             throw new DraftAuthenticationException("Authentication Failed", ex);
         }
 
-        if (toRet.Expires < DateTime.Now)
+        if (toRet.Expires < DateTime.UtcNow)
         {
             throw new DraftAuthenticationException(toRet.Username, toRet.Expires, "Authentication Expired");
         }

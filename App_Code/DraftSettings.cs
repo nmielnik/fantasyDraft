@@ -17,6 +17,8 @@ public class DraftSettings
     public int DraftSeasonID { get; set; }
     public int ChatRoomCache { get; set; }
     public int MSPerRefresh { get; set; }
+    public int MSPerChatRefresh { get; set; }
+    public int MSPerStatusRefresh { get; set; }
     public int ActiveUserSeconds { get; set; }
     public DateTime ChatFilter { get; set; }
 
@@ -28,7 +30,9 @@ public class DraftSettings
         RoundsPerDraft = 18;
         DraftSeasonID = 8;
         ChatRoomCache = 50;
-        MSPerRefresh = 750;
+        MSPerRefresh = 1000;
+        MSPerChatRefresh = 1500;
+        MSPerStatusRefresh = 5000;
         ActiveUserSeconds = 5;
         ChatFilter = new DateTime(2010, 8, 25, 12, 0, 0);
 	}

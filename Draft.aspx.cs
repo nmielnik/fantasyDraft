@@ -57,12 +57,6 @@ public partial class Draft : System.Web.UI.Page
         get
         {
             return jsonSerializer.Serialize(Options);
-            // "Teams" -> "TeamsPerDraft"
-            // "Rounds" -> "RoundsPerDraft"
-            // "PickSeconds" -> "SecondsPerPick"
-            // "SeasonID" -> "DraftSeasonID"
-            // "ClockWarn" -> "ClockWarningSeconds"
-            // "RefreshRate" -> "MSPerRefresh"
         }
     }
 
@@ -71,10 +65,6 @@ public partial class Draft : System.Web.UI.Page
         get
         {
             return UserData.toJson();
-            // "ID" -> "ID"
-            // "Name" -> "Username"
-            // "Team" -> "TeamName"
-            // "Pick" -> "DraftOrder"
         }
     }
 
@@ -113,11 +103,16 @@ public partial class Draft : System.Web.UI.Page
     {
         get
         {
-            return jsonSerializer.Serialize(AllUsers);
-            // "ID" -> "UserID"
-            // "Name" -> "Username"
-            // "Team" -> "TeamName"
-            // "Pick" -. "Order"
+            if (String.IsNullOrEmpty(_UserTableJSON))
+            {
+                Dictionary<String, UserObj> userMap = new Dictionary<String, UserObj>();
+                foreach (UserObj next in AllUsers)
+                {
+                    userMap[next.UserID.ToString()] = next;
+                }
+                _UserTableJSON = jsonSerializer.Serialize(userMap);
+            }
+            return _UserTableJSON;
         }
     }
     private String _UserTableJSON;
