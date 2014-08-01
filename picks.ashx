@@ -78,7 +78,7 @@ public class picks : IHttpHandler {
 
                 if (!next.Player.HasValue)
                 {
-                    dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], actionType);
+                    //dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], actionType);
                     throw new HttpStatusException(HttpStatusCode.NotFound, "The player you entered is invalid or does not exists");
                 }
                 else
@@ -103,7 +103,7 @@ public class picks : IHttpHandler {
                     {
                         actionType = UserActionType.PickSucces;
                     }
-                    dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], actionType);
+                    //dataSource.LogUsage(user.Username, context.Request.ServerVariables["REMOTE_ADDR"], actionType);
                 }
             }
             
