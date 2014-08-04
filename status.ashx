@@ -18,7 +18,7 @@ public class status : IHttpHandler {
         {
             DraftUser user = DraftAuthentication.AuthenticateRequest(context.Request);
             UserStatusObj status = null;
-            if (context.Request.HttpMethod == "POST")
+            if (context.Request.HttpMethod == "POST" || context.Request.HttpMethod == "PUT")
             {
                 String jsonString = String.Empty;
 

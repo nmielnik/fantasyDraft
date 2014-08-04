@@ -44,19 +44,26 @@
         url: 'status'
     });
 
+    var statusModel = new Status();
     var picksModel = new DraftPicks();
+
     var picksView = new DraftPicksView({
         model: picksModel,
         el: $('#draft-board-holder'),
         DraftPicks: picksModel,
-        Status: new Status()
+        Status: statusModel
     }).render();
 
     var clockView = new ClockView({ model: picksModel, el: $('#ui_tdClockHolder') }).render();
 
-    var queueView = new DraftQueueView({ model: picksModel, el: $('#ui_tdDraftQueue') }).render();
+    var queueView = new DraftQueueView({ model: picksModel, el: $('#ui_tdDraftQueue'), QueueCache: statusModel })
+        .render()
+        .startPolling(Settings.MSPerStatusRefresh);
 
     var chatView = new ChatView({ model: new Chats(), el: $('#ui_tdChatRoom') })
         .render()
         .startPolling(Settings.MSPerChatRefresh);
+
+    statusModel.fetch();
+    picksModel.fetch();
 });

@@ -33,23 +33,6 @@
             }
             this.$el.html(this.template(data));
             return this;
-        },
-
-        startPolling: function (interval) {
-            var self = this;
-            setInterval(function () {
-                self.model.fetch({ error: $.proxy(self.fetchError, self) });
-            }, interval);
-            return this;
-        },
-
-        fetchError: function (model, response, options) {
-            if (response && response.responseJSON && response.responseJSON.Status == 401) {
-                window.location.replace("/Draft/login");
-            } else {
-                console.log("Status Fetch Error");
-                console.log(response.responseJSON);
-            }
         }
     });
 

@@ -27,8 +27,6 @@
 
             var footView = new DraftHeadView({ model: this.Status, el: this.$('tfoot') }).render();
 
-            headView.startPolling(Settings.MSPerStatusRefresh);
-
             return this;
         }
     });

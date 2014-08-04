@@ -37,6 +37,7 @@
         render: function () {
             var pickMap = {};
             var lastOnClock = null;
+            var self = this;
             this.model.forEach(function (currPick) {
                 var pickData = { className: "draftEmpty" };
                 if (currPick.get("Team") != OrderMap[currPick.get("Pick")]) {
@@ -76,7 +77,7 @@
 
                 pickNumber = ((currPick.get("Round") - 1) * Settings.TeamsPerDraft) + currPick.get("Pick");
                 if (currPick.get("TimeLeft")) {
-                    var timeInfo = this.model.getTimeInfo(currPick.get("TimeLeft"));
+                    var timeInfo = self.model.getTimeInfo(currPick.get("TimeLeft"));
                     pickData.text = [timeInfo.minutes + ":" + timeInfo.seconds];
                 }
                 pickMap[pickNumber] = pickData;

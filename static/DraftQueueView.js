@@ -5,6 +5,22 @@
     'text!static/draftqueue.template.html',
     'PlayerMap'
 ], function ($, _, Backbone, template, PlayerMap) {
+
+    var QueueView = Backbone.View.extend({
+
+        initialize: function() {
+            this.model.on('change', this.render, this);
+        },
+
+        render: function () {
+            var $el = this.$el.empty();
+            _.each(this.model.get("DraftQueue"), function (playerId) {
+                $el.append($('<option/>', { 'value': playerId }).html(PlayerMap[playerId].SearchName));
+            });
+            return this;
+        }
+    });
+
     var DraftQueueView = Backbone.View.extend({
         template: _.template(template),
 
@@ -17,36 +33,32 @@
 
         searchCache: [],
 
-        initialize: function () {
+        initialize: function (options) {
             this.model.on('change reset add remove', this.filterQueue, this);
+            this.QueueCache = options.QueueCache;
         },
 
         filterQueue: function () {
-            var queuedPlayers = [];
-            this.$('select > option').each(function (idx) {
-                var $option = $(this);
-                queuedPlayers[parseInt($option.prop('value'))] = $option;
-            });
-            this.$('div.searchResults a').each(function (idx) {
-                var $result = $(this);
-                var $toRemove = $result.closest('div');
-                var playerId = parseInt($result.data('player-id'));
-                if (queuedPlayers[playerId])
-                    queuedPlayers[playerId] = queuedPlayers[playerId].add($toRemove);
-                else
-                    queuedPlayers[playerId] = $toRemove;
-            });
-
+            var self = this;
+            var queue = this.queueView.model.get("DraftQueue");
+            var newQueue = queue;
             this.model.forEach(function (model) {
                 var playerId = model.get("Player");
                 if (playerId && PlayerMap[playerId]) {
-                    if (queuedPlayers[playerId]) {
-                        queuedPlayers[playerId].remove();
-                        delete queuedPlayers[playerId];
+                    self.$('div.searchResults a[data-player-id=' + playerId + ']').remove();
+                    if (newQueue && newQueue.length > 0) {
+                        newQueue = _.reject(newQueue, function (val) { return val == playerId; });
                     }
                     PlayerMap[playerId].Picked = true;
                 }
             });
+            if (newQueue && newQueue.length != queue.length) {
+                this.stopPolling();
+                this.queueView.model.save({ "DraftQueue": newQueue }, {
+                    success: $.proxy(this.onQueueSave, this),
+                    error: $.proxy(this.onQueueSave, this)
+                });
+            }
         },
 
         onSubmit: function (evt) {
@@ -105,7 +117,7 @@
                         if (!player.Picked) {
                             var $link = $('<a/>', { href: '', 'class': 'result' })
                                 .html(player.Name + ' - ' + player.TeamInfo)
-                                .data('player-id', playerId);
+                                .attr('data-player-id', playerId);
                             $results.append($('<div/>').append($link));
                         }
                     });
@@ -117,24 +129,58 @@
 
         onResultClick: function (evt) {
             evt.preventDefault();
-            var playerId = parseInt($(evt.target).data('player-id'));
-            var $queue = this.$('select');
-            var $option = $queue.find('option[value=' + playerId + ']');
-            if ($option.length == 0) {
-                $queue.append($('<option/>', { 'value': playerId }).html(PlayerMap[playerId].SearchName));
+            var playerId = parseInt($(evt.target).attr('data-player-id'));
+            var queue = this.queueView.model.get("DraftQueue");
+            if (!_.contains(queue, playerId)) {
+                this.stopPolling();
+                queue.push(playerId);
+                this.queueView.model.save({ "DraftQueue": queue}, {
+                    success: $.proxy(this.onQueueSave, this),
+                    error: $.proxy(this.onQueueSave, this)
+                });
             }
         },
 
         onRemove: function (evt) {
             evt.preventDefault();
             var $option = this.$('select').find(':selected');
-            if ($option.length > 0) {
-                $option.remove();
+            var playerId = parseInt($option.prop('value'));
+            var queue = this.queueView.model.get("DraftQueue");
+            if (_.contains(queue, playerId)) {
+                this.stopPolling();
+                queue = _.reject(queue, function (val) { return val == playerId });
+                this.queueView.model.save({ "DraftQueue": queue }, {
+                    success: $.proxy(this.onQueueSave, this),
+                    error: $.proxy(this.onQueueSave, this)
+                });
             }
+        },
+
+        onQueueSave: function() {
+            this.QueueCache.trigger('change');
+            this.startPolling();
+        },
+
+        stopPolling: function() {
+            if (this.timerId) {
+                clearInterval(this.timerId);
+            }
+            return this;
+        },
+
+        startPolling: function (interval) {
+            var self = this;
+            this.interval = interval || this.interval;
+            this.timerId = setInterval(function () {
+                self.queueView.model.fetch();
+            }, this.interval);
+            return this;
         },
 
         render: function () {
             this.$el.html(this.template());
+            this.queueView = new QueueView({ el: this.$('select'), model: this.QueueCache }).render();
+
             return this;
         }
     });
