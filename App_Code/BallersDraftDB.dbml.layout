@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.75, 8.5" name="BallersDraftDB">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.625, 8.5" name="BallersDraftDB">
   <DataContextMoniker Name="/BallersDraftDBDataContext" />
   <nestedChildShapes>
     <classShape Id="ba349827-cd19-4fa3-8823-2d68174deff2" absoluteBounds="6.875, 0.5, 2, 1.3862939453125005">
@@ -38,26 +38,20 @@
         <elementListCompartment Id="93e71359-55c8-4815-bc65-3c3709d020ba" absoluteBounds="0.64000000000000012, 0.96000000000000085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.875 : 6.31814697265625); (5 : 6.31814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.875 : 6.31814697265625); (5 : 6.31814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BallersDraftDBDataContext/DraftOrder/DraftOrder_DraftMove" />
       <nodes>
         <classShapeMoniker Id="b75ef464-74a5-46fd-a167-53d67b563d34" />
         <classShapeMoniker Id="6af5e358-c6d9-4ef0-8934-a654cd2652da" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 5.89024983723958); (3 : 5.89024983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 5.89024983723958); (3 : 5.89024983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BallersDraftDBDataContext/Player/Player_DraftMove" />
       <nodes>
         <classShapeMoniker Id="e29b0889-cdcb-4faf-992d-0d7c48c31dbd" />
         <classShapeMoniker Id="6af5e358-c6d9-4ef0-8934-a654cd2652da" />
       </nodes>
     </associationConnector>
-    <classShape Id="73d02ff4-93f1-4fec-a235-44241bdfc527" absoluteBounds="9.5, 2.375, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/BallersDraftDBDataContext/UsageLog" />
-      <nestedChildShapes>
-        <elementListCompartment Id="02320683-738b-48df-8841-fb92fcfb88ff" absoluteBounds="9.515, 2.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="ccfd0da4-3ed3-42d6-b49d-2f9ec2505adc" absoluteBounds="0.5, 2.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/BallersDraftDBDataContext/DraftOverride" />
       <nestedChildShapes>
@@ -77,7 +71,7 @@
         <classShapeMoniker Id="ba349827-cd19-4fa3-8823-2d68174deff2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.9062525 : 3.69399251302083); (5.9062525 : 5.56532098632812); (5 : 5.56532098632812)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.9062525 : 3.69399251302083); (5.9062525 : 5.56532098632812); (5 : 5.56532098632812)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_DraftMove" />
       <nodes>
         <classShapeMoniker Id="17bb9700-4de2-480b-96d5-92d14e864530" />
@@ -98,18 +92,24 @@
         <classShapeMoniker Id="0b2ec76e-9a4f-46a1-b39d-47f154743175" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(6.75 : 2.78287687825521); (9.5 : 2.78287687825521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_UsageLog" />
-      <nodes>
-        <classShapeMoniker Id="17bb9700-4de2-480b-96d5-92d14e864530" />
-        <classShapeMoniker Id="73d02ff4-93f1-4fec-a235-44241bdfc527" />
-      </nodes>
-    </associationConnector>
     <associationConnector edgePoints="[(4.75 : 3.22199625651042); (2.5 : 3.22199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_DraftOverride" />
       <nodes>
         <classShapeMoniker Id="17bb9700-4de2-480b-96d5-92d14e864530" />
         <classShapeMoniker Id="ccfd0da4-3ed3-42d6-b49d-2f9ec2505adc" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="746abf8b-7c0e-4d8f-941f-731df6fb1faf" absoluteBounds="3.375, 0.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/UserStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9076038c-5b51-42a5-8b4a-d37f7023ac48" absoluteBounds="3.3899999999999997, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.0625 : 2.5); (5.0625 : 2.07859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_UserStatus" />
+      <nodes>
+        <classShapeMoniker Id="17bb9700-4de2-480b-96d5-92d14e864530" />
+        <classShapeMoniker Id="746abf8b-7c0e-4d8f-941f-731df6fb1faf" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

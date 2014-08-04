@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Net;
 using System.Collections.Generic;
+using System.IO;
 using System.Web.Script.Serialization;
 
 public class status : IHttpHandler {
@@ -16,9 +17,23 @@ public class status : IHttpHandler {
         try
         {
             DraftUser user = DraftAuthentication.AuthenticateRequest(context.Request);
-            DraftStatusObj status = new DraftStatusObj();
+            UserStatusObj status = null;
+            if (context.Request.HttpMethod == "POST")
+            {
+                String jsonString = String.Empty;
 
-            status.ActiveUsers = dataSource.GetActiveUsers();
+                context.Request.InputStream.Position = 0;
+                using (StreamReader inputStream = new StreamReader(context.Request.InputStream))
+                {
+                    jsonString = inputStream.ReadToEnd();
+                }
+
+                status = dataSource.UpdateStatus(jsonSerializer.Deserialize<UserStatusObj>(jsonString));
+            }
+            else
+            {
+                status = dataSource.GetStatus(user.ID);   
+            }
             
             context.Response.StatusCode = (int)HttpStatusCode.OK;
             context.Response.Write(jsonSerializer.Serialize(status));

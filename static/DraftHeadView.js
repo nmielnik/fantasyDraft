@@ -21,7 +21,7 @@
             var statusMap = {};
             var activeUsers = this.model.get('ActiveUsers');
             for (var i = 0; activeUsers && i < activeUsers.length; i++) {
-                statusMap[activeUsers[0]] = true;
+                statusMap[activeUsers[i]] = true;
             }
 
             var data = {

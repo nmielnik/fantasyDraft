@@ -58,15 +58,6 @@
       <Association Name="User_Username" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.UsageLog" Member="UsageLogs">
-    <Type Name="UsageLog">
-      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="IP" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Action" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="User_UsageLog" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.DraftOverrides" Member="DraftOverrides">
     <Type Name="DraftOverride">
       <Column Name="SeasonID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -84,8 +75,17 @@
       <Association Name="User_DraftMove" Member="DraftMoves" ThisKey="UserID" OtherKey="UserID" Type="DraftMove" />
       <Association Name="User_DraftOrder" Member="DraftOrders" ThisKey="UserID" OtherKey="UserID" Type="DraftOrder" />
       <Association Name="User_Username" Member="Usernames" ThisKey="UserID" OtherKey="UserID" Type="Username" />
-      <Association Name="User_UsageLog" Member="UsageLogs" ThisKey="UserID" OtherKey="UserID" Type="UsageLog" />
       <Association Name="User_DraftOverride" Member="DraftOverrides" ThisKey="UserID" OtherKey="UserID" Type="DraftOverride" />
+      <Association Name="User_UserStatus" Member="UserStatus" ThisKey="UserID" OtherKey="UserID" Type="UserStatus" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserStatus" Member="UserStatus">
+    <Type Name="UserStatus">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SeasonID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Queue" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_UserStatus" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

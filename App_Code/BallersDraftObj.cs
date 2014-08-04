@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Text;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 
 /// <summary>
 /// Summary description for BallersDraftObj
@@ -512,42 +510,84 @@ public class BallersDraftObj
         return toRet;
     }
 
-    public void LogUsage(String username, String ipAddress, UserActionType actionType)
+    public UserStatusObj GetStatus(int userId)
     {
-        int userID = FindUser(username);
-        String trueIP = String.Empty;
-        if (!String.IsNullOrEmpty(ipAddress))
-        {
-            string[] parts = ipAddress.Split(',');
-            trueIP = parts[parts.Length - 1];
-        }
+        UserStatusObj toRet = new UserStatusObj() { UserID = userId };
+
         lock (_UsageLock)
         {
-            db.UsageLogs.InsertOnSubmit(new UsageLog()
-            {
-                UserID = userID,
-                Action = (int)actionType,
-                IP = trueIP,
-                Date = DateTime.Now
-            });
+            UserStatus status = GetOrCreateUserStatus(userId);
+            status.Date = DateTime.Now;
             db.SubmitChanges();
+
+            toRet = new UserStatusObj(status);
+
+            // Get Active Users
+            toRet.ActiveUsers = GetActiveUsers();
         }
+
+        return toRet;
     }
 
-    public List<int> GetActiveUsers()
+    public UserStatusObj UpdateStatus(UserStatusObj updated)
+    {
+        UserStatusObj toRet = null;
+
+        lock (_UsageLock)
+        {
+            // Get user
+            UserStatus status = GetOrCreateUserStatus(updated.UserID);
+            status.Queue = updated.QueueToString();
+            status.Date = DateTime.Now;
+            db.SubmitChanges();
+
+            toRet = new UserStatusObj(status);
+
+            // Get Active Users
+            toRet.ActiveUsers = GetActiveUsers();
+        }
+
+        return toRet;
+    }
+
+    private UserStatus GetOrCreateUserStatus(int userId)
+    {
+        UserStatus status = null;
+        var query = from t in db.UserStatus
+                    where t.UserID == userId && t.SeasonID == Settings.DraftSeasonID
+                    select t;
+        if (query.Count() > 0)
+        {
+            status = query.First();
+        }
+        else
+        {
+            status = new UserStatus()
+            {
+                UserID = userId,
+                SeasonID = Settings.DraftSeasonID
+            };
+            db.UserStatus.InsertOnSubmit(status);
+        }
+        return status;
+    }
+
+    private List<int> GetActiveUsers()
     {
         List<int> toRet = new List<int>();
         DateTime activeTime = DateTime.Now.Subtract(TimeSpan.FromSeconds(Settings.ActiveUserSeconds));
-        lock (_UsageLock)
-        {
-            var query = from t in db.UsageLogs
-                        where t.Date >= activeTime
-                        select t;
+        
+        var query = from t in db.UserStatus
+                    where t.SeasonID == Settings.DraftSeasonID &&
+                    t.Date >= activeTime
+                    select t;
 
-            foreach (UsageLog nextLog in query)
+        if (query.Count() > 0)
+        {
+            foreach (UserStatus nextStatus in query)
             {
-                if (!toRet.Contains(nextLog.UserID))
-                    toRet.Add(nextLog.UserID);
+                if (!toRet.Contains(nextStatus.UserID))
+                    toRet.Add(nextStatus.UserID);
             }
         }
         return toRet;
@@ -665,16 +705,10 @@ public class DraftMoveObj
     }
 }
 
-[DataContract]
 public class ChatObj
 {
-    [DataMember]
     public DateTime Date { get; set; }
-
-    [DataMember]
     public int UserID { get; set; }
-
-    [DataMember]
     public String Username 
     { 
         get 
@@ -687,8 +721,6 @@ public class ChatObj
         }
     }
     private String _Username;
-
-    [DataMember]
     public String Text
     {
         get
