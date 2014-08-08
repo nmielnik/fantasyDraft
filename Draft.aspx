@@ -6,8 +6,9 @@
 <head id="Head1" runat="server">
     <title>Ballers Unite Draft</title>
 
-    <link rel="Stylesheet" href="static/controls.css" type="text/css" />
-    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />
+    <!--<link rel="Stylesheet" href="static/controls.css" type="text/css" />
+    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />-->
+    <link rel="Stylesheet" href="static/BallersDraft2014.css" type="text/css" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script type="text/javascript">
         require.config({
@@ -60,8 +61,19 @@
     </script>
 </head>
 <body>
+    <header>
+        <div class="header-wrapper">
+            <div class="header-title">
+                <span>Ballers Draft</span>
+            </div>
+        </div>
+    </header>
+    <div id="draft-board-holder"></div>
+    <div id="ui_tdClockHolder"></div>
+    <div id="ui_tdDraftQueue"></div>
+    <div id="ui_tdChatRoom"></div>
     <!-- <%= UserData.toJson() %> -->
-    <table style="width: auto">
+    <!--<table style="width: auto">
         <tr>
             <td id="draft-board-holder">
             </td>
@@ -82,6 +94,6 @@
                 </table>
             </td>
         </tr>
-    </table>
+    </table>-->
 </body>
 </html>

@@ -1,8 +1,7 @@
-﻿<tr>
-	<td></td>
+﻿<div class="draft-square logo online"></div>
 	<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick++) { %>
         <% var user = users[orders[iPick]]; %>
-		<td id="header<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.UserID] ? 'activeHead' : 'draftHead') %>"><%= user.TeamName %></td>
+        <div class="draft-square logo <%= user.Username.toLowerCase() %>"></div>
+		<!--<td id="header<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.UserID] ? 'activeHead' : 'draftHead') %>"><%= user.TeamName %></td>-->
     <% } %>
-    <td></td>
-</tr>
+<div class="draft-square logo online"></div>

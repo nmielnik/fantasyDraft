@@ -46,6 +46,7 @@
 
     var statusModel = new Status();
     var picksModel = new DraftPicks();
+    var chatsModel = new Chats();
 
     var picksView = new DraftPicksView({
         model: picksModel,
@@ -60,10 +61,11 @@
         .render()
         .startPolling(Settings.MSPerStatusRefresh);
 
-    var chatView = new ChatView({ model: new Chats(), el: $('#ui_tdChatRoom') })
+    var chatView = new ChatView({ model: chatsModel, el: $('#ui_tdChatRoom') })
         .render()
         .startPolling(Settings.MSPerChatRefresh);
 
+    chatsModel.fetch();
     statusModel.fetch();
     picksModel.fetch();
 });
