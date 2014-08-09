@@ -80,9 +80,8 @@
         </div>
     </header>
     <div id="draft-board-holder"></div>
-    <div id="ui_tdClockHolder"></div>
-    <div id="ui_tdDraftQueue"></div>
-    <div id="ui_tdChatRoom"></div>
+    <div id="draft-queue-holder"></div>
+    <div id="draft-chat-holder"></div>
     <!-- <%= UserData.toJson() %> -->
     <!--<table style="width: auto">
         <tr>

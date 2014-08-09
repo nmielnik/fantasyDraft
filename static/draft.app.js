@@ -54,11 +54,11 @@
         Status: statusModel
     }).render();
 
-    var queueView = new DraftQueueView({ model: picksModel, el: $('#ui_tdDraftQueue'), QueueCache: statusModel })
+    var queueView = new DraftQueueView({ model: picksModel, el: $('#draft-queue-holder'), QueueCache: statusModel })
         .render()
         .startPolling(Settings.MSPerStatusRefresh);
 
-    var chatView = new ChatView({ model: chatsModel, el: $('#ui_tdChatRoom') })
+    var chatView = new ChatView({ model: chatsModel, el: $('#draft-chat-holder') })
         .render()
         .startPolling(Settings.MSPerChatRefresh);
 

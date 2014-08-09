@@ -50,13 +50,13 @@ header {
 }
 
 .draft-board {
-	width: calc(20 * (@square-width + 10) + 10);
+	width: calc(20 * (@square-width + 4) + 4);
 	display: inline-block;
 	background-color: #e0e0e0;
 
 	.team-column {
 		float: left;
-		margin: 5px;
+		margin: 0px 2px;
 		width: @square-width;
 	}
 
@@ -67,7 +67,7 @@ header {
 	.draft-square {
 		width: @square-width;
 		height: 60px;
-		margin: 5px;
+		margin: 2px;
 		font-size: 10px;
 		-webkit-font-smoothing: antialiased;
 		background-color: @blue-grey-400;
