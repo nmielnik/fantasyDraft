@@ -141,10 +141,6 @@ header {
 			}
 		}
 
-		&.pick-keeper {
-			background-color: @amber-A700;
-		}
-
 		&.player-QB {
 			background-color: @light-blue-600;
 			color: @text-light;
@@ -170,24 +166,44 @@ header {
 			color: @text-light;
 		}
 
+		&.pick-keeper {
+			background-color: @amber-500;
+			color: @brown-800;
+		}
+
 		&.logo {
 			background-repeat: no-repeat;
 			background-position: 80% 20%;
 			background-size: 125px 125px;
 			position: relative;
 
-			&:before {
-				content: '';
+			&.offline:before,
+			&.traded:after {
 				z-index: 1;
 				height: 60px;
 				width: @square-width;
 				position: absolute;
+				content: '';
+				top: 0;
+			}
+
+			&.offline:before {
 				background-color: rgba(255, 255, 255, 0.75);
 			}
 
-			&.online:before,
-			&.current:before {
-				display: none;
+			&.traded:after {
+				background-color: rgba(255, 255, 255, 0.4);
+			}
+
+			&.traded:before {
+				z-index: 2;
+				content: 'TRADED';
+				font-size: 18px;
+				color: @red-600;
+				font-weight: bold;
+				position: absolute;
+				top: 22px;
+				left: 4px;
 			}
 
 			&.kennelz {

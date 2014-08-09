@@ -5,7 +5,7 @@
 	    <% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick ++) { %>
 		    <% var overallPick = (totalPicks + iPick); %>
             <% var pickData = pickMap[overallPick] %>
-            <div id="Td<%= overallPick %>" class="draft-square online <%= pickData ? pickData.className : 'draftEmpty' %>">
+            <div id="Td<%= overallPick %>" class="draft-square <%= pickData ? pickData.className : 'draftEmpty' %>">
                 <% if (pickData) { %>
                     <% var overrideLines = (pickData.override && pickData.override.text && pickData.override.text.length) || 0; %>
                     <% var totalLines = overrideLines + ((pickData.text && pickData.text.length) || 0); %>

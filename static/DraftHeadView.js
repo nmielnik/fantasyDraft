@@ -19,12 +19,12 @@
         update: function () {
             var activeUsers = this.getStatusMap();
             this.$('.draft-square.logo').each(function (idx) {
-                var $el = $(this).removeClass('current').removeClass('online');
+                var $el = $(this).removeClass('current').removeClass('offline');
                 var userId = parseInt($el.data('user-id'), 10);
                 if (userId == CurrentUser.ID) {
                     $el.addClass('current');
-                } else if (activeUsers[userId]) {
-                    $el.addClass('online');
+                } else if (!activeUsers[userId]) {
+                    $el.addClass('offline');
                 }
             });
         },

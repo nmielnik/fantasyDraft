@@ -4,8 +4,8 @@
         <% var className = 'draft-square logo ' + user.Username.toLowerCase(); %>
         <% if (user.UserID == currentUser.ID) { %>
         	<% className += ' current'; %>
-        <% } else if (activeUsers && activeUsers[user.UserID]) { %>
-        	<% className += ' online'; %>
+        <% } else if (!activeUsers || !activeUsers[user.UserID]) { %>
+        	<% className += ' offline'; %>
         <% } %>
         <div data-user-id="<%= user.UserID %>" class="<%= className %>"></div>
     <% } %>

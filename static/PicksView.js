@@ -82,7 +82,7 @@
                     }
                     pickData.text.push(player.TeamInfo);
                 } else if (pickData.override) {
-                    pickData.override.text = ["Traded To:", pickData.override.team];
+                    pickData.override.text = [];
                 }
 
                 var position = '';
@@ -102,7 +102,11 @@
                         break;
                     default:
                         if (pickData.override) {
-                            pickData.className = "pick-override" + position; // draftPickOverride
+                            if (pickData.override.team) {
+                                pickData.className = "logo traded " + pickData.override.team.toLowerCase();
+                            } else {
+                                pickData.className = "pick-override" + position; // draftPickOverride
+                            }
                         } else {
                             pickData.className = "pick-empty";
                         }
