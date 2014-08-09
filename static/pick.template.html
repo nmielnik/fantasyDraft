@@ -1,0 +1,6 @@
+<% for (var i = 0; pickData.override && pickData.override.text && i < pickData.override.text.length; i++) { %>
+    <div class="lines-<%= pickData.totalLines %> line-<%= i + 1 %>"><%= pickData.override.text[i] %></div>
+<% } %>
+<% for (var i = 0; pickData.text && i < pickData.text.length; i++) { %>
+    <div class="lines-<%= pickData.totalLines %> line-<%= i + 1 + pickData.overrideLines %>"><%= pickData.text[i] %></div>
+<% } %>

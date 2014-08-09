@@ -3,11 +3,12 @@
     'underscore',
     'backbone',
     'text!static/picks.template.html',
+    'static/PickView',
     'Settings',
     'OrderMap',
     'UserMap',
     'PlayerMap'
-], function ($, _, Backbone, template, Settings, OrderMap, UserMap, PlayerMap) {
+], function ($, _, Backbone, template, PickView, Settings, OrderMap, UserMap, PlayerMap) {
 
     var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 };
 
@@ -15,7 +16,30 @@
         template: _.template(template),
 
         initialize: function () {
-            this.model.on("change reset add remove", this.render, this);
+            this.model.on("reset", this.onReset, this);
+            this.model.on("add", this.onAdd, this);
+            this.model.on("remove", this.onRemove, this);
+        },
+
+        onReset: function() {
+            console.log('PicksView Reset');
+            this.render();
+        },
+
+        onAdd: function() {
+            console.log('PicksView Add');
+            if (!this.addCount) {
+                this.addCount = 0;
+            }
+            this.addCount++;
+            if (this.addCount == 216) {
+                this.render();
+            }
+        },
+
+        onRemove: function() {
+            console.log('PicksView Remove');
+            this.render();
         },
 
         startPolling: function (interval) {
@@ -36,97 +60,17 @@
         },
 
         render: function () {
-            var pickMap = {};
-            var lastOnClock = null;
+            this.$el.empty();
+            var rounds = {};
             var self = this;
             this.model.forEach(function (currPick) {
-                var pickData = {};
-                if (currPick.get("Team") != OrderMap[currPick.get("Pick")]) {
-                    pickData.override = { team: UserMap[currPick.get("Team")].Username.toUpperCase() };
+                var round = currPick.get("Round");
+                if (!rounds[round]) {
+                    rounds[round] = $(self.template({ round: round })).appendTo(self.$el);
                 }
-                if (currPick.get("Type") == PickTypes.OnClock) {
-                    if (pickData.override) {
-                        pickData.override.text = ["(" + pickData.override.team + ")"];
-                    }
-                    pickData.text = ["On The Clock"];
-                } else if (currPick.get("Player") && PlayerMap[currPick.get("Player")]) {
-                    var player = PlayerMap[currPick.get("Player")];
-                    if (pickData.override) {
-                        pickData.override.text = ["(" + pickData.override.team + ")"];
-                    }
-                    pickData.text = [];
-                    if (player.Name.length > 16) {
-                        var parts = player.Name.split(" ");
-                        var str = '';
-                        var nextStr = str;
-                        for (var i = 0; i < parts.length; i++) {
-                            nextStr += (nextStr.length > 0 ? " " : "") + parts[i];
-                            if (nextStr.length > 16) {
-                                if (str.length > 0) {
-                                    pickData.text.push(str);
-                                    str = parts[i];
-                                    nextStr = str;
-                                } else {
-                                    pickData.text.push(nextStr);
-                                    str = nextStr = '';
-                                }
-                            } else {
-                                str = nextStr;
-                            }
-                        }
-                        if (str.length > 0) {
-                            pickData.text.push(str);
-                        }
-                    } else {
-                        pickData.text.push(player.Name)
-                    }
-                    pickData.text.push(player.TeamInfo);
-                } else if (pickData.override) {
-                    pickData.override.text = [];
-                }
-
-                var position = '';
-                if (currPick.get("Player") && PlayerMap[currPick.get("Player")]) {
-                    position = ' player-' + PlayerMap[currPick.get("Player")].Position;
-                }
-                switch (currPick.get("Type")) {
-                    case PickTypes.Keeper:
-                        pickData.className = "pick-keeper" + position; // draftPickKeeper
-                        break;
-                    case PickTypes.OnClock:
-                        pickData.className = "pick-active"; // draftPickActive
-                        lastOnClock = pickData;
-                        break;
-                    case PickTypes.Pick:
-                        pickData.className = "pick-drafted" + position; // draftPick
-                        break;
-                    default:
-                        if (pickData.override) {
-                            if (pickData.override.team) {
-                                pickData.className = "logo traded " + pickData.override.team.toLowerCase();
-                            } else {
-                                pickData.className = "pick-override" + position; // draftPickOverride
-                            }
-                        } else {
-                            pickData.className = "pick-empty";
-                        }
-                        break;
-                }
-
-                pickNumber = ((currPick.get("Round") - 1) * Settings.TeamsPerDraft) + currPick.get("Pick");
-                if (currPick.get("TimeLeft")) {
-                    var timeInfo = self.model.getTimeInfo(currPick.get("TimeLeft"));
-                    pickData.text = [timeInfo.minutes + ":" + timeInfo.seconds];
-                    pickData.className += " pick-clock";
-                }
-                pickMap[pickNumber] = pickData;
+                var pickView = new PickView({ model: currPick }).render();
+                rounds[round].find('> div').last().before(pickView.$el);
             });
-
-            var data = {
-                settings: Settings,
-                pickMap: pickMap
-            }
-            this.$el.html(this.template(data));
 
             return this;
         }

@@ -1,23 +1,4 @@
-﻿<% for (var iRnd = 1; iRnd <= settings.RoundsPerDraft; iRnd++) { %>
-<% var totalPicks = (iRnd - 1) * settings.TeamsPerDraft; %>
-    <div class="team-column">
-	    <div class="draft-square round"><div><%= iRnd %></div></div>
-	    <% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick ++) { %>
-		    <% var overallPick = (totalPicks + iPick); %>
-            <% var pickData = pickMap[overallPick] %>
-            <div id="Td<%= overallPick %>" class="draft-square <%= pickData ? pickData.className : 'draftEmpty' %>">
-                <% if (pickData) { %>
-                    <% var overrideLines = (pickData.override && pickData.override.text && pickData.override.text.length) || 0; %>
-                    <% var totalLines = overrideLines + ((pickData.text && pickData.text.length) || 0); %>
-                    <% for (var i = 0; pickData.override && pickData.override.text && i < pickData.override.text.length; i++) { %>
-                        <div class="lines-<%= totalLines %> line-<%= i+1 %>"><%= pickData.override.text[i] %></div>
-                    <% } %>
-                    <% for (var i = 0; pickData.text && i < pickData.text.length; i++) { %>
-                        <div class="lines-<%= totalLines %> line-<%= i+1+overrideLines %>"><%= pickData.text[i] %></div>
-                    <% } %>
-                <% } %>
-            </div>
-	    <% } %>
-	    <div class="draft-square round"><div><%= iRnd %></div></div>
-    </div>
-<% } %>
+﻿<div class="team-column" data-round="<%= round %>">
+    <div class="draft-square round"><div><%= round %></div></div>
+    <div class="draft-square round"><div><%= round %></div></div>
+</div>
