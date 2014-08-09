@@ -6,25 +6,25 @@ define([
 	'OrderMap',
 	'UserMap',
 	'PlayerMap'
-], function($, _, Backbone, template, OrderMap, UserMap, PlayerMap) {
+], function ($, _, Backbone, template, OrderMap, UserMap, PlayerMap) {
 
-	var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 };
+    var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 };
 
-	var PickView = Backbone.View.extend({
-		tagName: 'div',
-		className: 'draft-square pick-empty',
+    var PickView = Backbone.View.extend({
+        tagName: 'div',
+        className: 'draft-square pick-empty',
 
-		template: _.template(template),
+        template: _.template(template),
 
-		initialize: function() {
-			this.model.bind('change', this.render, this);
-		},
+        initialize: function () {
+            this.model.bind('change', this.render, this);
+        },
 
-		render: function() {
+        render: function () {
 
-			var classNames = ['draft-square'];
-			var pickData = {};
-			var currPick = this.model;
+            var classNames = ['draft-square'];
+            var pickData = {};
+            var currPick = this.model;
             if (currPick.get("Team") != OrderMap[currPick.get("Pick")]) {
                 pickData.override = { team: UserMap[currPick.get("Team")].Username.toUpperCase() };
             }
@@ -76,24 +76,31 @@ define([
 
             switch (currPick.get("Type")) {
                 case PickTypes.Keeper:
-                	classNames.push('pick-keeper'); // draftPickKeeper
-                	if (position) {
-                		classNames.push(position);
-                	}
+                    classNames.push('pick-keeper'); // draftPickKeeper
+                    if (position) {
+                        classNames.push(position);
+                    }
                     break;
                 case PickTypes.OnClock:
-                	classNames.push('pick-active'); // draftPickActive
-                	if (currPick.get("TimeLeft")) {
-                		var timeInfo = this.model.collection.getTimeInfo(currPick.get("TimeLeft"));
-                		pickData.text = [timeInfo.minutes + ":" + timeInfo.seconds];
-                		classNames.push('pick-clock');
-                	}
+                    classNames.push('pick-active'); // draftPickActive
+                    if (currPick.get("TimeLeft")) {
+                        var timeInfo = this.model.collection.getTimeInfo(currPick.get("TimeLeft"));
+                        pickData.text = [timeInfo.minutes + ":" + timeInfo.seconds];
+                        classNames.push('pick-clock');
+
+                        // Remove active-round class
+                        var $column = this.$el.closest('.team-column');
+                        $column.parent().find('.team-column').removeClass('active-column');
+
+                        // Mark column as active-column
+                        $column.addClass('active-column');
+                    }
                     break;
                 case PickTypes.Pick:
-                	classNames.push('pick-drafted'); // draftPick
-                	if (position) {
-                		classNames.push(position);
-                	}
+                    classNames.push('pick-drafted'); // draftPick
+                    if (position) {
+                        classNames.push(position);
+                    }
                     break;
                 default:
                     if (pickData.override) {
@@ -102,10 +109,10 @@ define([
                             classNames.push('traded');
                             classNames.push(pickData.override.team.toLowerCase());
                         } else {
-                        	classNames.push('pick-override'); // draftPickOverride
-                        	if (position) {
-                        		classNames.push(position);
-                        	}
+                            classNames.push('pick-override'); // draftPickOverride
+                            if (position) {
+                                classNames.push(position);
+                            }
                         }
                     } else {
                         pickData.className = "pick-empty";
@@ -115,7 +122,7 @@ define([
             }
 
             pickData.overrideLines = (pickData.override && pickData.override.text && pickData.override.text.length) || 0;
-			pickData.totalLines = pickData.overrideLines + ((pickData.text && pickData.text.length) || 0);
+            pickData.totalLines = pickData.overrideLines + ((pickData.text && pickData.text.length) || 0);
 
             this.$el.removeClass()
             	.html(this.template({ pickData: pickData }))
@@ -124,8 +131,8 @@ define([
             return this;
             //pickNumber = ((currPick.get("Round") - 1) * Settings.TeamsPerDraft) + currPick.get("Pick");
             //pickMap[pickNumber] = pickData;
-		}
-	});
+        }
+    });
 
-	return PickView;
+    return PickView;
 });
