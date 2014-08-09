@@ -3,7 +3,18 @@
 <head>
     <title></title>
 
-    <link rel="Stylesheet" href="static/BallersDraft2014.css" type="text/css" />
+    <link rel="stylesheet/less" type="text/css" href="static/draft.less" />
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments"
+        };
+	</script>
+    <script type="text/javascript" src="static/lib/less.min.js"></script>
     <script type="text/javascript" src="static/lib/require.min.js"></script>
     <script type="text/javascript">
         require.config({

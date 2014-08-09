@@ -4,10 +4,9 @@
     'backbone',
     'static/DraftPicksView',
     'static/DraftQueueView',
-    'static/ClockView',
     'static/ChatView',
     'Settings'
-], function ($, _, Backbone, DraftPicksView, DraftQueueView, ClockView, ChatView, Settings) {
+], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
 
     var DraftPicks = Backbone.Collection.extend({
         url: 'picks',
@@ -54,8 +53,6 @@
         DraftPicks: picksModel,
         Status: statusModel
     }).render();
-
-    var clockView = new ClockView({ model: picksModel, el: $('#ui_tdClockHolder') }).render();
 
     var queueView = new DraftQueueView({ model: picksModel, el: $('#ui_tdDraftQueue'), QueueCache: statusModel })
         .render()

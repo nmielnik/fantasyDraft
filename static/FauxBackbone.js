@@ -17,8 +17,8 @@
                     "Round": 1,
                     "Pick": 2,
                     "Team": 5,
-                    "Player": null,
-                    "Type": 2,
+                    "Player": 10,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 2
                 },
@@ -26,8 +26,8 @@
                     "Round": 1,
                     "Pick": 3,
                     "Team": 6,
-                    "Player": null,
-                    "Type": 2,
+                    "Player": 31,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 3
                 },
@@ -35,17 +35,17 @@
                     "Round": 1,
                     "Pick": 4,
                     "Team": 11,
-                    "Player": null,
-                    "Type": 2,
-                    "TimeLeft": 76,
+                    "Player": 235,
+                    "Type": 3,
+                    "TimeLeft": null,
                     "TotalPick": 4
                 },
                 {
                     "Round": 1,
                     "Pick": 5,
                     "Team": 10,
-                    "Player": null,
-                    "Type": 0,
+                    "Player": 16,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 5
                 },
@@ -53,8 +53,8 @@
                     "Round": 1,
                     "Pick": 6,
                     "Team": 7,
-                    "Player": null,
-                    "Type": 0,
+                    "Player": 1,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 6
                 },
@@ -62,8 +62,8 @@
                     "Round": 1,
                     "Pick": 7,
                     "Team": 12,
-                    "Player": null,
-                    "Type": 0,
+                    "Player": 123,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 7
                 },
@@ -71,8 +71,8 @@
                     "Round": 1,
                     "Pick": 8,
                     "Team": 4,
-                    "Player": null,
-                    "Type": 0,
+                    "Player": 345,
+                    "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 8
                 },
@@ -81,7 +81,7 @@
                     "Pick": 9,
                     "Team": 9,
                     "Player": null,
-                    "Type": 0,
+                    "Type": 2,
                     "TimeLeft": null,
                     "TotalPick": 9
                 },
@@ -90,7 +90,7 @@
                     "Pick": 10,
                     "Team": 8,
                     "Player": null,
-                    "Type": 0,
+                    "Type": 2,
                     "TimeLeft": null,
                     "TotalPick": 10
                 },
@@ -99,8 +99,8 @@
                     "Pick": 11,
                     "Team": 2,
                     "Player": null,
-                    "Type": 0,
-                    "TimeLeft": null,
+                    "Type": 2,
+                    "TimeLeft": 24,
                     "TotalPick": 11
                 },
                 {
@@ -323,8 +323,8 @@
                     "Round": 3,
                     "Pick": 12,
                     "Team": 1,
-                    "Player": null,
-                    "Type": 0,
+                    "Player": 15,
+                    "Type": 1,
                     "TimeLeft": null,
                     "TotalPick": 36
                 },
@@ -1948,7 +1948,7 @@
                     "TimeLeft": null,
                     "TotalPick": 216
                 }
-                        ];
+            ];
         }).get("chat", function (context) {
             return [
               {
@@ -2255,7 +2255,13 @@
         }).get("status", function (context, bookId) {
             return {
                 "UserID": 1,
-                "ActiveUsers": [1],
+                "ActiveUsers": [1, 2, 3, 8],
+                "DraftQueue": [116, 71, 15]
+            };
+        }).post("status", function (context, bookId) {
+            return {
+                "UserID": 1,
+                "ActiveUsers": [1, 2, 3, 8],
                 "DraftQueue": [116, 71, 15]
             };
         });

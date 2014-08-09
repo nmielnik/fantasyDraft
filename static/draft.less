@@ -1,0 +1,250 @@
+﻿@import "colors.less";
+
+@square-width: 85px;
+
+html body {
+    color: #212121;
+    font-family: 'RobotoDraft',sans-serif;
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1em;
+    background-color: #f9f9f9;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+header {
+	display:none;
+	height: 150px;
+	padding: 30px 16px 0;
+	background-color: #009688;
+}
+
+.header-wrapper {
+	padding-left: 40px;
+
+	.header-title {
+		color: #fff;
+		font-size: 56px;
+		font-weight: 400;
+		line-height: 1.5;
+		margin: 0 auto;
+		overflow: hidden;
+		width: 1120px;
+		white-space: nowrap;
+
+		span {
+			float: left;
+		}
+	}
+}
+
+#draft-board-holder {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.draft-board {
+	width: calc(20 * (@square-width + 10) + 10);
+	display: inline-block;
+	background-color: #e0e0e0;
+
+	.team-column {
+		float: left;
+		margin: 5px;
+		width: @square-width;
+	}
+
+	.draft-picks {
+		float: left;
+	}
+
+	.draft-square {
+		width: @square-width;
+		height: 60px;
+		margin: 5px;
+		font-size: 10px;
+		-webkit-font-smoothing: antialiased;
+		background-color: @blue-grey-400;
+		color: @text-light-1;
+
+		> div {
+			text-align: center;
+			padding: 0px 2px;
+
+			&.lines-1 {
+				padding-top: 20px;
+			}
+
+			&.lines-2.line-1 {
+				padding-top: 15px;
+			}
+
+			&.lines-3.line-1 {
+				padding-top: 6px;
+			}
+
+			&.lines-4 {
+				line-height: 1.5em;
+			}
+		}
+
+		&.clock-holder {
+			.clock {
+				font-size: 32px;
+				letter-spacing: .1px;
+				line-height: 24px;
+				padding-top: 18px;
+
+				height: 100%;
+				width: 100%;
+				background-color: @amber-800;
+				color: @text-light;
+
+				&.clockRed {
+					background-color: @red-600;
+					color: @text-light;
+				}
+			}
+		}
+
+		&.round {
+			background-color: @blue-grey-800;
+			color: @text-light;
+
+			> div {
+				font-size: 32px;
+				letter-spacing: .1px;
+				line-height: 24px;
+				padding-top: 18px;
+			}
+		}
+
+		&.pick-active {
+			background-color: @red-600;
+			color: @text-light;
+
+			&.pick-clock {
+				font-weight: bold;
+
+				> div {
+					&.lines-1,
+					&.lines-2.line-2 {
+						font-size: 12px;
+					}
+				}
+			}
+		}
+
+		&.pick-keeper {
+			background-color: @amber-A700;
+		}
+
+		&.player-QB {
+			background-color: @light-blue-600;
+			color: @text-light;
+		}
+
+		&.player-RB {
+			background-color: @deep-purple-500;
+			color: @text-light;
+		}
+
+		&.player-WR {
+			background-color: @indigo-700;
+			color: @text-light;
+		}
+
+		&.player-TE {
+			background-color: @green-600;
+			color: @text-light;
+		}
+
+		&.player-DST {
+			background-color: @lime-900;
+			color: @text-light;
+		}
+
+		&.logo {
+			background-repeat: no-repeat;
+			background-position: 80% 20%;
+			background-size: 125px 125px;
+			position: relative;
+
+			&:before {
+				content: '';
+				z-index: 1;
+				height: 60px;
+				width: @square-width;
+				position: absolute;
+				background-color: rgba(255, 255, 255, 0.75);
+			}
+
+			&.online:before,
+			&.current:before {
+				display: none;
+			}
+
+			&.kennelz {
+				background-image: url('logos/kennelz.png');
+			}
+
+			&.meathooks {
+				background-image: url('logos/meathooks.png');
+			}
+
+			&.nannies {
+				background-image: url('logos/nannies.png');
+			}
+
+			&.titties {
+				background-image: url('logos/titties.png');
+			}
+
+			&.jihad {
+				background-image: url('logos/jihad.png');
+			}
+
+			&.mills {
+				background-image: url('logos/mills.png');
+			}
+
+			&.turner {
+				background-image: url('logos/turner.png');
+			}
+
+			&.aficionados {
+				background-image: url('logos/aficionados.png');
+			}
+
+			&.seattlites {
+				background-image: url('logos/seattlites.png');
+			}
+
+			&.stepdads {
+				background-image: url('logos/stepdads.png');
+			}
+
+			&.ganggreen {
+				background-image: url('logos/ganggreen.png');
+			}
+
+			&.tomahawks {
+				background-image: url('logos/tomahawks.png');
+			}
+		}
+
+		&.placeholder {
+			background-color: transparent;
+
+			&:before {
+				display: none;
+			}
+		}
+	}
+}

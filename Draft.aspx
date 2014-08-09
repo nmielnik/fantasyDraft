@@ -8,7 +8,18 @@
 
     <!--<link rel="Stylesheet" href="static/controls.css" type="text/css" />
     <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />-->
-    <link rel="Stylesheet" href="static/BallersDraft2014.css" type="text/css" />
+    <link rel="stylesheet/less" type="text/css" href="static/draft.less" />
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments"
+        };
+	</script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script type="text/javascript">
         require.config({
@@ -61,7 +72,7 @@
     </script>
 </head>
 <body>
-    <header>
+     <header>
         <div class="header-wrapper">
             <div class="header-title">
                 <span>Ballers Draft</span>

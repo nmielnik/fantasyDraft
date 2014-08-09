@@ -45,35 +45,49 @@ header {
 }
 
 
+
+
 div.draft-picks {
 	float: left;
 }
 
 div.team-column {
 	float: left;
-	margin: 10px;
+	margin: 5px;
 	width: 75px;
 }
 
 div.draft-board {
-	width: 2000px;
+	width: 1720px;
 	display: inline-block;
+	background-color: #e0e0e0;
 }
 
 div.draft-square {
 	width: 80px;
 	height: 60px;
-	margin: 10px;
+	margin: 5px;
 	font-size: 11px;
 	-webkit-font-smoothing: antialiased;
+	background-color: #757575;
+	color: #ffffff;
 }
 
 div.draft-square > div {
 	text-align: center;
+	padding: 0px 2px;
+}
+
+div.draft-square > div.lines-1 {
+	padding-top: 20px;
+}
+
+div.draft-square > div.lines-2.line-1 {
+	padding-top: 15px;
 }
 
 div.draft-square.round {
-	background-color: #009688;
+	background-color: #000000;
 	color: #fff;
 }
 
@@ -81,7 +95,7 @@ div.draft-square.round > div {
 	font-size: 32px;
 	letter-spacing: .1px;
 	line-height: 24px;
-	padding-top: 12px;
+	padding-top: 18px;
 }
 
 div.draft-square.logo {
@@ -90,16 +104,22 @@ div.draft-square.logo {
 	background-size: 125px 125px;
 }
 
+div.draft-square.placeholder {
+	background-color: transparent;
+}
+
 div.draft-square.logo:before {
 	content: '';
 	z-index: 1;
 	height: 60px;
 	width: 80px;
 	position: absolute;
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(255, 255, 255, 0.75);
 }
 
-div.draft-square.logo.online:before {
+div.draft-square.logo.online:before,
+div.draft-square.logo.current:before,
+div.draft-square.placeholder:before {
 	display: none;
 }
 

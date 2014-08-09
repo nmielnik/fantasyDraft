@@ -10,7 +10,7 @@
         template: _.template(template),
 
         initialize: function () {
-            this.model.on("change", this.render, this);
+            this.model.on("change reset add remove", this.render, this);
         },
 
         render: function () {
