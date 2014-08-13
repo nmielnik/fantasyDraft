@@ -8,10 +8,6 @@
     'Settings'
 ], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
 
-    $('body').on('keypress', function(evt) {
-        // 113 = q
-    });
-
     var DraftPicks = Backbone.Collection.extend({
         url: 'picks',
         model: Backbone.Model.extend({
@@ -69,4 +65,25 @@
     chatsModel.fetch();
     statusModel.fetch();
     picksModel.fetch();
+
+    queueView.on('beforeShow', function() {
+        $('#draft-queue-button').hide();
+    });
+    queueView.on('afterHide', function() {
+        $('#draft-queue-button').show();
+    });
+
+    $('#draft-queue-button').on('click', function(evt) {
+        evt.preventDefault();
+        queueView.toggleVisibility(true);
+    });
+
+    $('body').on('keyup', function(evt) {
+        if ((evt.which == 81 || evt.which == 113) && !queueView.isVisible) {
+            queueView.toggleVisibility(true);
+        } else if (evt.which == 27 && queueView.isVisible) {
+            queueView.toggleVisibility(false);
+        }
+    });
+
 });

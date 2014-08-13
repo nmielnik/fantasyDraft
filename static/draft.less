@@ -123,6 +123,30 @@ header {
 	}
 }
 
+#draft-queue-button {
+	display: block;
+	position: fixed;
+	right: 0;
+	top: 100px;
+	font-size: 32px;
+	background-color: @deep-orange-700;
+	color: @text-light;
+	line-height: 32px;
+	padding: 10px 5px 10px 10px;
+	z-index: 101;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+
+	&:hover {
+		text-decoration: none;
+		background-color: @deep-orange-600;
+	}
+
+	&:active {
+		background-color: @deep-orange-900;
+	}
+}
+
 #draft-queue-holder {
 	width: 300px;
 	height: 100%;
@@ -133,17 +157,15 @@ header {
 	right: 0;
 	z-index: 100;
 	color: @text-light;
-	opacity: 0;
 
-	&.shown {
-		opacity: 1;
-		-webskit-transition: all 250ms ease-in;
-		-moz-transition: all 250ms ease-in;
-		transition: all 250ms ease-in;
-	}
+	opacity: 1;
+	-webskit-transition: all 250ms ease-in;
+	-moz-transition: all 250ms ease-in;
+	transition: all 250ms ease-in;
 
 	&.hidden {
 		opacity: 0;
+		z-index: -1;
 		-webskit-transition: all 250ms ease-in;
 		-moz-transition: all 250ms ease-in;
 		transition: all 250ms ease-in;
@@ -153,6 +175,31 @@ header {
 	.queue-queue {
 		> div {
 			margin: 10px;
+		}
+	}
+
+	#close-queue-button {
+		position: absolute;
+		top: 4px;
+		right: 4px;
+		display: inline-block;
+		background-color: @red-700;
+		color: @text-light;
+		font-size: 14px;
+		border-radius: 100%;
+		height: 20px;
+		width: 20px;
+		font-weight: bold;
+		padding-top: 1px;
+		padding-left: 6px;
+
+		&:hover {
+			text-decoration: none;
+			background-color: @red-500;
+		}
+
+		&:active {
+			background-color: @red-900;
 		}
 	}
 

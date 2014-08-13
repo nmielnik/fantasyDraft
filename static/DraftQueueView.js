@@ -28,7 +28,8 @@
             'click input[type=button].default': 'onSubmit',
             'keyup input.search': 'onSearch',
             'click a.result': 'onResultClick',
-            'click input[type=button].remove': 'onRemove'
+            'click input[type=button].remove': 'onRemove',
+            'click a#close-queue-button': 'onClose'
         },
 
         searchCache: [],
@@ -37,19 +38,28 @@
             this.model.on('change reset add remove', this.filterQueue, this);
             this.QueueCache = options.QueueCache;
             this.isVisible = false;
-            var self = this;
+        },
 
-            $(function() {
-                $('body').on('keyup', function(evt) {
-                    if (!self.isVisible && evt.which == 81) {
-                        self.$el.addClass('shown').removeClass('hidden');
-                        self.isVisible = true;
-                    } else if (self.isVisible && evt.which == 27) {
-                        self.$el.removeClass('shown').addClass('hidden');
-                        self.isVisible = false;
-                    }
-                })
-            });
+        toggleVisibility: function(show) {
+            var self = this;
+            this.isVisible = show;
+            if (show) {
+                this.trigger('beforeShow');
+                this.$el.removeClass('hidden');
+            } else {
+                this.$el.addClass('hidden');
+                this.trigger('afterHide');
+                /*setTimeout(function() {
+                    self.$el.hide();
+
+                }, 250);*/
+            }
+        },
+
+        onClose: function(evt) {
+            evt.preventDefault();
+            var self = this;
+            this.toggleVisibility(false);
         },
 
         filterQueue: function () {
