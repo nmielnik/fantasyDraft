@@ -2,8 +2,10 @@
     'jquery',
     'underscore',
     'backbone',
-    'text!static/chat.template.html'
-], function ($, _, Backbone, template) {
+    'text!static/chat.template.html',
+    'text!static/chatrow.template.html',
+    'CurrentUser'
+], function ($, _, Backbone, template, chatrowTemplate, CurrentUser) {
     var ChatView = Backbone.View.extend({
 
         events: {
@@ -11,6 +13,9 @@
         },
 
         template: _.template(template),
+        rowtemplate: _.template(chatrowTemplate),
+
+        polling: false,
 
         initialize: function () {
             this.model.on("reset", this.render, this);
@@ -19,26 +24,57 @@
 
         render: function () {
             this.$el.html(this.template({ data: this.model.toJSON() }));
+            var self = this;
+            this.model.forEach(function(model) {
+                self.addChatRow(model);
+            });
             return this;
+        },
+
+        addChatRow: function(model) {
+            var $chatroom = this.$('div.chat-room');
+            var $chatRow = $('<div/>', { 'class': 'chat-row first' });
+            var index = model.collection.indexOf(model);
+            if (index > 0) {
+                var prevModel = model.collection.at(index - 1);
+                if (prevModel.get("Username") == model.get("Username")) {
+                    $chatRow.removeClass('first');
+                }
+            }
+            $chatRow.html(this.rowtemplate(model.attributes));
+            $chatroom.append($chatRow);
+            if (($chatroom.scrollTop() + $chatroom.height() + 400) >= $chatroom[0].scrollHeight) {
+                $chatroom.scrollTop($chatroom[0].scrollHeight);
+            }
+
+            if (this.polling && model.get("Username") != CurrentUser.Username) {
+                var $snackBar = $('<div/>', { 'class': 'snack-bar' }).html(this.rowtemplate(model.attributes));
+                var $snackBars = $('.snack-bars');
+                if ($snackBars.children().length > 0) {
+                    $snackBars.children().first().before($snackBar);
+                } else {
+                    $snackBars.append($snackBar);
+                }
+                setTimeout(function() {
+                    $snackBar.addClass('hidden');
+                    setTimeout(function() {
+                        $snackBar.remove();
+                    }, 1750);
+                }, 3000);
+            }
+            return $chatRow;
         },
 
         onAdd: function (model) {
             if (model && model.get("Username") && model.get("Text")) {
-                var $chatRow = $('<div/>', { 'class': 'chatRow' });
-                var username = model.get("Username");
-                var className = "color" + username;
-                $chatRow.append($('<span/>', { 'class': 'chatUser ' + className }).html(username + " "));
-                $chatRow.append($('<span/>').html(model.get("Text")));
-
-                var $chatroom = this.$('div.chatRoom');
-                $chatroom.append($chatRow)
-                    .scrollTop($chatroom[0].scrollHeight);
+                this.addChatRow(model);
             }
         },
 
         startPolling: function (interval) {
             var self = this;
             setInterval(function () {
+                self.polling = true;
                 self.model.fetch({ error: $.proxy(self.fetchError, self) });
             }, interval);
             return this;

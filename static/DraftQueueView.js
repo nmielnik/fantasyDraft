@@ -36,6 +36,20 @@
         initialize: function (options) {
             this.model.on('change reset add remove', this.filterQueue, this);
             this.QueueCache = options.QueueCache;
+            this.isVisible = false;
+            var self = this;
+
+            $(function() {
+                $('body').on('keyup', function(evt) {
+                    if (!self.isVisible && evt.which == 81) {
+                        self.$el.addClass('shown').removeClass('hidden');
+                        self.isVisible = true;
+                    } else if (self.isVisible && evt.which == 27) {
+                        self.$el.removeClass('shown').addClass('hidden');
+                        self.isVisible = false;
+                    }
+                })
+            });
         },
 
         filterQueue: function () {
@@ -90,7 +104,7 @@
         },
 
         showPickMessage: function (message) {
-            this.$('td.message').html(message);
+            this.$('.message').html(message);
         },
 
         onSearch: function (evt) {

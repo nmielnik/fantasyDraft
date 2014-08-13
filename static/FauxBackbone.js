@@ -1,6 +1,31 @@
 ﻿define([
     'backbone-faux-server'
 ], function (fauxServer) {
+
+    var userData = [
+        { id: 1, name: "Kennelz" },
+        { id: 2, name: "Meathooks" },
+        { id: 3, name: "Nannies" },
+        { id: 4, name: "Titties" },
+        { id: 5, name: "Mills" },
+        { id: 6, name: "Jihad" },
+        { id: 7, name: "Turner" },
+        { id: 8, name: "Aficionados" },
+        { id: 9, name: "Seattlites" },
+        { id: 10, name: "GangGreen" },
+        { id: 11, name: "StepDads" },
+        { id: 12, name: "Tomahawks" }
+    ];
+
+    var statusData = {
+        "UserID": 1,
+        "ActiveUsers": [1, 2, 3, 8, 11],
+        "DraftQueue": [116, 71, 15]
+    };
+
+    var chatData = null;
+    var chatUpdate = null;
+
     return fauxServer
         .get("picks", function (context) {
             return [
@@ -1950,319 +1975,329 @@
                 }
             ];
         }).get("chat", function (context) {
-            return [
-              {
-                  "Date": "/Date(1346195143450)/",
-                  "UserID": 4,
-                  "Username": "Titties",
-                  "Text": "cool just making sure"
-              },
-              {
-                  "Date": "/Date(1346195160323)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "i&#39;m really gonna miss kendall hunter"
-              },
-              {
-                  "Date": "/Date(1346195162807)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "So if no one is against draft pick trading, we&#39;ll just leave it at that"
-              },
-              {
-                  "Date": "/Date(1346195176850)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "he was a good clubhouse guy I&#39;ll give you that"
-              },
-              {
-                  "Date": "/Date(1346195181387)/",
-                  "UserID": 10,
-                  "Username": "GangGreen",
-                  "Text": "aight im out"
-              },
-              {
-                  "Date": "/Date(1346195184727)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "i want to pick"
-              },
-              {
-                  "Date": "/Date(1346195185600)/",
-                  "UserID": 10,
-                  "Username": "GangGreen",
-                  "Text": "peace"
-              },
-              {
-                  "Date": "/Date(1346195185990)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "peace blake"
-              },
-              {
-                  "Date": "/Date(1346195209970)/",
-                  "UserID": 9,
-                  "Username": "Seattlites",
-                  "Text": "Heading to your place Nate.  See ya in a bit."
-              },
-              {
-                  "Date": "/Date(1346195215427)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "aight cool"
-              },
-              {
-                  "Date": "/Date(1346195218680)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "Cubans!"
-              },
-              {
-                  "Date": "/Date(1346195226950)/",
-                  "UserID": 9,
-                  "Username": "Seattlites",
-                  "Text": "Smokin&#39;"
-              },
-              {
-                  "Date": "/Date(1346195238127)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "has anyone added coaches to fantasy football?"
-              },
-              {
-                  "Date": "/Date(1346195243413)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "yes"
-              },
-              {
-                  "Date": "/Date(1346195249283)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "it&#39;s really lame though"
-              },
-              {
-                  "Date": "/Date(1346195254987)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "ESPN has supported it for a long time"
-              },
-              {
-                  "Date": "/Date(1346195256680)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "oh okay"
-              },
-              {
-                  "Date": "/Date(1346195262580)/",
-                  "UserID": 4,
-                  "Username": "Titties",
-                  "Text": "coaches?"
-              },
-              {
-                  "Date": "/Date(1346195270950)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "you can get points for team wins, yards, points, etc."
-              },
-              {
-                  "Date": "/Date(1346195274997)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "thought it might be more interesting than kickers, but perhaps not"
-              },
-              {
-                  "Date": "/Date(1346195289523)/",
-                  "UserID": 4,
-                  "Username": "Titties",
-                  "Text": "yikes, thats shitty"
-              },
-              {
-                  "Date": "/Date(1346195291530)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "eh, i&#39;d rather just get rid of kickers and D"
-              },
-              {
-                  "Date": "/Date(1346195291770)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "i mean the review calls can be intense lol"
-              },
-              {
-                  "Date": "/Date(1346195297680)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "lol"
-              },
-              {
-                  "Date": "/Date(1346195349140)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "woo hoo"
-              },
-              {
-                  "Date": "/Date(1346195354320)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "i&#39;m out"
-              },
-              {
-                  "Date": "/Date(1346195358407)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "later nate"
-              },
-              {
-                  "Date": "/Date(1346195362043)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "peace"
-              },
-              {
-                  "Date": "/Date(1346195378143)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "thanks for hanging tight through the bugs fellas"
-              },
-              {
-                  "Date": "/Date(1346195399460)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "can&#39;t beat a 2 hour draft for 12 teams, 17 rounds, across the country though"
-              },
-              {
-                  "Date": "/Date(1346195409823)/",
-                  "UserID": 2,
-                  "Username": "Meathooks",
-                  "Text": "just going to type that"
-              },
-              {
-                  "Date": "/Date(1346195410917)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "with keepers and traded draft picks"
-              },
-              {
-                  "Date": "/Date(1346195411920)/",
-                  "UserID": 5,
-                  "Username": "Jihad",
-                  "Text": "thanks nate - see ya folks"
-              },
-              {
-                  "Date": "/Date(1346195416393)/",
-                  "UserID": 2,
-                  "Username": "Meathooks",
-                  "Text": "thats awesome"
-              },
-              {
-                  "Date": "/Date(1346195416957)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "later Eric"
-              },
-              {
-                  "Date": "/Date(1346195419453)/",
-                  "UserID": 4,
-                  "Username": "Titties",
-                  "Text": "bugs didn&#39;t make it a problem dude"
-              },
-              {
-                  "Date": "/Date(1346195423267)/",
-                  "UserID": 11,
-                  "Username": "StepDads",
-                  "Text": "seriously its time to box this shit up and sell it"
-              },
-              {
-                  "Date": "/Date(1346195434763)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "lol, not a terrible idea"
-              },
-              {
-                  "Date": "/Date(1346195436930)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "fuck you christian"
-              },
-              {
-                  "Date": "/Date(1346195441953)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "you seriously took my kicker?"
-              },
-              {
-                  "Date": "/Date(1346195450907)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "jk"
-              },
-              {
-                  "Date": "/Date(1346195491750)/",
-                  "UserID": 7,
-                  "Username": "Turner",
-                  "Text": "Mr. Irrelevant"
-              },
-              {
-                  "Date": "/Date(1346195492057)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "nice work guys"
-              },
-              {
-                  "Date": "/Date(1346195502313)/",
-                  "UserID": 2,
-                  "Username": "Meathooks",
-                  "Text": "lata fellas"
-              },
-              {
-                  "Date": "/Date(1346195504403)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "thanks for being on time"
-              },
-              {
-                  "Date": "/Date(1346195506433)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "g&#39;night"
-              },
-              {
-                  "Date": "/Date(1346195511200)/",
-                  "UserID": 2,
-                  "Username": "Meathooks",
-                  "Text": "all my players up for trade"
-              },
-              {
-                  "Date": "/Date(1346195516093)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "make sure you get your money sent before the 2nd sunday of the season"
-              },
-              {
-                  "Date": "/Date(1346195525440)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "I only have 3 WR&#39;s"
-              },
-              {
-                  "Date": "/Date(1346195531667)/",
-                  "UserID": 1,
-                  "Username": "Kennelz",
-                  "Text": "w I drafted in the 13th and 17th round"
-              }
-            ];
-        }).get("status", function (context, bookId) {
-            return {
-                "UserID": 1,
-                "ActiveUsers": [1, 2, 3, 8],
-                "DraftQueue": [116, 71, 15]
+            if (!chatData) {
+                chatUpdate = new Date();
+                chatData = [
+                  {
+                      "Date": "/Date(1346195143450)/",
+                      "UserID": 4,
+                      "Username": "Titties",
+                      "Text": "cool just making sure"
+                  },
+                  {
+                      "Date": "/Date(1346195160323)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "i&#39;m really gonna miss kendall hunter"
+                  },
+                  {
+                      "Date": "/Date(1346195162807)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "So if no one is against draft pick trading, we&#39;ll just leave it at that"
+                  },
+                  {
+                      "Date": "/Date(1346195176850)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "he was a good clubhouse guy I&#39;ll give you that"
+                  },
+                  {
+                      "Date": "/Date(1346195181387)/",
+                      "UserID": 10,
+                      "Username": "GangGreen",
+                      "Text": "aight im out"
+                  },
+                  {
+                      "Date": "/Date(1346195184727)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "i want to pick"
+                  },
+                  {
+                      "Date": "/Date(1346195185600)/",
+                      "UserID": 10,
+                      "Username": "GangGreen",
+                      "Text": "peace"
+                  },
+                  {
+                      "Date": "/Date(1346195185990)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "peace blake"
+                  },
+                  {
+                      "Date": "/Date(1346195209970)/",
+                      "UserID": 9,
+                      "Username": "Seattlites",
+                      "Text": "Heading to your place Nate.  See ya in a bit."
+                  },
+                  {
+                      "Date": "/Date(1346195215427)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "aight cool"
+                  },
+                  {
+                      "Date": "/Date(1346195218680)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "Cubans!"
+                  },
+                  {
+                      "Date": "/Date(1346195226950)/",
+                      "UserID": 9,
+                      "Username": "Seattlites",
+                      "Text": "Smokin&#39;"
+                  },
+                  {
+                      "Date": "/Date(1346195238127)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "has anyone added coaches to fantasy football?"
+                  },
+                  {
+                      "Date": "/Date(1346195243413)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "yes"
+                  },
+                  {
+                      "Date": "/Date(1346195249283)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "it&#39;s really lame though"
+                  },
+                  {
+                      "Date": "/Date(1346195254987)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "ESPN has supported it for a long time"
+                  },
+                  {
+                      "Date": "/Date(1346195256680)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "oh okay"
+                  },
+                  {
+                      "Date": "/Date(1346195262580)/",
+                      "UserID": 4,
+                      "Username": "Titties",
+                      "Text": "coaches?"
+                  },
+                  {
+                      "Date": "/Date(1346195270950)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "you can get points for team wins, yards, points, etc."
+                  },
+                  {
+                      "Date": "/Date(1346195274997)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "thought it might be more interesting than kickers, but perhaps not"
+                  },
+                  {
+                      "Date": "/Date(1346195289523)/",
+                      "UserID": 4,
+                      "Username": "Titties",
+                      "Text": "yikes, thats shitty"
+                  },
+                  {
+                      "Date": "/Date(1346195291530)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "eh, i&#39;d rather just get rid of kickers and D"
+                  },
+                  {
+                      "Date": "/Date(1346195291770)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "i mean the review calls can be intense lol"
+                  },
+                  {
+                      "Date": "/Date(1346195297680)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "lol"
+                  },
+                  {
+                      "Date": "/Date(1346195349140)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "woo hoo"
+                  },
+                  {
+                      "Date": "/Date(1346195354320)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "i&#39;m out"
+                  },
+                  {
+                      "Date": "/Date(1346195358407)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "later nate"
+                  },
+                  {
+                      "Date": "/Date(1346195362043)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "peace"
+                  },
+                  {
+                      "Date": "/Date(1346195378143)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "thanks for hanging tight through the bugs fellas"
+                  },
+                  {
+                      "Date": "/Date(1346195399460)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "can&#39;t beat a 2 hour draft for 12 teams, 17 rounds, across the country though"
+                  },
+                  {
+                      "Date": "/Date(1346195409823)/",
+                      "UserID": 2,
+                      "Username": "Meathooks",
+                      "Text": "just going to type that"
+                  },
+                  {
+                      "Date": "/Date(1346195410917)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "with keepers and traded draft picks"
+                  },
+                  {
+                      "Date": "/Date(1346195411920)/",
+                      "UserID": 5,
+                      "Username": "Jihad",
+                      "Text": "thanks nate - see ya folks"
+                  },
+                  {
+                      "Date": "/Date(1346195416393)/",
+                      "UserID": 2,
+                      "Username": "Meathooks",
+                      "Text": "thats awesome"
+                  },
+                  {
+                      "Date": "/Date(1346195416957)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "later Eric"
+                  },
+                  {
+                      "Date": "/Date(1346195419453)/",
+                      "UserID": 4,
+                      "Username": "Titties",
+                      "Text": "bugs didn&#39;t make it a problem dude"
+                  },
+                  {
+                      "Date": "/Date(1346195423267)/",
+                      "UserID": 11,
+                      "Username": "StepDads",
+                      "Text": "seriously its time to box this shit up and sell it"
+                  },
+                  {
+                      "Date": "/Date(1346195434763)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "lol, not a terrible idea"
+                  },
+                  {
+                      "Date": "/Date(1346195436930)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "fuck you christian"
+                  },
+                  {
+                      "Date": "/Date(1346195441953)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "you seriously took my kicker?"
+                  },
+                  {
+                      "Date": "/Date(1346195450907)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "jk"
+                  },
+                  {
+                      "Date": "/Date(1346195491750)/",
+                      "UserID": 7,
+                      "Username": "Turner",
+                      "Text": "Mr. Irrelevant"
+                  },
+                  {
+                      "Date": "/Date(1346195492057)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "nice work guys"
+                  },
+                  {
+                      "Date": "/Date(1346195502313)/",
+                      "UserID": 2,
+                      "Username": "Meathooks",
+                      "Text": "lata fellas"
+                  },
+                  {
+                      "Date": "/Date(1346195504403)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "thanks for being on time"
+                  },
+                  {
+                      "Date": "/Date(1346195506433)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "g&#39;night"
+                  },
+                  {
+                      "Date": "/Date(1346195511200)/",
+                      "UserID": 2,
+                      "Username": "Meathooks",
+                      "Text": "all my players up for trade"
+                  },
+                  {
+                      "Date": "/Date(1346195516093)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "make sure you get your money sent before the 2nd sunday of the season"
+                  },
+                  {
+                      "Date": "/Date(1346195525440)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "I only have 3 WR&#39;s"
+                  },
+                  {
+                      "Date": "/Date(1346195531667)/",
+                      "UserID": 1,
+                      "Username": "Kennelz",
+                      "Text": "w I drafted in the 13th and 17th round"
+                  }
+                ];
+            }
+
+            return chatData;
+        }).post("chat", function (context) {
+            chatUpdate = new Date();
+            var timestamp = chatUpdate.getTime();
+            var user = userData[timestamp % 12];
+            var newChat = {
+                "Date": "/Date(" + timestamp + ")/",
+                "UserID": user.id,
+                "Username" :user.name,
+                "Text": context.data.text
             };
-        }).post("status", function (context, bookId) {
-            return {
-                "UserID": 1,
-                "ActiveUsers": [1, 2, 3, 8],
-                "DraftQueue": [116, 71, 15]
-            };
+            chatData.push(newChat);
+            return chatData;
+        }).get("status", function (context) {
+            return statusData;
+        }).post("status", function (context) {
+            statusData = context.data;
+            return statusData;
         });
 });

@@ -8,6 +8,10 @@
     'Settings'
 ], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
 
+    $('body').on('keypress', function(evt) {
+        // 113 = q
+    });
+
     var DraftPicks = Backbone.Collection.extend({
         url: 'picks',
         model: Backbone.Model.extend({
