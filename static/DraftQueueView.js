@@ -33,26 +33,25 @@
         },
 
         searchCache: [],
+        isVisible: false,
 
         initialize: function (options) {
             this.model.on('change reset add remove', this.filterQueue, this);
             this.QueueCache = options.QueueCache;
-            this.isVisible = false;
         },
 
         toggleVisibility: function(show) {
-            var self = this;
-            this.isVisible = show;
-            if (show) {
-                this.trigger('beforeShow');
-                this.$el.removeClass('hidden');
-            } else {
-                this.$el.addClass('hidden');
-                this.trigger('afterHide');
-                /*setTimeout(function() {
-                    self.$el.hide();
-
-                }, 250);*/
+            if (show != this.isVisible) {
+                if (show) {
+                    this.trigger('beforeShow');
+                    this.$el.removeClass('hidden');
+                } else {
+                    this.$el.addClass('hidden');
+                    setTimeout(_.bind(function() {
+                        this.trigger('afterHide');
+                    }, this), 250);
+                }
+                this.isVisible = show;
             }
         },
 

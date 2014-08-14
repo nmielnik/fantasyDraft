@@ -66,23 +66,41 @@
     statusModel.fetch();
     picksModel.fetch();
 
-    queueView.on('beforeShow', function() {
-        $('#draft-queue-button').hide();
-    });
-    queueView.on('afterHide', function() {
-        $('#draft-queue-button').show();
-    });
+    $('#draft-buttons-holder').prop('on', true);
+
+    function beforeShow() {
+        $('#draft-buttons-holder').hide().prop('on', false);
+    }
+
+    function afterHide() {
+        $('#draft-buttons-holder').show().prop('on', true);
+    }
+
+    queueView.on('beforeShow', beforeShow);
+    chatView.on('beforeShow', beforeShow);
+    queueView.on('afterHide', afterHide);
+    chatView.on('afterHide', afterHide);
 
     $('#draft-queue-button').on('click', function(evt) {
         evt.preventDefault();
         queueView.toggleVisibility(true);
     });
 
+    $('#draft-chat-button').on('click', function(evt) {
+        evt.preventDefault();
+        chatView.toggleVisibility(true);
+    });
+
     $('body').on('keyup', function(evt) {
-        if ((evt.which == 81 || evt.which == 113) && !queueView.isVisible) {
-            queueView.toggleVisibility(true);
-        } else if (evt.which == 27 && queueView.isVisible) {
+        if ($('#draft-buttons-holder').prop('on')) {
+            if (evt.which == 81 || evt.which == 113) {
+                queueView.toggleVisibility(true);
+            } else if (evt.which == 67 || evt.which == 99) {
+                chatView.toggleVisibility(true);
+            }
+        } else if (evt.which == 27) {
             queueView.toggleVisibility(false);
+            chatView.toggleVisibility(false);
         }
     });
 

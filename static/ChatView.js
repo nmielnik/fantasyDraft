@@ -9,17 +9,40 @@
     var ChatView = Backbone.View.extend({
 
         events: {
-            'submit form': 'onSubmit'
+            'submit form': 'onSubmit',
+            'click #close-chat-button': 'onClose'
         },
 
         template: _.template(template),
         rowtemplate: _.template(chatrowTemplate),
 
         polling: false,
+        isVisible: false,
 
         initialize: function () {
             this.model.on("reset", this.render, this);
             this.model.on("add", this.onAdd, this);
+        },
+
+        toggleVisibility: function(show) {
+            if (show != this.isVisible) {
+                if (show) {
+                    this.trigger('beforeShow');
+                    this.$el.removeClass('hidden');
+                } else {
+                    this.$el.addClass('hidden');
+                    setTimeout(_.bind(function() {
+                        this.trigger('afterHide');
+                    }, this), 250);
+                }
+                this.isVisible = show;
+            }
+        },
+
+        onClose: function(evt) {
+            evt.preventDefault();
+            var self = this;
+            this.toggleVisibility(false);
         },
 
         render: function () {

@@ -1,6 +1,12 @@
 ﻿@import "colors.less";
 
+@input-height: 40px;
 @square-width: 85px;
+@chat-width: 600px;
+@chat-room-padding: 25px;
+@chat-name-width: 150px;
+@chat-button-width: 100px;
+@chat-row-height: 25px;
 
 html body {
     color: #212121;
@@ -58,7 +64,7 @@ input,
 textarea,
 button
 {
-	height: 2.5em;
+	min-height: @input-height;
 }
 
 input[type=button],
@@ -123,27 +129,50 @@ header {
 	}
 }
 
-#draft-queue-button {
+#draft-buttons-holder {
 	display: block;
 	position: fixed;
 	right: 0;
 	top: 100px;
-	font-size: 32px;
-	background-color: @deep-orange-700;
-	color: @text-light;
-	line-height: 32px;
-	padding: 10px 5px 10px 10px;
 	z-index: 101;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
 
-	&:hover {
-		text-decoration: none;
-		background-color: @deep-orange-600;
-	}
+	> a {
+		display: block;
+		font-size: 32px;
+		color: @text-light;
+		line-height: 32px;
+		padding: 10px 5px 10px 10px;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
 
-	&:active {
-		background-color: @deep-orange-900;
+		&:hover {
+			text-decoration: none;
+		}
+
+		&#draft-queue-button {
+			background-color: @deep-orange-700;
+
+			&:hover {
+				text-decoration: none;
+				background-color: @deep-orange-600;
+			}
+
+			&:active {
+				background-color: @deep-orange-900;
+			}
+		}
+
+		&#draft-chat-button {
+			background-color: @deep-purple-700;
+
+			&:hover {
+				background-color: @deep-purple-600;
+			}
+
+			&:active {
+				background-color: @deep-purple-900;
+			}
+		}
 	}
 }
 
@@ -250,226 +279,73 @@ header {
 	}
 }
 
-#draft-board-holder {
-	width: 2100px;
-	display: inline-block;
-	overflow-x: auto;
-	overflow-y: hidden;
-}
-
-.draft-board {
-	width: calc(20 * (@square-width + 4) + 4);
-	display: inline-block;
-	background-color: #e0e0e0;
-	//background-color: @deep-purple-600;
-
-	.team-column {
-		float: left;
-		margin: 6px 0 10px 4px;
-		width: @square-width;
-
-		/*opacity: 1;
-		-webkit-transform: scale(1,1);
-		-webkit-transition-timing-function: ease-out;
-		-webkit-transition-duration: 250ms;
-		-moz-transform: scale(1,1);
-		-moz-transition-timing-function: ease-out;
-		-moz-transition-duration: 250ms;
-
-		&.active-column {
-			opacity: .7;
-			-webkit-transform: scale(1.05,1.07);
-			-webkit-transition-timing-function: ease-out;
-			-webkit-transition-duration: 250ms;
-			-moz-transform: scale(1.05,1.07);
-			-moz-transition-timing-function: ease-out;
-			-moz-transition-duration: 250ms;
-			position: relative;
-			z-index: 99;
-		}*/
-	}
-
-	.draft-picks {
-		float: left;
-	}
-
-	.draft-square {
-		width: @square-width;
-		height: 60px;
-		margin: 4px 0 0 0 ;
-		font-size: 10px;
-		-webkit-font-smoothing: antialiased;
-		background-color: @blue-grey-400;
-		color: @text-light-1;
-
-		> div {
-			text-align: center;
-			padding: 0px 2px;
-
-			&.lines-1 {
-				padding-top: 20px;
-			}
-
-			&.lines-2.line-1 {
-				padding-top: 15px;
-			}
-
-			&.lines-3.line-1 {
-				padding-top: 6px;
-			}
-
-			&.lines-4 {
-				line-height: 1.5em;
-			}
-		}
-
-		&.clock-holder {
-			.clock {
-				font-size: 32px;
-				letter-spacing: .1px;
-				line-height: 24px;
-				padding-top: 18px;
-
-				height: 100%;
-				width: 100%;
-				background-color: @amber-800;
-				color: @text-light;
-
-				&.clockRed {
-					background-color: @red-600;
-					color: @text-light;
-				}
-			}
-		}
-
-		&.round {
-			background-color: @blue-grey-800;
-			color: @text-light;
-
-			> div {
-				font-size: 32px;
-				letter-spacing: .1px;
-				line-height: 24px;
-				padding-top: 18px;
-			}
-		}
-
-		&.pick-active {
-			background-color: @red-600;
-			color: @text-light;
-
-			&.pick-clock {
-				font-weight: bold;
-
-				/*opacity: .8;
-				-webkit-transform: scale(1.15,1.17);
-				-webkit-transition-timing-function: ease-out;
-				-webkit-transition-duration: 250ms;
-				-moz-transform: scale(1.15,1.17);
-				-moz-transition-timing-function: ease-out;
-				-moz-transition-duration: 250ms;
-				position: relative;
-				z-index: 99;*/
-
-				> div {
-					&.lines-1,
-					&.lines-2.line-2 {
-						font-size: 12px;
-					}
-				}
-			}
-		}
-
-		&.player-QB {
-			background-color: @light-blue-600;
-			color: @text-light;
-		}
-
-		&.player-RB {
-			background-color: @deep-purple-500;
-			color: @text-light;
-		}
-
-		&.player-WR {
-			background-color: @indigo-700;
-			color: @text-light;
-		}
-
-		&.player-TE {
-			background-color: @green-600;
-			color: @text-light;
-		}
-
-		&.player-DST {
-			background-color: @lime-900;
-			color: @text-light;
-		}
-
-		&.pick-keeper {
-			background-color: @amber-500;
-			color: @brown-800;
-		}
-
-		&.logo {
-			background-repeat: no-repeat;
-			background-position: 80% 20%;
-			background-size: 125px 125px;
-			position: relative;
-
-			&.offline:before,
-			&.traded:after {
-				z-index: 1;
-				height: 60px;
-				width: @square-width;
-				position: absolute;
-				content: '';
-				top: 0;
-			}
-
-			&.offline:before {
-				background-color: rgba(255, 255, 255, 0.75);
-			}
-
-			&.traded:after {
-				background-color: rgba(255, 255, 255, 0.4);
-			}
-
-			&.traded:before {
-				z-index: 2;
-				content: 'TRADED';
-				font-size: 18px;
-				color: @red-600;
-				font-weight: bold;
-				position: absolute;
-				top: 22px;
-				left: 4px;
-			}
-		}
-
-		&.placeholder {
-			background-color: transparent;
-
-			&:before {
-				display: none;
-			}
-		}
-	}
-}
-
 #draft-chat-holder {
+	width: @chat-width;
+	overflow: auto;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	color: @text-light;
+	height: 100%;
+
+	opacity: 1;
+	-webskit-transition: all 250ms ease-in;
+	-moz-transition: all 250ms ease-in;
+	transition: all 250ms ease-in;
+
+	&.hidden {
+		opacity: 0;
+		z-index: -1;
+		-webskit-transition: all 250ms ease-in;
+		-moz-transition: all 250ms ease-in;
+		transition: all 250ms ease-in;
+	}
+
 	background-color: @blue-grey-900;
-	width: 700px;
-	padding: 25px;
+	padding: @chat-room-padding;
+
+	.chat-top {
+		position: absolute;
+		top: 10px;
+		right: 5px;
+		left: 25px;
+
+		#close-chat-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: inline-block;
+			background-color: @red-700;
+			color: @text-light;
+			font-size: 14px;
+			border-radius: 100%;
+			height: 20px;
+			width: 20px;
+			font-weight: bold;
+			padding-top: 1px;
+			padding-left: 6px;
+
+			&:hover {
+				text-decoration: none;
+				background-color: @red-500;
+			}
+
+			&:active {
+				background-color: @red-900;
+			}
+		}
+	}
 
 	.chat-room {
-		color: @text-light;
-		width: 650px;
-		max-height: 600px;
+		width: calc(@chat-width - (@chat-room-padding * 2));
 		overflow-y: auto;
-		margin-bottom: 20px;
+		position: absolute;
+		top: calc(@chat-room-padding + 10);
+		bottom: calc(@chat-room-padding + @input-height + 10);
 
 		.chat-row {
-			line-height: 25px;
+			line-height: @chat-row-height;
 
 			.chat-holder {
 				white-space: nowrap;
@@ -477,24 +353,24 @@ header {
 				.chat-label {
 					display: inline-block;
 					margin-bottom: 5px;
-					width: 150px;
+					width: @chat-name-width;
 					vertical-align: top;
 					visibility: hidden;
 
 					.chat-user {
-						height: 25px;
+						height: @chat-row-height;
 						padding-left: 30px;
 						display: inline-block;
 						background-color: transparent;
 						background-repeat: no-repeat;
 						background-position: left;
-						background-size: 25px 25px;
+						background-size: @chat-row-height @chat-row-height;
 					}
 				}
 
 				.chat-content {
 					display: inline-block;
-					max-width: 500px;
+					max-width: calc(@chat-width - (@chat-room-padding * 2) - @chat-name-width - 5);
 
 					span {
 						white-space: normal;
@@ -513,8 +389,222 @@ header {
 	}
 
 	form[name=chat] {
+		position: absolute;
+		bottom: @chat-room-padding;
+
+		input[type=submit] {
+			width: @chat-button-width;
+		}
+
 		input[type=text] {
-			width: 84%;
+			width: calc(@chat-width - (@chat-room-padding * 2) - @chat-button-width - 5);
+			margin: 0;
+		}
+	}
+}
+
+#draft-board-holder {
+	width: 2100px;
+	display: inline-block;
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	.draft-board {
+		width: calc(20 * (@square-width + 4) + 4);
+		display: inline-block;
+		background-color: #e0e0e0;
+		//background-color: @deep-purple-600;
+
+		.team-column {
+			float: left;
+			margin: 6px 0 10px 4px;
+			width: @square-width;
+
+			/*opacity: 1;
+			-webkit-transform: scale(1,1);
+			-webkit-transition-timing-function: ease-out;
+			-webkit-transition-duration: 250ms;
+			-moz-transform: scale(1,1);
+			-moz-transition-timing-function: ease-out;
+			-moz-transition-duration: 250ms;
+
+			&.active-column {
+				opacity: .7;
+				-webkit-transform: scale(1.05,1.07);
+				-webkit-transition-timing-function: ease-out;
+				-webkit-transition-duration: 250ms;
+				-moz-transform: scale(1.05,1.07);
+				-moz-transition-timing-function: ease-out;
+				-moz-transition-duration: 250ms;
+				position: relative;
+				z-index: 99;
+			}*/
+		}
+
+		.draft-picks {
+			float: left;
+		}
+
+		.draft-square {
+			width: @square-width;
+			height: 60px;
+			margin: 4px 0 0 0 ;
+			font-size: 10px;
+			-webkit-font-smoothing: antialiased;
+			background-color: @blue-grey-400;
+			color: @text-light-1;
+
+			> div {
+				text-align: center;
+				padding: 0px 2px;
+
+				&.lines-1 {
+					padding-top: 20px;
+				}
+
+				&.lines-2.line-1 {
+					padding-top: 15px;
+				}
+
+				&.lines-3.line-1 {
+					padding-top: 6px;
+				}
+
+				&.lines-4 {
+					line-height: 1.5em;
+				}
+			}
+
+			&.clock-holder {
+				.clock {
+					font-size: 32px;
+					letter-spacing: .1px;
+					line-height: 24px;
+					padding-top: 18px;
+
+					height: 100%;
+					width: 100%;
+					background-color: @amber-800;
+					color: @text-light;
+
+					&.clockRed {
+						background-color: @red-600;
+						color: @text-light;
+					}
+				}
+			}
+
+			&.round {
+				background-color: @blue-grey-800;
+				color: @text-light;
+
+				> div {
+					font-size: 32px;
+					letter-spacing: .1px;
+					line-height: 24px;
+					padding-top: 18px;
+				}
+			}
+
+			&.pick-active {
+				background-color: @red-600;
+				color: @text-light;
+
+				&.pick-clock {
+					font-weight: bold;
+
+					/*opacity: .8;
+					-webkit-transform: scale(1.15,1.17);
+					-webkit-transition-timing-function: ease-out;
+					-webkit-transition-duration: 250ms;
+					-moz-transform: scale(1.15,1.17);
+					-moz-transition-timing-function: ease-out;
+					-moz-transition-duration: 250ms;
+					position: relative;
+					z-index: 99;*/
+
+					> div {
+						&.lines-1,
+						&.lines-2.line-2 {
+							font-size: 12px;
+						}
+					}
+				}
+			}
+
+			&.player-QB {
+				background-color: @light-blue-600;
+				color: @text-light;
+			}
+
+			&.player-RB {
+				background-color: @deep-purple-500;
+				color: @text-light;
+			}
+
+			&.player-WR {
+				background-color: @indigo-700;
+				color: @text-light;
+			}
+
+			&.player-TE {
+				background-color: @green-600;
+				color: @text-light;
+			}
+
+			&.player-DST {
+				background-color: @lime-900;
+				color: @text-light;
+			}
+
+			&.pick-keeper {
+				background-color: @amber-500;
+				color: @brown-800;
+			}
+
+			&.logo {
+				background-repeat: no-repeat;
+				background-position: 80% 20%;
+				background-size: 125px 125px;
+				position: relative;
+
+				&.offline:before,
+				&.traded:after {
+					z-index: 1;
+					height: 60px;
+					width: @square-width;
+					position: absolute;
+					content: '';
+					top: 0;
+				}
+
+				&.offline:before {
+					background-color: rgba(255, 255, 255, 0.75);
+				}
+
+				&.traded:after {
+					background-color: rgba(255, 255, 255, 0.4);
+				}
+
+				&.traded:before {
+					z-index: 2;
+					content: 'TRADED';
+					font-size: 18px;
+					color: @red-600;
+					font-weight: bold;
+					position: absolute;
+					top: 22px;
+					left: 4px;
+				}
+			}
+
+			&.placeholder {
+				background-color: transparent;
+
+				&:before {
+					display: none;
+				}
+			}
 		}
 	}
 }
@@ -522,9 +612,8 @@ header {
 .snack-bars {
 	background: transparent;
 	position: fixed;
-	bottom: 0;
-	right: 15px;
-	width: 700px;
+	top: 0;
+	left: 15px;
 	color: @text-light;
 	width: 650px;
 	overflow-y: auto;
@@ -538,7 +627,7 @@ header {
 		width: 100%;
 		padding: 10px;
 		margin: 15px 0;
-		line-height: 25px;
+		line-height: @chat-row-height;
 
 		&.hidden {
 			opacity: 0;
@@ -556,13 +645,13 @@ header {
 				visibility: visible;
 
 				.chat-user {
-					height: 25px;
+					height: @chat-row-height;
 					padding-left: 30px;
 					display: inline-block;
 					background-color: transparent;
 					background-repeat: no-repeat;
 					background-position: left;
-					background-size: 25px 25px;
+					background-size: @chat-row-height @chat-row-height;
 				}
 			}
 
