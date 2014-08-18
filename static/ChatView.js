@@ -10,7 +10,7 @@
 
         events: {
             'submit form': 'onSubmit',
-            'click #close-chat-button': 'onClose'
+            'click input[type=button].close': 'onClose'
         },
 
         template: _.template(template),
@@ -28,9 +28,9 @@
             if (show != this.isVisible) {
                 if (show) {
                     this.trigger('beforeShow');
-                    this.$el.removeClass('hidden');
+                    this.$el.addClass('shown');
                 } else {
-                    this.$el.addClass('hidden');
+                    this.$el.removeClass('shown');
                     setTimeout(_.bind(function() {
                         this.trigger('afterHide');
                     }, this), 250);

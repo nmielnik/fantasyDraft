@@ -29,7 +29,7 @@
             'keyup input.search': 'onSearch',
             'click a.result': 'onResultClick',
             'click input[type=button].remove': 'onRemove',
-            'click a#close-queue-button': 'onClose'
+            'click input[type=button].close': 'onClose'
         },
 
         searchCache: [],
@@ -44,9 +44,9 @@
             if (show != this.isVisible) {
                 if (show) {
                     this.trigger('beforeShow');
-                    this.$el.removeClass('hidden');
+                    this.$el.addClass('shown');
                 } else {
-                    this.$el.addClass('hidden');
+                    this.$el.removeClass('shown');
                     setTimeout(_.bind(function() {
                         this.trigger('afterHide');
                     }, this), 250);
