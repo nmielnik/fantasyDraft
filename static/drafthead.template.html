@@ -1,8 +1,12 @@
-﻿<tr>
-	<td></td>
+﻿<div class="draft-square placeholder clock-holder"></div>
 	<% for (var iPick = 1; iPick <= settings.TeamsPerDraft; iPick++) { %>
         <% var user = users[orders[iPick]]; %>
-		<td id="header<%= iPick %>" class="draftCell <%= (user.UserID == currentUser.ID) ? 'userHead' : (activeUsers && activeUsers[user.UserID] ? 'activeHead' : 'draftHead') %>"><%= user.TeamName %></td>
+        <% var className = 'draft-square logo ' + user.Username.toLowerCase(); %>
+        <% if (user.UserID == currentUser.ID) { %>
+        	<% className += ' current'; %>
+        <% } else if (!activeUsers || !activeUsers[user.UserID]) { %>
+        	<% className += ' offline'; %>
+        <% } %>
+        <div data-user-id="<%= user.UserID %>" class="<%= className %>"></div>
     <% } %>
-    <td></td>
-</tr>
+<div class="draft-square placeholder clock-holder"></div>

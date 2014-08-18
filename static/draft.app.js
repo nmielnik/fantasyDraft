@@ -4,10 +4,9 @@
     'backbone',
     'static/DraftPicksView',
     'static/DraftQueueView',
-    'static/ClockView',
     'static/ChatView',
     'Settings'
-], function ($, _, Backbone, DraftPicksView, DraftQueueView, ClockView, ChatView, Settings) {
+], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
 
     var DraftPicks = Backbone.Collection.extend({
         url: 'picks',
@@ -46,6 +45,7 @@
 
     var statusModel = new Status();
     var picksModel = new DraftPicks();
+    var chatsModel = new Chats();
 
     var picksView = new DraftPicksView({
         model: picksModel,
@@ -54,16 +54,54 @@
         Status: statusModel
     }).render();
 
-    var clockView = new ClockView({ model: picksModel, el: $('#ui_tdClockHolder') }).render();
-
-    var queueView = new DraftQueueView({ model: picksModel, el: $('#ui_tdDraftQueue'), QueueCache: statusModel })
+    var queueView = new DraftQueueView({ model: picksModel, el: $('#draft-queue-holder'), QueueCache: statusModel })
         .render()
         .startPolling(Settings.MSPerStatusRefresh);
 
-    var chatView = new ChatView({ model: new Chats(), el: $('#ui_tdChatRoom') })
+    var chatView = new ChatView({ model: chatsModel, el: $('#draft-chat-holder') })
         .render()
         .startPolling(Settings.MSPerChatRefresh);
 
+    chatsModel.fetch();
     statusModel.fetch();
     picksModel.fetch();
+
+    $('#draft-buttons-holder').prop('on', true);
+
+    function beforeShow() {
+        $('#draft-buttons-holder').hide().prop('on', false);
+    }
+
+    function afterHide() {
+        $('#draft-buttons-holder').show().prop('on', true);
+    }
+
+    queueView.on('beforeShow', beforeShow);
+    chatView.on('beforeShow', beforeShow);
+    queueView.on('afterHide', afterHide);
+    chatView.on('afterHide', afterHide);
+
+    $('#draft-queue-button').on('click', function(evt) {
+        evt.preventDefault();
+        queueView.toggleVisibility(true);
+    });
+
+    $('#draft-chat-button').on('click', function(evt) {
+        evt.preventDefault();
+        chatView.toggleVisibility(true);
+    });
+
+    $('body').on('keyup', function(evt) {
+        if ($('#draft-buttons-holder').prop('on')) {
+            if (evt.which == 81 || evt.which == 113) {
+                queueView.toggleVisibility(true);
+            } else if (evt.which == 67 || evt.which == 99) {
+                chatView.toggleVisibility(true);
+            }
+        } else if (evt.which == 27) {
+            queueView.toggleVisibility(false);
+            chatView.toggleVisibility(false);
+        }
+    });
+
 });

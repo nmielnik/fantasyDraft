@@ -3,10 +3,9 @@
     'underscore',
     'backbone',
     'text!static/picks.template.html',
-    'Settings',
-    'OrderMap',
-    'UserMap'
-], function ($, _, Backbone, template, Settings, OrderMap, UserMap) {
+    'static/PickView',
+    'Settings'
+], function ($, _, Backbone, template, PickView, Settings) {
 
     var PickTypes = { Keeper: 1, OnClock: 2, Pick: 3 };
 
@@ -14,7 +13,17 @@
         template: _.template(template),
 
         initialize: function () {
-            this.model.on("change reset add remove", this.render, this);
+            this.model.on("add", this.onAdd, this);
+        },
+
+        onAdd: function() {
+            if (!this.addCount) {
+                this.addCount = 0;
+            }
+            this.addCount++;
+            if (this.addCount == (Settings.TeamsPerDraft * Settings.RoundsPerDraft)) {
+                this.render();
+            }
         },
 
         startPolling: function (interval) {
@@ -35,59 +44,18 @@
         },
 
         render: function () {
-            var pickMap = {};
-            var lastOnClock = null;
+            this.$el.empty();
+            var rounds = {};
             var self = this;
             this.model.forEach(function (currPick) {
-                var pickData = { className: "draftEmpty" };
-                if (currPick.get("Team") != OrderMap[currPick.get("Pick")]) {
-                    pickData.override = { team: UserMap[currPick.get("Team")].Username.toUpperCase() };
+                var round = currPick.get("Round");
+                if (!rounds[round]) {
+                    rounds[round] = $(self.template({ round: round })).appendTo(self.$el);
                 }
-                if (currPick.get("Type") == PickTypes.OnClock) {
-                    if (pickData.override) {
-                        pickData.override.text = ["(" + pickData.override.team + ")"];
-                    }
-                    pickData.text = ["On The Clock"];
-                } else if (currPick.get("Player") && PlayerMap[currPick.get("Player")]) {
-                    if (pickData.override) {
-                        pickData.override.text = ["(" + pickData.override.team + ")"];
-                    }
-                    pickData.text = [PlayerMap[currPick.get("Player")].Name, PlayerMap[currPick.get("Player")].TeamInfo];
-                } else if (pickData.override) {
-                    pickData.override.text = ["Traded To:", pickData.override.team];
-                }
-
-                switch (currPick.get("Type")) {
-                    case PickTypes.Keeper:
-                        pickData.className = "draftPickKeeper";
-                        break;
-                    case PickTypes.OnClock:
-                        pickData.className = "draftPickActive";
-                        lastOnClock = pickData;
-                        break;
-                    case PickTypes.Pick:
-                        pickData.className = "draftPick";
-                        break;
-                    default:
-                        if (pickData.override) {
-                            pickData.className = "draftPickOverride";
-                        }
-                        break;
-                }
-
-                pickNumber = ((currPick.get("Round") - 1) * Settings.TeamsPerDraft) + currPick.get("Pick");
-                if (currPick.get("TimeLeft")) {
-                    var timeInfo = self.model.getTimeInfo(currPick.get("TimeLeft"));
-                    pickData.text = [timeInfo.minutes + ":" + timeInfo.seconds];
-                }
-                pickMap[pickNumber] = pickData;
+                var pickView = new PickView({ model: currPick }).render();
+                rounds[round].find('> div').last().before(pickView.$el);
             });
 
-            var data = {
-                settings: Settings,
-                pickMap: pickMap
-            }
-            this.$el.html(this.template(data));
             return this;
         }
     });

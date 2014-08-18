@@ -1,0 +1,196 @@
+﻿html body {
+    color: #212121;
+    font-family: 'RobotoDraft',sans-serif;
+    font-size: 1em;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1em;
+    background-color: #f9f9f9;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+
+
+
+
+header {
+	display:none;
+	height: 150px;
+	padding: 30px 16px 0;
+	background-color: #009688;
+}
+
+.header-wrapper {
+	padding-left: 40px;
+}
+
+.header-title {
+	color: #fff;
+	font-size: 56px;
+	font-weight: 400;
+	line-height: 1.5;
+	margin: 0 auto;
+	overflow: hidden;
+	width: 1120px;
+	white-space: nowrap;
+}
+
+.header-wrapper .header-title span {
+	float: left;
+}
+
+
+
+
+div.draft-picks {
+	float: left;
+}
+
+div.team-column {
+	float: left;
+	margin: 5px;
+	width: 75px;
+}
+
+div.draft-board {
+	width: 1720px;
+	display: inline-block;
+	background-color: #e0e0e0;
+}
+
+div.draft-square {
+	width: 80px;
+	height: 60px;
+	margin: 5px;
+	font-size: 11px;
+	-webkit-font-smoothing: antialiased;
+	background-color: #757575;
+	color: #ffffff;
+}
+
+div.draft-square > div {
+	text-align: center;
+	padding: 0px 2px;
+}
+
+div.draft-square > div.lines-1 {
+	padding-top: 20px;
+}
+
+div.draft-square > div.lines-2.line-1 {
+	padding-top: 15px;
+}
+
+div.draft-square.round {
+	background-color: #000000;
+	color: #fff;
+}
+
+div.draft-square.round > div {
+	font-size: 32px;
+	letter-spacing: .1px;
+	line-height: 24px;
+	padding-top: 18px;
+}
+
+div.draft-square.logo {
+	background-repeat: no-repeat;
+	background-position: 80% 20%;
+	background-size: 125px 125px;
+}
+
+div.draft-square.placeholder {
+	background-color: transparent;
+}
+
+div.draft-square.logo:before {
+	content: '';
+	z-index: 1;
+	height: 60px;
+	width: 80px;
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.75);
+}
+
+div.draft-square.logo.online:before,
+div.draft-square.logo.current:before,
+div.draft-square.placeholder:before {
+	display: none;
+}
+
+div.draft-square.logo.kennelz {
+	background-image: url('logos/kennelz.png');
+}
+
+div.draft-square.logo.meathooks {
+	background-image: url('logos/meathooks.png');
+}
+
+div.draft-square.logo.nannies {
+	background-image: url('logos/nannies.png');
+}
+
+div.draft-square.logo.titties {
+	background-image: url('logos/titties.png');
+}
+
+div.draft-square.logo.jihad {
+	background-image: url('logos/jihad.png');
+}
+
+div.draft-square.logo.mills {
+	background-image: url('logos/mills.png');
+}
+
+div.draft-square.logo.turner {
+	background-image: url('logos/turner.png');
+}
+
+div.draft-square.logo.aficionados {
+	background-image: url('logos/aficionados.png');
+}
+
+div.draft-square.logo.seattlites {
+	background-image: url('logos/seattlites.png');
+}
+
+div.draft-square.logo.stepdads {
+	background-image: url('logos/stepdads.png');
+}
+
+div.draft-square.logo.ganggreen {
+	background-image: url('logos/ganggreen.png');
+}
+
+div.draft-square.logo.tomahawks {
+	background-image: url('logos/tomahawks.png');
+}
+
+.red-text {
+	color: #e51c23;
+}
+
+.red {
+	background-color: #e51c23;
+}
+
+.blue-text {
+	color: #5677fc;
+}
+
+.blue {
+	background-color: #5677fc;
+}
+
+.cyan-text {
+	color: #00bcd4;
+}
+
+.cyan {
+	background-color: #00bcd4;
+}

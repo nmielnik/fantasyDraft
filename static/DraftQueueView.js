@@ -28,14 +28,37 @@
             'click input[type=button].default': 'onSubmit',
             'keyup input.search': 'onSearch',
             'click a.result': 'onResultClick',
-            'click input[type=button].remove': 'onRemove'
+            'click input[type=button].remove': 'onRemove',
+            'click input[type=button].close': 'onClose'
         },
 
         searchCache: [],
+        isVisible: false,
 
         initialize: function (options) {
             this.model.on('change reset add remove', this.filterQueue, this);
             this.QueueCache = options.QueueCache;
+        },
+
+        toggleVisibility: function(show) {
+            if (show != this.isVisible) {
+                if (show) {
+                    this.trigger('beforeShow');
+                    this.$el.addClass('shown');
+                } else {
+                    this.$el.removeClass('shown');
+                    setTimeout(_.bind(function() {
+                        this.trigger('afterHide');
+                    }, this), 250);
+                }
+                this.isVisible = show;
+            }
+        },
+
+        onClose: function(evt) {
+            evt.preventDefault();
+            var self = this;
+            this.toggleVisibility(false);
         },
 
         filterQueue: function () {
@@ -90,7 +113,7 @@
         },
 
         showPickMessage: function (message) {
-            this.$('td.message').html(message);
+            this.$('.message').html(message);
         },
 
         onSearch: function (evt) {

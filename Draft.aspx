@@ -6,8 +6,20 @@
 <head id="Head1" runat="server">
     <title>Ballers Unite Draft</title>
 
-    <link rel="Stylesheet" href="static/controls.css" type="text/css" />
-    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />
+    <!--<link rel="Stylesheet" href="static/controls.css" type="text/css" />
+    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />-->
+    <link rel="stylesheet/less" type="text/css" href="static/draft.less" />
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments"
+        };
+	</script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
     <script type="text/javascript">
         require.config({
@@ -60,28 +72,13 @@
     </script>
 </head>
 <body>
-    <!-- <%= UserData.toJson() %> -->
-    <table style="width: auto">
-        <tr>
-            <td id="draft-board-holder">
-            </td>
-            <td class="top">
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td id="ui_tdClockHolder" class="top">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="ui_tdDraftQueue" class="top">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="ui_tdChatRoom" class="top chatsection">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <div id="draft-board-holder"></div>
+    <div class="snack-bars"></div>
+    <div id="draft-buttons-holder">
+        <a href="" id="draft-queue-button">(Q)ueue</a>
+        <a href="" id="draft-chat-button">(C)hat</a>
+    </div>
+    <div id="draft-queue-holder" class="right-slider-menu queue-holder"></div>
+    <div id="draft-chat-holder" class="right-slider-menu chat-holder"></div>
 </body>
 </html>

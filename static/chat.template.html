@@ -1,33 +1,12 @@
-﻿<table class="rightCol" cellpadding="0" cellspacing="0">
-    <tr>
-        <td class="chatCell" align="center">
-            <div class="whiteBack">Chat</div>
-        </td>
-    </tr>
-</table>
+﻿<div class="chat-top">
+    <div class="close"><input type="button" value="(ESC) Close →" class="close" /></div>
+    <div class="chat">Chat:</div>
+</div>
+<div class="chat-room">
+</div>
 <form name="chat" action="#">
-    <table class="rightCol" cellpadding="0" cellspacing="0">
-        <tr>
-            <td class="chatCell" align="center">
-                <div class="chatRoom">
-                    <% for (var i = 0; i < data.length; i++) { %>
-	                    <% var currData = data[i]; %>
-                        <div class="chatRow">
-                            <span class="chatUser color<%= currData.Username %>"><%= currData.Username %> </span><span><%= currData.Text %></span>
-                        </div>
-                    <% } %>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="chatCell" align="center">
-                <input type="text" class="chatText" id="ui_tbChat" />
-            </td>
-        </tr>
-        <tr>
-            <td class="chatCell" align="center">
-                <input class="default chat" type="submit" id="ui_btnChat" value="Submit" />
-            </td>
-        </tr>
-    </table>
+    <div>
+        <input type="text" class="chatText" id="ui_tbChat" />
+        <input class="default chat" type="submit" id="ui_btnChat" value="Submit" />
+    </div>
 </form>
