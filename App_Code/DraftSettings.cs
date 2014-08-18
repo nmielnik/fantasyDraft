@@ -34,6 +34,6 @@ public class DraftSettings
         MSPerChatRefresh = 1500;
         MSPerStatusRefresh = 5000;
         ActiveUserSeconds = 10;
-        ChatFilter = new DateTime(2010, 8, 25, 12, 0, 0);
+        ChatFilter = new DateTime(2013, 8, 25, 12, 0, 0);
 	}
 }

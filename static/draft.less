@@ -1,20 +1,33 @@
 ﻿@import "colors.less";
 
+@scroll-bar-width: 20px;
 @input-height: 40px;
 @square-width: 85px;
-@chat-width: 600px;
-@chat-room-padding: 25px;
+
+@chat-holder-width: 600px;
+@chat-room-left-padding: 25px;
+@chat-room-top-padding: 10px;
+@chat-room-right-padding: 15px;
+@chat-room-bottom-padding: 10px;
+@chat-room-width: @chat-holder-width - (@chat-room-left-padding + @chat-room-right-padding);
+
+@chat-head-height: @input-height;
+@chat-head-size: @chat-room-top-padding + @chat-head-height + 10px;
+
+@chat-foot-height: @input-height;
+@chat-foot-size: @chat-room-bottom-padding + @chat-foot-height + 10px;
+
+@chat-row-height: 25px;
 @chat-name-width: 150px;
 @chat-button-width: 100px;
-@chat-row-height: 25px;
 
 html body {
-    color: #212121;
-    font-family: 'RobotoDraft',sans-serif;
-    font-size: 1em;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1em;
-    background-color: #f9f9f9;
+	color: #212121;
+	font-family: 'RobotoDraft',sans-serif;
+	font-size: 1em;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1em;
+	background-color: #f9f9f9;
 }
 
 * {
@@ -43,13 +56,12 @@ input[type=number],
 input[type=tel],
 textarea
 {
-    /*width: 18.544em;*/
-    padding: 4px 8px;
-    font-family: "Segoe UI", "Segoe UI Web Regular", "Helvetica Neue", "BBAlpha Sans"/*BlackBerry*/,  "S60 Sans"/*Series 60*/, Arial, "sans-serif"/* Opera Mobile */;
-    font-size: 100%;
-    color: #212121;
-    border: 1px solid rgba(0,0,0,0.27);
-    background-color: rgba(255,255,255,0.9);
+	padding: 4px 8px;
+	font-family: "Segoe UI", "Segoe UI Web Regular", "Helvetica Neue", "BBAlpha Sans"/*BlackBerry*/,  "S60 Sans"/*Series 60*/, Arial, "sans-serif"/* Opera Mobile */;
+	font-size: 100%;
+	color: #212121;
+	border: 1px solid rgba(0,0,0,0.27);
+	background-color: rgba(255,255,255,0.9);
 
 	&:hover {
 		border-color: rgba(0,0,0,0.44);
@@ -65,78 +77,51 @@ textarea,
 button
 {
 	min-height: @input-height;
+	line-height: 25px;
 }
 
 input[type=button],
 input[type=submit],
 button
 {
-    min-width: 6em;
-    font-family: "Segoe UI Web Semibold", "Segoe UI Web Regular", "Segoe UI", "Helvetica Neue", Arial;
-    font-size: 100%;
-    background-color: rgba(182,182,182,0.7);
-    color: #DDD;
-    padding: 3px 12px 5px;
-    border: 0px;
+	min-width: 6em;
+	font-family: "Segoe UI Web Semibold", "Segoe UI Web Regular", "Segoe UI", "Helvetica Neue", Arial;
+	font-size: 100%;
+	background-color: rgba(182,182,182,0.7);
+	color: @text-light;
+	padding: 7px 12px 8px;
+	border: 0px;
 
-    &:hover {
-    	background-color: rgba(205,205,205,0.82);
-    }
+	&:hover {
+		background-color: rgba(205,205,205,0.82);
+	}
 
-    &:active {
-    	background-color: #212121;
-    	color: #FFF;
-    }
+	&:active {
+		background-color: #212121;
+		color: #ffffff;
+	}
 
-    &.default {
-    	background-color: @deep-orange-500;
+	&.default {
+		background-color: @deep-orange-500;
 
-    	&:hover {
-    		background-color: @deep-orange-400;
-    	}
+		&:hover {
+			background-color: @deep-orange-400;
+		}
 
-    	&:active {
-	    	background-color: @deep-orange-700;
-	    }
-    }
+		&:active {
+			background-color: @deep-orange-700;
+		}
+	}
 
-    &.close {
-    	background-color: rgba(255, 255, 255, 0.3);
+	&.close {
+		background-color: rgba(255, 255, 255, 0.3);
 
-    	&:hover {
-    		background-color: rgba(255, 255, 255, 0.5);
-    	}
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
 
-    	&:active {
-    		background-color: rgba(255, 255, 255, 0.2);
-    	}
-    }
-}
-
-
-
-header {
-	display:none;
-	height: 150px;
-	padding: 30px 16px 0;
-	background-color: #009688;
-}
-
-.header-wrapper {
-	padding-left: 40px;
-
-	.header-title {
-		color: #fff;
-		font-size: 56px;
-		font-weight: 400;
-		line-height: 1.5;
-		margin: 0 auto;
-		overflow: hidden;
-		width: 1120px;
-		white-space: nowrap;
-
-		span {
-			float: left;
+		&:active {
+			background-color: rgba(255, 255, 255, 0.2);
 		}
 	}
 }
@@ -188,29 +173,32 @@ header {
 	}
 }
 
-#draft-queue-holder {
-	width: 300px;
+.right-slider-menu {
 	height: 100%;
 	overflow: auto;
 	background-color: @blue-grey-900;
 	position: fixed;
 	top: 0;
-	right: -300px;
 	z-index: -1;
 	color: @text-light;
 
 	-webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -ms-transition: all 250ms;
-    -o-transition: all 250ms;
-    transition: all 250ms;
+	-moz-transition: all 250ms;
+	-ms-transition: all 250ms;
+	-o-transition: all 250ms;
+	transition: all 250ms;
+}
 
-    &.shown {
-    	right: 0;
-    	z-index: 10;
-    }
+.right-slider-menu.queue-holder {
+	width: 300px;
+	right: -300px;
 
-    select {
+	&.shown {
+		right: 0;
+		z-index: 10;
+	}
+
+	select {
 		font-size: 1em;
 	}
 
@@ -220,7 +208,7 @@ header {
 		width: 100%;
 	}
 
-    div.close {
+	div.close {
 		text-align: center;
 		margin: 10px auto;
 	}
@@ -269,36 +257,26 @@ header {
 	}
 }
 
-#draft-chat-holder {
-	width: @chat-width;
-	height: 100%;
-	overflow: auto;
-	background-color: @blue-grey-900;
-	position: fixed;
-	top: 0;
-	right: -600px;
-	z-index: -1;
-	color: @text-light;
-	padding: @chat-room-padding;
+.right-slider-menu.chat-holder {
+	width: @chat-holder-width;
+	right: 0px - @chat-holder-width;
 	opacity: 0;
 
-	-webkit-transition: all 250ms;
-    -moz-transition: all 250ms;
-    -ms-transition: all 250ms;
-    -o-transition: all 250ms;
-    transition: all 250ms;
+	&.shown {
+		right: 0;
+		z-index: 10;
+		opacity: 1;
+	}
 
-    &.shown {
-    	right: 0;
-    	z-index: 10;
-    	opacity: 1;
-    }
+	input {
+		margin: 0;
+	}
 
 	.chat-top {
 		position: absolute;
-		top: 10px;
-		right: 25px;
-		left: 25px;
+		top: @chat-room-top-padding;
+		width: @chat-room-width;
+		left: @chat-room-left-padding;
 
 		div.chat {
 			position: absolute;
@@ -309,22 +287,21 @@ header {
 		div.close {
 			text-align: center;
 			margin: 0 auto;
-
-			input[type=button].close {
-				margin: 0;
-			}
 		}
 	}
 
 	.chat-room {
-		width: calc(@chat-width - (@chat-room-padding * 2));
+		width: @chat-room-width;
 		overflow-y: auto;
+		overflow-x: hidden;
 		position: absolute;
-		top: calc(20 + @input-height);
-		bottom: calc(@chat-room-padding + @input-height + 10);
+		top: @chat-head-size;
+		left: @chat-room-left-padding;
+		bottom: @chat-foot-size;
 
 		.chat-row {
 			line-height: @chat-row-height;
+			width: @chat-room-width - @scroll-bar-width;
 
 			.chat-holder {
 				white-space: nowrap;
@@ -338,7 +315,7 @@ header {
 
 					.chat-user {
 						height: @chat-row-height;
-						padding-left: 30px;
+						padding-left: @chat-row-height + 5px;
 						display: inline-block;
 						background-color: transparent;
 						background-repeat: no-repeat;
@@ -349,7 +326,7 @@ header {
 
 				.chat-content {
 					display: inline-block;
-					max-width: calc(@chat-width - (@chat-room-padding * 2) - @chat-name-width - 5);
+					max-width: @chat-room-width - (@chat-name-width + @scroll-bar-width);
 
 					span {
 						white-space: normal;
@@ -369,15 +346,15 @@ header {
 
 	form[name=chat] {
 		position: absolute;
-		bottom: @chat-room-padding;
+		left: @chat-room-left-padding;
+		bottom: @chat-room-bottom-padding;
 
 		input[type=submit] {
 			width: @chat-button-width;
 		}
 
 		input[type=text] {
-			width: calc(@chat-width - (@chat-room-padding * 2) - @chat-button-width - 5);
-			margin: 0;
+			width: @chat-room-width - (@chat-button-width + 5px);
 		}
 	}
 }
@@ -392,42 +369,21 @@ header {
 	top: 0;
 	left: 0;
 
-	-webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+	-webkit-transition: all 250ms;
+	-moz-transition: all 250ms;
+	-ms-transition: all 250ms;
+	-o-transition: all 250ms;
+	transition: all 250ms;
 
 	.draft-board {
 		width: calc(20 * (@square-width + 4) + 4);
 		display: inline-block;
 		background-color: #e0e0e0;
-		//background-color: @deep-purple-600;
 
 		.team-column {
 			float: left;
 			margin: 6px 0 10px 4px;
 			width: @square-width;
-
-			/*opacity: 1;
-			-webkit-transform: scale(1,1);
-			-webkit-transition-timing-function: ease-out;
-			-webkit-transition-duration: 250ms;
-			-moz-transform: scale(1,1);
-			-moz-transition-timing-function: ease-out;
-			-moz-transition-duration: 250ms;
-
-			&.active-column {
-				opacity: .7;
-				-webkit-transform: scale(1.05,1.07);
-				-webkit-transition-timing-function: ease-out;
-				-webkit-transition-duration: 250ms;
-				-moz-transform: scale(1.05,1.07);
-				-moz-transition-timing-function: ease-out;
-				-moz-transition-duration: 250ms;
-				position: relative;
-				z-index: 99;
-			}*/
 		}
 
 		.draft-picks {
@@ -501,16 +457,6 @@ header {
 
 				&.pick-clock {
 					font-weight: bold;
-
-					/*opacity: .8;
-					-webkit-transform: scale(1.15,1.17);
-					-webkit-transition-timing-function: ease-out;
-					-webkit-transition-duration: 250ms;
-					-moz-transform: scale(1.15,1.17);
-					-moz-transition-timing-function: ease-out;
-					-moz-transition-duration: 250ms;
-					position: relative;
-					z-index: 99;*/
 
 					> div {
 						&.lines-1,
