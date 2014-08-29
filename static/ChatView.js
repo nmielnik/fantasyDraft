@@ -64,14 +64,19 @@
                     $chatRow.removeClass('first');
                 }
             }
-            $chatRow.html(this.rowtemplate(model.attributes));
+
+            var attr = _.extend({}, model.attributes);
+            var temp = document.createElement('div');
+            temp.innerHTML = attr.Text;
+            attr.Text = temp.firstChild.nodeValue;
+            $chatRow.html(this.rowtemplate(attr));
             $chatroom.append($chatRow);
             if (($chatroom.scrollTop() + $chatroom.height() + 400) >= $chatroom[0].scrollHeight) {
                 $chatroom.scrollTop($chatroom[0].scrollHeight);
             }
 
             if (this.polling && model.get("Username") != CurrentUser.Username) {
-                var $snackBar = $('<div/>', { 'class': 'snack-bar' }).html(this.rowtemplate(model.attributes));
+                var $snackBar = $('<div/>', { 'class': 'snack-bar' }).html(this.rowtemplate(attr));
                 var $snackBars = $('.snack-bars');
                 if ($snackBars.children().length > 0) {
                     $snackBars.children().first().before($snackBar);

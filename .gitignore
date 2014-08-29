@@ -173,6 +173,8 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
+App_Data/
 web.config
 desktop.ini
 .node-version
+website.publishproj

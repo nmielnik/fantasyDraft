@@ -74,7 +74,7 @@ public partial class Draft : System.Web.UI.Page
         {
             if (String.IsNullOrEmpty(_PlayerTableJSON))
             {
-                _PlayerTableJSON = jsonSerializer.Serialize(DraftObj.QueryPlayers());
+                _PlayerTableJSON = jsonSerializer.Serialize(DraftObj.GetPlayerMap());
             }
             return _PlayerTableJSON;
         }

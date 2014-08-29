@@ -151,6 +151,31 @@ public class BallersDraftObj
         return toRet;
     }
 
+    public Dictionary<String, PlayerObj> GetPlayerMap()
+    {
+        Dictionary<String, PlayerObj> allPlayers = new Dictionary<String, PlayerObj>();
+
+        var query = from t in db.Players
+                    select t;
+
+        foreach (Player p in query)
+        {
+            PlayerObj nextPlayer = new PlayerObj()
+            {
+                PlayerID = p.PlayerID,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                Suffix = p.Suffix,
+                Identity = p.Identifier,
+                Team = p.Team,
+                Position = p.Position
+            };
+            allPlayers[nextPlayer.PlayerID.ToString()] = nextPlayer;
+        }
+
+        return allPlayers;
+    }
+
     public List<PlayerObj> QueryPlayers()
     {
         List<PlayerObj> allPlayers = new List<PlayerObj>();
