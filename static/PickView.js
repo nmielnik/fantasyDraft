@@ -39,13 +39,13 @@ define([
                     pickData.override.text = ["(" + pickData.override.team + ")"];
                 }
                 pickData.text = [];
-                if (player.Name.length > 16) {
+                if (player.Name.length > 15) {
                     var parts = player.Name.split(" ");
                     var str = '';
                     var nextStr = str;
                     for (var i = 0; i < parts.length; i++) {
                         nextStr += (nextStr.length > 0 ? " " : "") + parts[i];
-                        if (nextStr.length > 16) {
+                        if (nextStr.length > 15) {
                             if (str.length > 0) {
                                 pickData.text.push(str);
                                 str = parts[i];

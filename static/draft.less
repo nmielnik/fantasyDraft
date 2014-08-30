@@ -3,6 +3,7 @@
 @scroll-bar-width: 20px;
 @input-height: 40px;
 @square-width: 85px;
+@square-height: 60px;
 
 @queue-holder-width: 315px;
 @queue-mod-button-width: 30px;
@@ -416,7 +417,7 @@ button
 
 		.draft-square {
 			width: @square-width;
-			height: 60px;
+			height: @square-height;
 			margin: 4px 0 0 0 ;
 			font-size: 10px;
 			-webkit-font-smoothing: antialiased;
@@ -517,8 +518,17 @@ button
 			}
 
 			&.pick-keeper {
-				background-color: @amber-500;
-				color: @brown-800;
+				position: relative;
+
+				&:before {
+					display: block;
+					content: '';
+					position: absolute;
+					top: 0;
+					width: @square-width;
+					height: @square-height;
+					background-color: rgba(0, 0, 0, 0.4);
+				}
 			}
 
 			&.logo {
@@ -530,7 +540,7 @@ button
 				&.offline:before,
 				&.traded:after {
 					z-index: 1;
-					height: 60px;
+					height: @square-height;
 					width: @square-width;
 					position: absolute;
 					content: '';

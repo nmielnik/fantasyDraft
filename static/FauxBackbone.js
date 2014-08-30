@@ -33,7 +33,7 @@
                     "Round": 1,
                     "Pick": 1,
                     "Team": 3,
-                    "Player": 4,
+                    "Player": 1,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 1
@@ -42,7 +42,7 @@
                     "Round": 1,
                     "Pick": 2,
                     "Team": 5,
-                    "Player": 10,
+                    "Player": 2,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 2
@@ -51,7 +51,7 @@
                     "Round": 1,
                     "Pick": 3,
                     "Team": 6,
-                    "Player": 13,
+                    "Player": 269,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 3
@@ -60,8 +60,8 @@
                     "Round": 1,
                     "Pick": 4,
                     "Team": 11,
-                    "Player": 2,
-                    "Type": 3,
+                    "Player": 319,
+                    "Type": 1,
                     "TimeLeft": null,
                     "TotalPick": 4
                 },
@@ -69,7 +69,7 @@
                     "Round": 1,
                     "Pick": 5,
                     "Team": 10,
-                    "Player": 1449,
+                    "Player": 743,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 5
@@ -78,7 +78,7 @@
                     "Round": 1,
                     "Pick": 6,
                     "Team": 7,
-                    "Player": 235,
+                    "Player": 260,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 6
@@ -87,8 +87,8 @@
                     "Round": 1,
                     "Pick": 7,
                     "Team": 12,
-                    "Player": 134,
-                    "Type": 3,
+                    "Player": 27,
+                    "Type": 1,
                     "TimeLeft": null,
                     "TotalPick": 7
                 },
@@ -96,7 +96,7 @@
                     "Round": 1,
                     "Pick": 8,
                     "Team": 8,
-                    "Player": 1392,
+                    "Player": 11,
                     "Type": 3,
                     "TimeLeft": null,
                     "TotalPick": 8
@@ -105,8 +105,8 @@
                     "Round": 1,
                     "Pick": 9,
                     "Team": 9,
-                    "Player": 6,
-                    "Type": 3,
+                    "Player": 5,
+                    "Type": 1,
                     "TimeLeft": null,
                     "TotalPick": 9
                 },
