@@ -4,6 +4,9 @@
 @input-height: 40px;
 @square-width: 85px;
 
+@queue-holder-width: 315px;
+@queue-mod-button-width: 30px;
+
 @chat-holder-width: 600px;
 @chat-room-left-padding: 25px;
 @chat-room-top-padding: 10px;
@@ -190,19 +193,14 @@ button
 }
 
 .right-slider-menu.queue-holder {
-	width: 300px;
-	right: -300px;
+	width: @queue-holder-width;
+	right: 0px - @queue-holder-width;
 
 	&.shown {
 		right: 0;
 		z-index: 10;
 	}
 
-	select {
-		font-size: 1em;
-	}
-
-	select,
 	input[type=text],
 	input[type=search] {
 		width: 100%;
@@ -211,6 +209,32 @@ button
 	div.close {
 		text-align: center;
 		margin: 10px auto;
+	}
+
+	.queue-list-holder {
+		display: inline-block;
+		width: 100%;
+
+		select {
+			display: block;
+			float: left;
+			font-size: 1em;
+			width: 80%;
+		}
+
+		.queue-list-button-holder {
+			float: left;
+			width: 10%;
+
+			input[type=button].tiny-button {
+				min-width: 100%;
+				width: 100%;
+				padding: 0;
+				margin-top: 80px;
+				margin-left: 8px;
+				font-size: 2em;
+			}
+		}
 	}
 
 	.queue-search,

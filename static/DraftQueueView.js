@@ -8,7 +8,7 @@
 
     var QueueView = Backbone.View.extend({
 
-        initialize: function() {
+        initialize: function () {
             this.model.on('change', this.render, this);
         },
 
@@ -29,7 +29,9 @@
             'keyup input.search': 'onSearch',
             'click a.result': 'onResultClick',
             'click input[type=button].remove': 'onRemove',
-            'click input[type=button].close': 'onClose'
+            'click input[type=button].close': 'onClose',
+            'click input[type=button].up': 'onUp',
+            'click input[type=button].down': 'onDown'
         },
 
         searchCache: [],
@@ -40,14 +42,14 @@
             this.QueueCache = options.QueueCache;
         },
 
-        toggleVisibility: function(show) {
+        toggleVisibility: function (show) {
             if (show != this.isVisible) {
                 if (show) {
                     this.trigger('beforeShow');
                     this.$el.addClass('shown');
                 } else {
                     this.$el.removeClass('shown');
-                    setTimeout(_.bind(function() {
+                    setTimeout(_.bind(function () {
                         this.trigger('afterHide');
                     }, this), 250);
                 }
@@ -55,7 +57,7 @@
             }
         },
 
-        onClose: function(evt) {
+        onClose: function (evt) {
             evt.preventDefault();
             var self = this;
             this.toggleVisibility(false);
@@ -76,11 +78,7 @@
                 }
             });
             if (newQueue && newQueue.length != queue.length) {
-                this.stopPolling();
-                this.queueView.model.save({ "DraftQueue": newQueue }, {
-                    success: $.proxy(this.onQueueSave, this),
-                    error: $.proxy(this.onQueueSave, this)
-                });
+                this.saveQueue(newQueue);
             }
         },
 
@@ -155,13 +153,37 @@
             var playerId = parseInt($(evt.target).attr('data-player-id'));
             var queue = this.queueView.model.get("DraftQueue");
             if (!_.contains(queue, playerId)) {
-                this.stopPolling();
                 queue.push(playerId);
-                this.queueView.model.save({ "DraftQueue": queue}, {
-                    success: $.proxy(this.onQueueSave, this),
-                    error: $.proxy(this.onQueueSave, this)
-                });
+                this.saveQueue(queue);
             }
+        },
+
+        onUp: function (evt) {
+            var $select = this.$('select');
+            if ($select.find('option').length > 1) {
+                var plyrId = this.$('select').val();
+                var $selected = this.$('select option[value="' + plyrId + '"]');
+                $selected.first().prev().before($selected);
+                this.throttleSaveQueue();
+            }
+        },
+
+        onDown: function (evt) {
+            var $select = this.$('select');
+            if ($select.find('option').length > 1) {
+                var plyrId = this.$('select').val();
+                var $selected = this.$('select option[value="' + plyrId + '"]');
+                $selected.last().next().after($selected);
+                this.throttleSaveQueue();
+            }
+        },
+
+        buildQueueFromDom: function () {
+            var queue = [];
+            this.$('select option').each(function () {
+                queue.push($(this).val());
+            });
+            return queue;
         },
 
         onRemove: function (evt) {
@@ -170,21 +192,38 @@
             var playerId = parseInt($option.prop('value'));
             var queue = this.queueView.model.get("DraftQueue");
             if (_.contains(queue, playerId)) {
-                this.stopPolling();
                 queue = _.reject(queue, function (val) { return val == playerId });
-                this.queueView.model.save({ "DraftQueue": queue }, {
-                    success: $.proxy(this.onQueueSave, this),
-                    error: $.proxy(this.onQueueSave, this)
-                });
+                this.saveQueue(queue);
             }
         },
 
-        onQueueSave: function() {
+        throttleSaveQueue: function () {
+            this.stopPolling();
+            if (this.saveThrottleId) {
+                clearTimeout(this.saveThrottleId);
+            }
+            this.saveThrottleId = setTimeout(_.bind(function () {
+                this.saveQueue(this.buildQueueFromDom());
+            }, this), 750);
+        },
+
+        saveQueue: function (queue) {
+            if (this.saveThrottleId) {
+                clearTimeout(this.saveThrottleId);
+            }
+            this.stopPolling();
+            this.queueView.model.save({ "DraftQueue": queue }, {
+                success: $.proxy(this.onQueueSave, this),
+                error: $.proxy(this.onQueueSave, this)
+            });
+        },
+
+        onQueueSave: function () {
             this.QueueCache.trigger('change');
             this.startPolling();
         },
 
-        stopPolling: function() {
+        stopPolling: function () {
             if (this.timerId) {
                 clearInterval(this.timerId);
             }
