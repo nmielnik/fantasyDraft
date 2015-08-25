@@ -130,6 +130,30 @@ button
 	}
 }
 
+#admin-draft-status {
+	margin: 20px;
+
+	div {
+		margin-top: 10px;
+	}
+
+	span.info {
+		font-weight: bold;
+
+		&.paused {
+			color: @red-600;
+		}
+
+		&.started {
+			color: @green-600;
+		}
+	}
+
+	input[type=button] {
+		margin-right: 20px;
+	}
+}
+
 #draft-buttons-holder {
 	display: block;
 	position: fixed;
