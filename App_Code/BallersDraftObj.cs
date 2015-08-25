@@ -244,6 +244,41 @@ public class BallersDraftObj
         return allUsers;
     }
 
+    public DraftStatusObj GetDraftStatusObj()
+    {
+        DraftStatusObj toRet = new DraftStatusObj();
+        var allStatus = from t in db.DraftStatus
+                        where t.ID == 1
+                        select t;
+        if (allStatus.Count<DraftStatus>() > 0)
+        {
+            toRet = new DraftStatusObj(allStatus.First());
+        }
+
+        return toRet;
+    }
+
+    public DraftStatusObj SetDraftStatusObj(DraftStatusObj toSet)
+    {
+        DraftStatusObj toRet = new DraftStatusObj();
+        lock (_DraftLock)
+        {
+            var allNextStatus = from t in db.DraftStatus
+                                where t.ID == 2
+                                select t;
+            DraftStatus next = allNextStatus.First();
+            next.Status = toSet.Status;
+            next.Time = DateTime.Now;
+
+            toRet = this.GetDraftStatusObj();
+
+            // Commit all changes to the DB
+            db.SubmitChanges();
+        }
+
+        return toRet;
+    }
+
     private List<DraftMoveObj> FindOnTheClock()
     {
         List<DraftMoveObj> onclock = new List<DraftMoveObj>();

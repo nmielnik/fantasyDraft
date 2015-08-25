@@ -23,7 +23,7 @@ public static class DraftAuthentication
         }
     }
 
-    public static DraftUser AuthenticateRequest(HttpRequest request)
+    public static DraftUser AuthenticateRequest(HttpRequest request, int? userId = null)
     {
         DraftUser toRet = null;
 
@@ -48,6 +48,11 @@ public static class DraftAuthentication
         if (toRet.Expires < DateTime.UtcNow)
         {
             throw new DraftAuthenticationException(toRet.Username, toRet.Expires, "Authentication Expired");
+        }
+
+        if (userId.HasValue && toRet.ID != userId.Value)
+        {
+            throw new DraftAuthenticationException("Unauthorized User");
         }
 
         return toRet;
