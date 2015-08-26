@@ -330,14 +330,13 @@ public class BallersDraftObj
                     else
                     {
                         onclock.Add(new DraftMoveObj(mOnClock));
-                        onclock.Sort(new DraftMoveObjComparer());
                     }
                 }
             }
-
-            // Update Paused Time
-            if (isPaused)
-                updateStatusTime = true;
+            if (onclock.Count > 0)
+            {
+                onclock.Sort(new DraftMoveObjComparer());
+            }
 
             // Determine if a new OnClock Move is needed
             bool addOnClock = (onclock.Count == 0 && toPause.Count == 0);
@@ -347,20 +346,28 @@ public class BallersDraftObj
             // on the last OnClock Move, we'll wait longer. Otherwise, we have to re-use this one
             // to keep everything synchronized
             DateTime? currentTime = null;
-            if (!addOnClock && !isPaused)
+            /* // This check is redundant. addOnClock == FALSE if either onClock OR toPause are non-empty
+             * // But if isPaused == FALSE, then toPause will ALWAYS be empty.
+             * // Therefore, this expression (!addOnClock && !isPaused) will only be true if onClock is non-empty
+            if (!addOnClock && !isPaused)*/
+            if (onclock.Count > 0)
             {
                 currentTime = DateTime.Now;
-                TimeSpan? timeLeft = null;
-                if (onclock.Count > 0)
+                // TimeSpan? timeLeft = null;
+                /*if (onclock.Count > 0)
                 {
                     DraftMoveObj lastOnClock = onclock[onclock.Count - 1];
                     timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
-                }
-                else
+                }*/
+                DraftMoveObj lastOnClock = onclock[onclock.Count - 1];
+                TimeSpan timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
+
+                /*else   // This will never be hit, because if isPaused == FALSE, then toPause will never be filled
                 {
                     DraftMove lastOnClock = toPause[toPause.Count - 1];
                     timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
-                }
+                }*/
+
                 // Check if the last OnClock Move is over the time limit
                 if (timeLeft < TimeSpan.FromTicks(0))
                     addOnClock = true;
@@ -418,7 +425,7 @@ public class BallersDraftObj
             // If the Draft is Puased or Stopped, or needs to change actions, update it
             int iCurr = (int)currStatus;
             int iNext = (int)nextStatus;
-            if (updateStatusTime || iCurr != iNext)
+            if (isPaused || iCurr != iNext)
             {
                 if (!currentTime.HasValue)
                     currentTime = DateTime.Now;
