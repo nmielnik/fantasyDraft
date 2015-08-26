@@ -284,7 +284,6 @@ public class BallersDraftObj
         List<DraftMoveObj> onclock = new List<DraftMoveObj>();
         Dictionary<QuickPick, DraftMoveObj> Picked = new Dictionary<QuickPick, DraftMoveObj>();
         List<DraftMove> toPause = new List<DraftMove>();
-        bool updateStatusTime = false;
         DraftMoveObj addedOnClock = null;
 
         // This entire operation MUST be atomic, so a Lock is required
@@ -346,27 +345,12 @@ public class BallersDraftObj
             // on the last OnClock Move, we'll wait longer. Otherwise, we have to re-use this one
             // to keep everything synchronized
             DateTime? currentTime = null;
-            /* // This check is redundant. addOnClock == FALSE if either onClock OR toPause are non-empty
-             * // But if isPaused == FALSE, then toPause will ALWAYS be empty.
-             * // Therefore, this expression (!addOnClock && !isPaused) will only be true if onClock is non-empty
-            if (!addOnClock && !isPaused)*/
+
             if (onclock.Count > 0)
             {
                 currentTime = DateTime.Now;
-                // TimeSpan? timeLeft = null;
-                /*if (onclock.Count > 0)
-                {
-                    DraftMoveObj lastOnClock = onclock[onclock.Count - 1];
-                    timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
-                }*/
                 DraftMoveObj lastOnClock = onclock[onclock.Count - 1];
                 TimeSpan timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
-
-                /*else   // This will never be hit, because if isPaused == FALSE, then toPause will never be filled
-                {
-                    DraftMove lastOnClock = toPause[toPause.Count - 1];
-                    timeLeft = TimeSpan.FromSeconds(Settings.SecondsPerPick) - (currentTime.Value - lastOnClock.Time);
-                }*/
 
                 // Check if the last OnClock Move is over the time limit
                 if (timeLeft < TimeSpan.FromTicks(0))
