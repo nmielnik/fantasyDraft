@@ -1,0 +1,108 @@
+﻿@import "colors.less";
+
+@input-height: 40px;
+
+html body {
+	color: #212121;
+	font-family: 'RobotoDraft',sans-serif;
+	font-size: 1em;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1em;
+	background-color: #f9f9f9;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	&:visited,
+	&:active {
+		text-decoration: none;
+	}
+}
+
+input[type="text"],
+input[type=password],
+input[type=email],
+input[type=number],
+input[type=tel],
+textarea
+{
+	padding: 4px 8px;
+	font-family: "Segoe UI", "Segoe UI Web Regular", "Helvetica Neue", "BBAlpha Sans"/*BlackBerry*/,  "S60 Sans"/*Series 60*/, Arial, "sans-serif"/* Opera Mobile */;
+	font-size: 100%;
+	color: #212121;
+	border: 1px solid rgba(0,0,0,0.27);
+	background-color: rgba(255,255,255,0.9);
+
+	&:hover {
+		border-color: rgba(0,0,0,0.44);
+	}
+
+	&:focus {
+		border-color: rgba(0,0,0,0.64);
+	}
+}
+
+input,
+textarea,
+button
+{
+	min-height: @input-height;
+	line-height: 25px;
+}
+
+input[type=button],
+input[type=submit],
+button
+{
+	min-width: 6em;
+	font-family: "Segoe UI Web Semibold", "Segoe UI Web Regular", "Segoe UI", "Helvetica Neue", Arial;
+	font-size: 100%;
+	background-color: rgba(182,182,182,0.7);
+	color: @text-light;
+	padding: 7px 12px 8px;
+	border: 0px;
+
+	&:hover {
+		background-color: rgba(205,205,205,0.82);
+	}
+
+	&:active {
+		background-color: #212121;
+		color: #ffffff;
+	}
+
+	&.default {
+		background-color: @deep-orange-500;
+
+		&:hover {
+			background-color: @deep-orange-400;
+		}
+
+		&:active {
+			background-color: @deep-orange-700;
+		}
+	}
+
+	&.close {
+		background-color: rgba(255, 255, 255, 0.3);
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+
+		&:active {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+	}
+}

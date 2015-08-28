@@ -2,8 +2,9 @@
     'jquery',
     'underscore',
     'backbone',
-    'static/PauseView'
-], function ($, _, Backbone, PauseView) {
+    'static/AdminPauseView',
+    'static/AdminOnClockView'
+], function ($, _, Backbone, AdminPauseView, AdminOnClockView) {
 
     var Pause = Backbone.Model.extend({
         defaults: function () {
@@ -12,9 +13,9 @@
                 Time: new Date()
             };
         },
-        url: 'pause',
+        url: 'api/pause',
         parse: function (data) {
-            data.Time = new Date(parseInt(data.Time.substr(6)));
+            data.Time = new Date(data.Time);
             return data;
         },
         toJSON: function () {
@@ -26,10 +27,14 @@
 
     var pauseModel = new Pause();
 
-    var pauseView = new PauseView({
+    var pauseView = new AdminPauseView({
         model: pauseModel,
         el: $('#admin-draft-status')
     }).render();
 
     pauseModel.fetch();
+
+    var onClockView = new AdminOnClockView({
+        el: $('#admin-onclock')
+    }).render();
 });

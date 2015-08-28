@@ -1,0 +1,10 @@
+﻿<div>
+	<span>Status: </span><span class="info <%= status.statusText %>"><%= status.statusText.toUpperCase() %></span>
+</div>
+<div>
+	<span>Last Update: </span><span class="info"><%= status.time.toLocaleTimeString() + "  (" + status.time.toLocaleDateString() + ")" %></span>
+</div>
+<div>
+	<input type="button" class="<%= status.status === 1 ? 'default' : '' %> pause" value="PAUSE" />
+	<input type="button" class="<%= status.status === 2 ? 'default' : '' %> start" value="START" />
+</div>

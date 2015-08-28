@@ -109,11 +109,11 @@
         },
 
         fetchError: function (model, response, options) {
-            if (response && response.responseJSON && response.responseJSON.Status == 401) {
-                window.location.replace("/Draft/login");
+            if (response && response.status == 401) {
+                window.location.replace("/Draft/Login");
             } else {
                 console.log("Chat Fetch Error");
-                console.log(response.responseJSON);
+                console.log(response.statusText);
             }
         },
 

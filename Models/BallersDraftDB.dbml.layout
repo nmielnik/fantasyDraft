@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.375, 8.5" name="DataClasses1">
+  <DataContextMoniker Name="/BallersDraftDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bfb4de22-995c-4e8d-8a29-e31ea7df5081" absoluteBounds="15.125, 4, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/ChatRoom" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e7576e72-a923-42dc-8d28-00b3112e90e5" absoluteBounds="15.14, 4.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a6598f9f-2b83-4f76-a26e-0426c0df6a63" absoluteBounds="8.625, 6.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/UserStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="99b6131d-0f4d-437e-8fc4-f2d9f5e7e67d" absoluteBounds="8.64, 6.7100000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7684417f-2956-4a51-ba77-844ccf777bbf" absoluteBounds="9.625, 1.125, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/DraftMove" />
+      <nestedChildShapes>
+        <elementListCompartment Id="880950cc-cba5-48fd-88ad-046d9f05784d" absoluteBounds="9.64, 1.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="375d8653-fca6-4fe0-822f-806f0b5da137" absoluteBounds="12.25, 1.5, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/DraftOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a2692230-beb5-4280-a1c0-05e9c56bc571" absoluteBounds="12.265, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="437741c6-4c46-4ac8-ba69-3f979689b233" absoluteBounds="8.875, 4, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/DraftOverride" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e78327df-f14f-4d26-9e79-4fccc844bc2d" absoluteBounds="8.89, 4.4600000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d4a6821d-53d8-40c5-a3e7-3763aaea1acc" absoluteBounds="6.75, 1.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/DraftStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="221348e9-aad1-43e7-8750-bed05a08a1a9" absoluteBounds="6.765, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="667ac994-3335-487d-8dd9-2ba5c95bf705" absoluteBounds="3.5, 1.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/Player" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8ffe4d02-364a-4956-9c4e-ef468b151988" absoluteBounds="3.515, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a7688873-8023-4148-9994-010f15526008" absoluteBounds="12.375, 6.5, 2, 1.3862939453125023">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/Username" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8231be1c-1efb-4641-aa38-0f691b4aa54e" absoluteBounds="12.39, 6.9600000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" absoluteBounds="12.125, 4, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/BallersDraftDBDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d8d5bf7d-e419-4152-bd44-0837d9b82e03" absoluteBounds="12.14, 4.4600000000000009, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(12.25 : 2.19314697265625); (11.625 : 2.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/DraftOrder/DraftOrder_DraftMove" />
+      <nodes>
+        <classShapeMoniker Id="375d8653-fca6-4fe0-822f-806f0b5da137" />
+        <classShapeMoniker Id="7684417f-2956-4a51-ba77-844ccf777bbf" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.46875); (9.625 : 1.46875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/Player/Player_DraftMove" />
+      <nodes>
+        <classShapeMoniker Id="667ac994-3335-487d-8dd9-2ba5c95bf705" />
+        <classShapeMoniker Id="7684417f-2956-4a51-ba77-844ccf777bbf" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(14.125 : 4.59699625651042); (15.125 : 4.59699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_ChatRoom" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="bfb4de22-995c-4e8d-8a29-e31ea7df5081" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(12.21875 : 5.19399251302083); (12.21875 : 6.34375); (10.625 : 6.34375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_UserStatus" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="a6598f9f-2b83-4f76-a26e-0426c0df6a63" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(12.15625 : 4); (12.15625 : 3.11464680989583); (11.625 : 3.11464680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_DraftMove" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="7684417f-2956-4a51-ba77-844ccf777bbf" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.1875 : 4); (13.1875 : 2.8862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_DraftOrder" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="375d8653-fca6-4fe0-822f-806f0b5da137" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(12.125 : 4.59699625651042); (10.875 : 4.59699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_DraftOverride" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="437741c6-4c46-4ac8-ba69-3f979689b233" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.25 : 5.19399251302083); (13.25 : 6.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BallersDraftDBDataContext/User/User_Username" />
+      <nodes>
+        <classShapeMoniker Id="b41d936c-c823-4c3c-ab12-f50b65ad2c85" />
+        <classShapeMoniker Id="a7688873-8023-4148-9994-010f15526008" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

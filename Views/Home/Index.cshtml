@@ -1,0 +1,93 @@
+﻿@model FantasyDraftAPI.Models.DraftViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ballers Unite Draft</title>
+
+    <!--<link rel="Stylesheet" href="static/controls.css" type="text/css" />
+    <link rel="Stylesheet" href="static/BallersDraft2010.css" type="text/css" />-->
+    <link rel="stylesheet/less" type="text/css" href="@Url.Content("~/static/draft.less")" />
+    <script>
+        less = {
+            env: "development",
+            async: false,
+            fileAsync: false,
+            poll: 1000,
+            functions: {},
+            dumpLineNumbers: "comments"
+        };
+	</script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+    <script type="text/javascript">
+        require.config({
+            paths: {
+                "jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min",
+                "underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min",
+                "backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min",
+                "text": "//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text"
+            }
+        });
+
+        define('PlayerMap', ['jquery'], function ($) {
+            if (!window.PlayerMap) {
+                // PlayerMap: { <id>: { ID: <id>, Name: <name>, TeamInfo: <teaminfo>, Picked: <true|false> }, <id>: { } ....}
+                window.PlayerMap = @Html.Raw(Json.Encode(
+                    Model.PlayerMap
+                ));          
+            }
+            return window.PlayerMap;
+        });
+
+        define('UserMap', ['jquery'], function ($) {
+            if (!window.UserMap) {
+                window.UserMap = @Html.Raw(Json.Encode(Model.UserMap));               // UserMap: { <id>: { ID: <id>, Name: <username>, Team: <teamname>, Pick: <order>}, <id>: { }...}
+            }
+            return window.UserMap;
+        });
+
+        define('OrderMap', ['jquery'], function ($) {
+            if (!window.OrderMap) {
+                window.OrderMap = @Html.Raw(Json.Encode(Model.OrderMap));             // OrderMap: { <order> : <userid> }
+            }
+            return window.OrderMap;
+        });
+
+        define('CurrentUser', ['jquery'], function ($) {
+            if (!window.CurrentUser) {
+                window.CurrentUser = @Html.Raw(Json.Encode(Model.UserData));         // CurrentUser: { ID: <id>, Name: <username>, Team: <teamname>, Pick: <order> }
+            }
+            return window.CurrentUser;
+        });
+
+        define('Settings', ['jquery'], function ($) {
+            if (!window.Settings) {
+                window.Settings = @Html.Raw(Json.Encode(Model.Settings));            // Settings: { Teams: <count>, Rounds: <count>, PickSeconds: <seconds>, SeasonID: <id>, ClockWarn: <seconds>, RefreshRate: <
+            }
+            return window.Settings;
+        });
+    </script>
+
+    <script type="text/javascript">
+        require(["@Url.Content("~/static/draft.app.js")"]);
+    </script>
+</head>
+<body>
+    <div id="draft-board-holder"></div>
+    <div class="snack-bars"></div>
+    <div id="draft-buttons-holder">
+        <a href="" id="draft-queue-button">(Q)ueue</a>
+        <a href="" id="draft-chat-button">(C)hat</a>
+    </div>
+    <div id="draft-queue-holder" class="right-slider-menu queue-holder"></div>
+    <div id="draft-chat-holder" class="right-slider-menu chat-holder"></div>
+    <div><span>Google Hangout: </span><a href="https://plus.google.com/hangouts/_/calendar/bm1pZWxuaWtAZ21haWwuY29t.25if2olmnfuf1qvecpcgoihifg">Here</a></div>
+</body>
+</html>

@@ -9,7 +9,7 @@
 ], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
 
     var DraftPicks = Backbone.Collection.extend({
-        url: 'picks',
+        url: 'api/picks',
         model: Backbone.Model.extend({
             idAttribute: "TotalPick"
         }),
@@ -33,14 +33,14 @@
     });
 
     var Chats = Backbone.Collection.extend({
-        url: 'chat',
+        url: 'api/chat',
         model: Backbone.Model.extend({
             idAttribute: "Date"
         })
     });
 
     var Status = Backbone.Model.extend({
-        url: 'status'
+        url: 'api/status'
     });
 
     var statusModel = new Status();

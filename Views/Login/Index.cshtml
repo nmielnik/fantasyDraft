@@ -1,0 +1,74 @@
+﻿@model FantasyDraftAPI.Models.LoginUser
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="@Url.Content("~/static/BallersDraft2010.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+     <!-- @Html.Encode(Model.LoginMessage) -->
+    @using (Html.BeginForm())
+    {
+    <div>
+        <table width="100%">
+            <tr>
+                <td class="whiteBack pageHead" width="35%">Ballers Unite Draft Page</td>
+                <td class="pageHead"></td>
+            </tr>
+            <tr>
+                <td align="center">
+                    @if (!String.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="clock clockRed" style="margin:0 auto;text-align:center;width:100%;">@Html.Encode(Model.ErrorMessage)</div>
+                    }
+                 </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <table cellpadding="1" style="border-collapse:collapse;">
+                        <tr>
+                            <td>
+                                <table style="height:156px; width:260px">
+                                    <tr>
+                                        <td align="center" colspan="2">Log In</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <label for="username-textbox">Username:</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="username" id="username-textbox" value="@Html.Encode(Model.Username)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <label for="password-textbox">Password:</label>
+                                        </td>
+                                        <td>
+                                            <input type="password" name="password" id="password-textbox" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" colspan="2">
+                                            <input type="submit" value="Log In" name="login" id="login-button" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    }
+</body>
+</html>

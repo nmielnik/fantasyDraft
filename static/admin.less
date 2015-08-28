@@ -1,0 +1,57 @@
+﻿@import "common.less";
+
+#admin-draft-status, #admin-onclock {
+	margin: 20px;
+
+	div {
+		margin-top: 10px;
+	}
+
+	span.info {
+		font-weight: bold;
+
+		&.paused {
+			color: @red-600;
+		}
+
+		&.started {
+			color: @green-600;
+		}
+	}
+
+	input[type=button] {
+		margin-right: 20px;
+	}
+}
+
+#admin-onclock
+{
+    input[type=button].update
+    {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    input[type=text].seconds
+    {
+        margin: 0px 5px 0px;
+        width: 50px;
+    }
+}
+
+.onclock-status
+{
+    display: none;
+
+    &.success
+    {
+        display: block;
+        color: @green-600;
+    }
+
+    &.error
+    {
+        display: block;
+        color: @red-600;
+    }
+}

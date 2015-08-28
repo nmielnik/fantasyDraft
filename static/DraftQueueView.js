@@ -98,14 +98,13 @@
         },
 
         submitError: function (model, response, options) {
-            if (response && response.responseJSON) {
-                var responseData = response.responseJSON;
-                if (responseData.Status == 401) {
-                    window.location.replace("/Draft/login");
+            if (response && response.status) {
+                if (response.status == 401) {
+                    window.location.replace("/Draft/Login");
                 } else {
                     console.log("Pick Submit Error")
-                    console.log(responseData);
-                    this.showPickMessage(responseData.Message);
+                    console.log(response.statusText);
+                    this.showPickMessage(response.statusText);
                 }
             }
         },

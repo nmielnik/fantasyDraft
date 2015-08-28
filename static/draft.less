@@ -1,7 +1,6 @@
-﻿@import "colors.less";
+﻿@import "common.less";
 
 @scroll-bar-width: 20px;
-@input-height: 40px;
 @square-width: 85px;
 @square-height: 60px;
 
@@ -25,134 +24,7 @@
 @chat-name-width: 150px;
 @chat-button-width: 100px;
 
-html body {
-	color: #212121;
-	font-family: 'RobotoDraft',sans-serif;
-	font-size: 1em;
-	-webkit-font-smoothing: antialiased;
-	line-height: 1em;
-	background-color: #f9f9f9;
-}
 
-* {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-a {
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
-
-	&:visited,
-	&:active {
-		text-decoration: none;
-	}
-}
-
-input[type="text"],
-input[type=password],
-input[type=email],
-input[type=number],
-input[type=tel],
-textarea
-{
-	padding: 4px 8px;
-	font-family: "Segoe UI", "Segoe UI Web Regular", "Helvetica Neue", "BBAlpha Sans"/*BlackBerry*/,  "S60 Sans"/*Series 60*/, Arial, "sans-serif"/* Opera Mobile */;
-	font-size: 100%;
-	color: #212121;
-	border: 1px solid rgba(0,0,0,0.27);
-	background-color: rgba(255,255,255,0.9);
-
-	&:hover {
-		border-color: rgba(0,0,0,0.44);
-	}
-
-	&:focus {
-		border-color: rgba(0,0,0,0.64);
-	}
-}
-
-input,
-textarea,
-button
-{
-	min-height: @input-height;
-	line-height: 25px;
-}
-
-input[type=button],
-input[type=submit],
-button
-{
-	min-width: 6em;
-	font-family: "Segoe UI Web Semibold", "Segoe UI Web Regular", "Segoe UI", "Helvetica Neue", Arial;
-	font-size: 100%;
-	background-color: rgba(182,182,182,0.7);
-	color: @text-light;
-	padding: 7px 12px 8px;
-	border: 0px;
-
-	&:hover {
-		background-color: rgba(205,205,205,0.82);
-	}
-
-	&:active {
-		background-color: #212121;
-		color: #ffffff;
-	}
-
-	&.default {
-		background-color: @deep-orange-500;
-
-		&:hover {
-			background-color: @deep-orange-400;
-		}
-
-		&:active {
-			background-color: @deep-orange-700;
-		}
-	}
-
-	&.close {
-		background-color: rgba(255, 255, 255, 0.3);
-
-		&:hover {
-			background-color: rgba(255, 255, 255, 0.5);
-		}
-
-		&:active {
-			background-color: rgba(255, 255, 255, 0.2);
-		}
-	}
-}
-
-#admin-draft-status {
-	margin: 20px;
-
-	div {
-		margin-top: 10px;
-	}
-
-	span.info {
-		font-weight: bold;
-
-		&.paused {
-			color: @red-600;
-		}
-
-		&.started {
-			color: @green-600;
-		}
-	}
-
-	input[type=button] {
-		margin-right: 20px;
-	}
-}
 
 #draft-buttons-holder {
 	display: block;
@@ -217,94 +89,116 @@ button
 	transition: all 250ms;
 }
 
-.right-slider-menu.queue-holder {
-	width: @queue-holder-width;
-	right: 0px - @queue-holder-width;
+    .right-slider-menu.queue-holder
+    {
+        width: @queue-holder-width;
+        right: 0px - @queue-holder-width;
 
-	&.shown {
-		right: 0;
-		z-index: 10;
-	}
+        &.shown
+        {
+            right: 0;
+            z-index: 10;
+        }
 
-	input[type=text],
-	input[type=search] {
-		width: 100%;
-	}
+        input[type=text],
+        input[type=search]
+        {
+            width: 100%;
+        }
 
-	div.close {
-		text-align: center;
-		margin: 10px auto;
-	}
+        div.close
+        {
+            text-align: center;
+            margin: 10px auto;
+        }
 
-	.queue-list-holder {
-		display: inline-block;
-		width: 100%;
+        .queue-list-holder
+        {
+            display: inline-block;
+            width: 100%;
 
-		select {
-			display: block;
-			float: left;
-			font-size: 1em;
-			width: 80%;
-		}
+            select
+            {
+                display: block;
+                float: left;
+                font-size: 1em;
+                width: 80%;
+            }
 
-		.queue-list-button-holder {
-			float: left;
-			width: 10%;
+            .queue-list-button-holder
+            {
+                float: left;
+                width: 10%;
 
-			input[type=button].tiny-button {
-				min-width: 100%;
-				width: 100%;
-				padding: 0;
-				margin-top: 80px;
-				margin-left: 8px;
-				font-size: 2em;
-			}
-		}
-	}
+                input[type=button].tiny-button
+                {
+                    min-width: 100%;
+                    width: 100%;
+                    padding: 0;
+                    margin-top: 80px;
+                    margin-left: 8px;
+                    font-size: 2em;
+                }
+            }
+        }
 
-	.queue-search,
-	.queue-queue {
-		> div {
-			margin: 10px;
-		}
-	}
+        .queue-search,
+        .queue-queue
+        {
+            > div
+            {
+                margin: 10px;
+            }
 
-	.queue-search {
-		margin-top: 30px;
-	}
+            .message
+            {
+                color: @yellow-600;
+            }
+        }
 
-	.buttons {
-		position: relative;
-		height: 2.25em;
+        .queue-search
+        {
+            margin-top: 30px;
+        }
 
-		.draft {
-			position: absolute;
-			left: 0;
-		}
+        .buttons
+        {
+            position: relative;
+            height: 2.25em;
 
-		.remove {
-			position: absolute;
-			right: 0;
-		}
+            .draft
+            {
+                position: absolute;
+                left: 0;
+            }
 
-		input[type=button],
-		button {
-			width: 45%;
-			margin: 5px 0px;
-		}
-	}
+            .remove
+            {
+                position: absolute;
+                right: 0;
+            }
 
-	a.result {
-		color: @deep-orange-500;
-		line-height: 20px;
+            input[type=button],
+            button
+            {
+                width: 45%;
+                margin: 5px 0px;
+            }
+        }
 
-		&:hover,
-		&:active,
-		&:visited {
-			color: @deep-orange-500;
-		}
-	}
-}
+        a.result
+        {
+            color: @deep-orange-500;
+            line-height: 20px;
+
+            &:hover,
+            &:active,
+            &:visited
+            {
+                color: @deep-orange-500;
+            }
+        }
+    }
 
 .right-slider-menu.chat-holder {
 	width: @chat-holder-width;
