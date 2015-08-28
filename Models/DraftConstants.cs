@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace FantasyDraftAPI.Models
 {
     public enum DraftMoveType { Empty = 0, Keep = 1, OnClock = 2, Pick = 3, Invalid = 4 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
 
 namespace FantasyDraftAPI.Models
 {
@@ -32,12 +28,6 @@ namespace FantasyDraftAPI.Models
             Username = dbUsername.Username1;
             DraftOrder = order;
             ID = dbUsername.User.UserID;
-        }
-
-        public String toJson()
-        {
-            JavaScriptSerializer ser = new JavaScriptSerializer();
-            return ser.Serialize(this);
         }
     }
 }

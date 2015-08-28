@@ -140,7 +140,6 @@
     <Compile Include="Models\OnClockUpdateObj.cs" />
     <Compile Include="Models\PlayerObj.cs" />
     <Compile Include="Models\QuickPick.cs" />
-    <Compile Include="Models\SimpleResponse.cs" />
     <Compile Include="Models\UserObj.cs" />
     <Compile Include="Models\UserStatusObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

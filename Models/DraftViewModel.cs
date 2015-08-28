@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using FantasyDraftAPI.Services;
 
 namespace FantasyDraftAPI.Models
@@ -87,71 +85,6 @@ namespace FantasyDraftAPI.Models
             }
         }
         private Dictionary<String, int> _OrderMap;
-
-        /*public String SettingsJSON
-        {
-            get
-            {
-                return jsonSerializer.Serialize(Options);
-            }
-        }
-
-        public String CurrentUserJSON
-        {
-            get
-            {
-                return UserData.toJson();
-            }
-        }
-
-        public String PlayerTableJSON
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_PlayerTableJSON))
-                {
-                    _PlayerTableJSON = jsonSerializer.Serialize(DraftObj.GetPlayerMap());
-                }
-                return _PlayerTableJSON;
-            }
-        }
-        private String _PlayerTableJSON;
-
-        public String OrderMapJSON
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_OrderMapJson))
-                {
-                    Dictionary<String, int> orderMap = new Dictionary<String, int>();
-                    foreach (UserObj nextUser in AllUsers)
-                    {
-                        orderMap[nextUser.Order.ToString()] = nextUser.UserID;
-                    }
-                    _OrderMapJson = jsonSerializer.Serialize(orderMap);
-                }
-                return _OrderMapJson;
-            }
-        }
-        private String _OrderMapJson;
-
-        public String UserTableJSON
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_UserTableJSON))
-                {
-                    Dictionary<String, UserObj> userMap = new Dictionary<String, UserObj>();
-                    foreach (UserObj next in AllUsers)
-                    {
-                        userMap[next.UserID.ToString()] = next;
-                    }
-                    _UserTableJSON = jsonSerializer.Serialize(userMap);
-                }
-                return _UserTableJSON;
-            }
-        }
-        private String _UserTableJSON;*/
 
         public List<UserObj> AllUsers
         {

@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Text;
-using System.Web.Security;
-using System.Web.Script.Serialization;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Security;
 using FantasyDraftAPI.Models;
 
 namespace FantasyDraftAPI.Services
@@ -17,16 +15,7 @@ namespace FantasyDraftAPI.Services
     /// </summary>
     public static class DraftAuthentication
     {
-
         private static BallersDraftObj DraftObj = new BallersDraftObj();
-
-        public static String LoginPage
-        {
-            get
-            {
-                return "/Draft/login";
-            }
-        }
 
         public static String EscapeToken(String token)
         {

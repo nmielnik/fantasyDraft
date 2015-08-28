@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Http;
-using FantasyDraftAPI.Services;
+﻿using System.Web.Http;
 using FantasyDraftAPI.Models;
+using FantasyDraftAPI.Services;
 
 namespace FantasyDraftAPI.Controllers
 {
