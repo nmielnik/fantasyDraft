@@ -62,6 +62,13 @@ namespace FantasyDraftAPI.Models
                     foreach (UserObj next in AllUsers)
                     {
                         _UserMap[next.UserID.ToString()] = next;
+                        _UserMap[next.UserID.ToString()] = new UserObj()
+                        {
+                            Order = next.Order,
+                            TeamName = next.TeamName,
+                            UserID = next.UserID,
+                            Username = next.Username
+                        };
                     }
                 }
                 return _UserMap;
