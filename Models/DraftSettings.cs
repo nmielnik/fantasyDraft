@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FantasyDraftAPI.Models
 {
@@ -18,6 +19,7 @@ namespace FantasyDraftAPI.Models
         public int MSPerStatusRefresh { get; set; }
         public int ActiveUserSeconds { get; set; }
         public DateTime ChatFilter { get; set; }
+        public Dictionary<String, int> PositionMaxes { get; set; }
 
         public DraftSettings()
         {
@@ -32,6 +34,13 @@ namespace FantasyDraftAPI.Models
             MSPerStatusRefresh = 5000;
             ActiveUserSeconds = 15;
             ChatFilter = new DateTime(2016, 8, 20, 12, 0, 0);
+            PositionMaxes = new Dictionary<string,int>
+            {
+                {"QB", 4},
+                {"RB", 9},
+                {"WR", 9},
+                {"TE", 4}
+            };
         }
     }
 }

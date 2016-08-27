@@ -507,11 +507,15 @@ namespace FantasyDraftAPI.Services
         public PickResult SubmitPick(int userID, int playerID)
         {
             PickResult result = PickResult.Success;
+            PlayerObj player = null;
 
             lock (_DraftLock)
             {
-                if (FindPlayer(playerID) == null)
+                player = FindPlayer(playerID);
+                if (player == null)
                     result = PickResult.InvalidPlayer;
+                else if (!Settings.PositionMaxes.ContainsKey(player.Position))
+                    result = PickResult.InvalidPosition;
                 else
                 {
                     PlayerObj pickedPlayer = FindPickedPlayer(playerID);
