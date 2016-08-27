@@ -25,13 +25,13 @@ namespace FantasyDraftAPI.Models
             ClockWarningSeconds = 30;
             TeamsPerDraft = 12;
             RoundsPerDraft = 17;
-            DraftSeasonID = 9;
+            DraftSeasonID = 10;
             ChatRoomCache = 50;
             MSPerRefresh = 1000;
             MSPerChatRefresh = 1500;
             MSPerStatusRefresh = 5000;
-            ActiveUserSeconds = 10;
-            ChatFilter = new DateTime(2015, 9, 1, 12, 0, 0);
+            ActiveUserSeconds = 15;
+            ChatFilter = new DateTime(2016, 8, 20, 12, 0, 0);
         }
     }
 }
