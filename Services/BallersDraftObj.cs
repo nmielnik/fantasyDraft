@@ -508,67 +508,85 @@ namespace FantasyDraftAPI.Services
         {
             PickResult result = PickResult.Success;
 
-            var allPlayers = from t in db.Players
-                             where t.PlayerID == playerID
-                             select t;
-
-            if (allPlayers.Count() == 0)
-                result = PickResult.InvalidPlayer;
-            else
+            lock (_DraftLock)
             {
-                lock (_DraftLock)
+                if (FindPlayer(playerID) == null)
+                    result = PickResult.InvalidPlayer;
+                else
                 {
-                    allPlayers = from t in db.Players
-                                 where t.PlayerID == playerID
-                                 select t;
-                    if (allPlayers.Count() == 0)
-                        result = PickResult.InvalidPlayer;
+                    PlayerObj pickedPlayer = FindPickedPlayer(playerID);
+                    if (pickedPlayer != null)
+                        result = PickResult.AlreadyPicked;
                     else
                     {
-                        List<DraftMoveObj> onClock = FindOnTheClock();
-                        DraftMoveObj match = null;
-                        foreach (DraftMoveObj allowed in onClock)
-                        {
-                            if (allowed.UserID == userID)
-                            {
-                                match = allowed;
-                                break;
-                            }
-                        }
+                        DraftMoveObj match = FindUserOnClock(userID);
                         if (match == null)
                             result = PickResult.NotTurn;
                         else
                         {
-                            var intPicked = (int)DraftMoveType.Pick;
-                            var intKept = (int)DraftMoveType.Keep;
-                            var pickedPlayer = from p in db.DraftMoves
-                                               where p.SeasonID == Settings.DraftSeasonID &&
-                                               (p.MoveType == intPicked || p.MoveType == intKept) &&
-                                               p.PlayerID.HasValue &&
-                                               p.PlayerID == playerID
-                                               select p;
-                            if (pickedPlayer.Count() > 0)
-                                result = PickResult.AlreadyPicked;
-                            else
+                            DraftMove move = new DraftMove()
                             {
-                                DraftMove move = new DraftMove()
-                                {
-                                    Pick = match.Pick,
-                                    Round = match.Round,
-                                    SeasonID = Settings.DraftSeasonID,
-                                    PlayerID = playerID,
-                                    Time = DateTime.Now,
-                                    MoveType = (int)DraftMoveType.Pick,
-                                    UserID = userID
-                                };
-                                db.DraftMoves.InsertOnSubmit(move);
-                                db.SubmitChanges();
-                            }
+                                Pick = match.Pick,
+                                Round = match.Round,
+                                SeasonID = Settings.DraftSeasonID,
+                                PlayerID = playerID,
+                                Time = DateTime.Now,
+                                MoveType = (int)DraftMoveType.Pick,
+                                UserID = userID
+                            };
+                            db.DraftMoves.InsertOnSubmit(move);
+                            db.SubmitChanges();
                         }
                     }
                 }
             }
+
             return result;
+        }
+
+        DraftMoveObj FindUserOnClock(int userID)
+        {
+            DraftMoveObj match = null;
+            List<DraftMoveObj> onClock = FindOnTheClock();
+            foreach (DraftMoveObj allowed in onClock)
+            {
+                if (allowed.UserID == userID)
+                {
+                    match = allowed;
+                    break;
+                }
+            }
+            return match;
+        }
+
+        PlayerObj FindPlayer(int playerID)
+        {
+            PlayerObj match = null;
+            var allPlayers = from t in db.Players
+                             where t.PlayerID == playerID
+                             select t;
+
+            if (allPlayers.Count() > 0)
+                match = new PlayerObj(allPlayers.First());
+
+            return match;
+        }
+
+        PlayerObj FindPickedPlayer(int playerID)
+        {
+            PlayerObj match = null;
+            var intPicked = (int)DraftMoveType.Pick;
+            var intKept = (int)DraftMoveType.Keep;
+            var pickedPlayer = from p in db.DraftMoves
+                                where p.SeasonID == Settings.DraftSeasonID &&
+                                (p.MoveType == intPicked || p.MoveType == intKept) &&
+                                p.PlayerID.HasValue &&
+                                p.PlayerID == playerID
+                                select p;
+            if (pickedPlayer.Count() > 0)
+                match = new PlayerObj(pickedPlayer.First().Player);
+
+            return match;
         }
 
         public int FindUser(String username)

@@ -48,5 +48,16 @@ namespace FantasyDraftAPI.Models
         {
             Picked = false;
         }
+
+        public PlayerObj(Player toCopy) : this()
+        {
+            PlayerID = toCopy.PlayerID;
+            FirstName = toCopy.FirstName;
+            LastName = toCopy.LastName;
+            Suffix = toCopy.Suffix;
+            Identity = toCopy.Identifier;
+            Team = toCopy.Team;
+            Position = toCopy.Position;
+        }
     }
 }
