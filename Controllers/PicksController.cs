@@ -38,7 +38,9 @@ namespace FantasyDraftAPI.Controllers
                         case PickResult.NotTurn:
                             throw new HttpStatusException(HttpStatusCode.Forbidden, "It's not your turn to pick");
                         case PickResult.InvalidPosition:
-                            throw new HttpStatusException(HttpStatusCode.BadRequest, "Players at that position cannot be drafted");
+                            throw new HttpStatusException(HttpStatusCode.Forbidden, "Players at that position cannot be drafted");
+                        case PickResult.PositionMax:
+                            throw new HttpStatusException(HttpStatusCode.Forbidden, "Position Max - You cannot draft any more players at that position");
                     }
                 }
             }
