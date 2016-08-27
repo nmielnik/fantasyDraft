@@ -13,7 +13,7 @@
         template: _.template(template),
 
         initialize: function () {
-            this.model.on("add", this.onAdd, this);
+            this.model.on('add', this.onAdd, this);
         },
 
         onAdd: function() {
@@ -36,9 +36,9 @@
 
         fetchError: function (model, response, options) {
             if (response && response.status == 401) {
-                window.location.replace("/Draft/Login");
+                window.location.replace('/Draft/Login');
             } else {
-                console.log("Picks Fetch Error");
+                console.log('Picks Fetch Error');
                 console.log(response.statusText);
             }
         },
@@ -48,7 +48,7 @@
             var rounds = {};
             var self = this;
             this.model.forEach(function (currPick) {
-                var round = currPick.get("Round");
+                var round = currPick.get('Round');
                 if (!rounds[round]) {
                     rounds[round] = $(self.template({ round: round })).appendTo(self.$el);
                 }

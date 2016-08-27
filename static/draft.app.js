@@ -5,8 +5,9 @@
     'static/DraftPicksView',
     'static/DraftQueueView',
     'static/ChatView',
+    'static/TeamInfoView',
     'Settings'
-], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, Settings) {
+], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, TeamInfoViews, Settings) {
 
     var DraftPicks = Backbone.Collection.extend({
         url: 'api/picks',
@@ -61,6 +62,8 @@
     var chatView = new ChatView({ model: chatsModel, el: $('#draft-chat-holder') })
         .render()
         .startPolling(Settings.MSPerChatRefresh);
+
+    var teamInfoView = new TeamInfoViews({ model: picksModel, el: $('body') }).render();
 
     chatsModel.fetch();
     statusModel.fetch();

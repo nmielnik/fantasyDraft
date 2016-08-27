@@ -558,6 +558,54 @@
 	}
 }
 
+.team-info-holder {
+	display: none;
+	z-index: 3;
+	background-color: @blue-grey-900;
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	height: auto;
+	width: 810px;
+
+	.team-info-header {
+		height: @square-height;
+		margin: 20px 0 0 20px;
+
+		div.logo {
+			width: @square-width;
+			height: 100%;
+			margin: 0 10px 0 0;
+			font-size: 10px;
+			-webkit-font-smoothing: antialiased;
+			background-color: @blue-grey-400;
+			color: @text-light-1;
+			display: inline-block;
+			background-repeat: no-repeat;
+		    background-position: 80% 20%;
+		    background-size: 125px 125px;
+		    position: relative;
+		    float: left;
+		}
+
+		h2 {
+			color: @text-light-1;
+			float: left;
+		}
+	}
+
+	.pos-col {
+		float: left;
+		margin-left: 20px;
+		color: @text-light;
+		width: 180px;
+
+		> h5 {
+			margin: 10px 0;
+		}
+	}
+}
+
 .kennelz {
 	background-image: url('logos/kennelz.png');
 	//color: #007a85;
