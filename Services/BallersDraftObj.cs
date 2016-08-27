@@ -507,41 +507,72 @@ namespace FantasyDraftAPI.Services
         public PickResult SubmitPick(int userID, int playerID)
         {
             PickResult result = PickResult.Success;
+            PlayerObj player = null;
 
             lock (_DraftLock)
             {
-                if (FindPlayer(playerID) == null)
+                player = FindPlayer(playerID);
+                if (player == null)
                     result = PickResult.InvalidPlayer;
+                else if (!Settings.PositionMaxes.ContainsKey(player.Position))
+                    result = PickResult.InvalidPosition;
                 else
                 {
-                    PlayerObj pickedPlayer = FindPickedPlayer(playerID);
-                    if (pickedPlayer != null)
-                        result = PickResult.AlreadyPicked;
+                    List<PlayerObj> draftedPlayers = GetUsersDraftedPlayers(userID);
+                    int posCount = draftedPlayers.Sum(x => x.Position == player.Position ? 1 : 0);
+                    if (posCount >= Settings.PositionMaxes[player.Position])
+                        result = PickResult.PositionMax;
                     else
                     {
-                        DraftMoveObj match = FindUserOnClock(userID);
-                        if (match == null)
-                            result = PickResult.NotTurn;
+                        PlayerObj pickedPlayer = FindPickedPlayer(playerID);
+                        if (pickedPlayer != null)
+                            result = PickResult.AlreadyPicked;
                         else
                         {
-                            DraftMove move = new DraftMove()
+                            DraftMoveObj match = FindUserOnClock(userID);
+                            if (match == null)
+                                result = PickResult.NotTurn;
+                            else
                             {
-                                Pick = match.Pick,
-                                Round = match.Round,
-                                SeasonID = Settings.DraftSeasonID,
-                                PlayerID = playerID,
-                                Time = DateTime.Now,
-                                MoveType = (int)DraftMoveType.Pick,
-                                UserID = userID
-                            };
-                            db.DraftMoves.InsertOnSubmit(move);
-                            db.SubmitChanges();
+                                DraftMove move = new DraftMove()
+                                {
+                                    Pick = match.Pick,
+                                    Round = match.Round,
+                                    SeasonID = Settings.DraftSeasonID,
+                                    PlayerID = playerID,
+                                    Time = DateTime.Now,
+                                    MoveType = (int)DraftMoveType.Pick,
+                                    UserID = userID
+                                };
+                                db.DraftMoves.InsertOnSubmit(move);
+                                db.SubmitChanges();
+                            }
                         }
                     }
                 }
             }
 
             return result;
+        }
+
+        List<PlayerObj> GetUsersDraftedPlayers(int userID)
+        {
+            List<PlayerObj> players = new List<PlayerObj>();
+
+            var intPicked = (int)DraftMoveType.Pick;
+            var intKept = (int)DraftMoveType.Keep;
+            var draftPicks = from p in db.DraftMoves
+                               where p.SeasonID == Settings.DraftSeasonID &&
+                               p.UserID == userID &&
+                               (p.MoveType == intPicked || p.MoveType == intKept) &&
+                               p.PlayerID.HasValue
+                               select p;
+            foreach (DraftMove pick in draftPicks)
+            {
+                players.Add(new PlayerObj(pick.Player));
+            }
+
+            return players;
         }
 
         DraftMoveObj FindUserOnClock(int userID)

@@ -37,6 +37,10 @@ namespace FantasyDraftAPI.Controllers
                             throw new HttpStatusException(HttpStatusCode.NotFound, "The player you entered is invalid or does not exist");
                         case PickResult.NotTurn:
                             throw new HttpStatusException(HttpStatusCode.Forbidden, "It's not your turn to pick");
+                        case PickResult.InvalidPosition:
+                            throw new HttpStatusException(HttpStatusCode.Forbidden, "Players at that position cannot be drafted");
+                        case PickResult.PositionMax:
+                            throw new HttpStatusException(HttpStatusCode.Forbidden, "Position Max - You cannot draft any more players at that position");
                     }
                 }
             }
