@@ -7,7 +7,7 @@
         { id: 2, name: "Meathooks" },
         { id: 3, name: "Nannies" },
         { id: 4, name: "Titties" },
-        { id: 5, name: "Mills" },
+        { id: 5, name: "PuerBurrito" },
         { id: 6, name: "Jihad" },
         { id: 7, name: "Turner" },
         { id: 8, name: "Aficionados" },
@@ -27,7 +27,7 @@
     var chatUpdate = null;
 
     return fauxServer
-        .get("picks", function (context) {
+        .get("api/picks", function (context) {
             return [
                 {
                     "Round": 1,
@@ -1974,7 +1974,7 @@
                     "TotalPick": 216
                 }
             ];
-        }).get("chat", function (context) {
+        }).get("api/chat", function (context) {
             if (!chatData) {
                 chatUpdate = new Date();
                 chatData = [
@@ -2282,7 +2282,7 @@
             }
 
             return chatData;
-        }).post("chat", function (context) {
+        }).post("api/chat", function (context) {
             chatUpdate = new Date();
             var timestamp = chatUpdate.getTime();
             var user = userData[timestamp % 12];
@@ -2294,9 +2294,9 @@
             };
             chatData.push(newChat);
             return chatData;
-        }).get("status", function (context) {
+        }).get("api/status", function (context) {
             return statusData;
-        }).post("status", function (context) {
+        }).post("api/status", function (context) {
             statusData = context.data;
             return statusData;
         });
