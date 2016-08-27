@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
-
+    <meta name="viewport" content="width=device-width" />
+    <title>Ballers Unite Draft</title>
     <link rel="stylesheet/less" type="text/css" href="static/draft.less" />
     <script>
         less = {
@@ -13,7 +13,7 @@
             functions: {},
             dumpLineNumbers: "comments"
         };
-	</script>
+    </script>
     <script type="text/javascript" src="static/lib/less.min.js"></script>
     <script type="text/javascript" src="static/lib/require.min.js"></script>
     <script type="text/javascript">
@@ -26,6 +26,7 @@
                 'backbone-faux-server': 'static/lib/backbone-faux-server'
             }
         });
+
 
         define('PlayerMap', ['jquery'], function ($) {
             if (!window.PlayerMap) {
@@ -81,5 +82,6 @@
     </div>
     <div id="draft-queue-holder" class="right-slider-menu queue-holder"></div>
     <div id="draft-chat-holder" class="right-slider-menu chat-holder"></div>
+    <div><span>Google Hangout: </span><a href="https://hangouts.google.com/hangouts/_/calendar/bm1pZWxuaWtAZ21haWwuY29t.25if2olmnfuf1qvecpcgoihifg">Here</a></div>
 </body>
 </html>
