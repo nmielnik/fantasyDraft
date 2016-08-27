@@ -21,17 +21,17 @@ namespace FantasyDraftAPI.Models
 
         public DraftSettings()
         {
-            SecondsPerPick = 90;
+            SecondsPerPick = 120;
             ClockWarningSeconds = 30;
             TeamsPerDraft = 12;
-            RoundsPerDraft = 18;
+            RoundsPerDraft = 17;
             DraftSeasonID = 9;
             ChatRoomCache = 50;
             MSPerRefresh = 1000;
             MSPerChatRefresh = 1500;
             MSPerStatusRefresh = 5000;
             ActiveUserSeconds = 10;
-            ChatFilter = new DateTime(2014, 8, 25, 12, 0, 0);
+            ChatFilter = new DateTime(2015, 9, 1, 12, 0, 0);
         }
     }
 }
