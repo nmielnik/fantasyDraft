@@ -5,7 +5,7 @@
     'static/DraftPicksView',
     'static/DraftQueueView',
     'static/ChatView',
-    'static/TeamInfoView',
+    'static/TeamInfoViews',
     'Settings'
 ], function ($, _, Backbone, DraftPicksView, DraftQueueView, ChatView, TeamInfoViews, Settings) {
 
@@ -48,11 +48,14 @@
     var picksModel = new DraftPicks();
     var chatsModel = new Chats();
 
+    var teamInfoViews = new TeamInfoViews({ model: picksModel, el: $('body') });
+
     var picksView = new DraftPicksView({
         model: picksModel,
         el: $('#draft-board-holder'),
         DraftPicks: picksModel,
-        Status: statusModel
+        Status: statusModel,
+        showTeamInfo: teamInfoViews.showTeamInfo.bind(teamInfoViews)
     }).render();
 
     var queueView = new DraftQueueView({ model: picksModel, el: $('#draft-queue-holder'), QueueCache: statusModel })
@@ -63,7 +66,7 @@
         .render()
         .startPolling(Settings.MSPerChatRefresh);
 
-    var teamInfoView = new TeamInfoViews({ model: picksModel, el: $('body') }).render();
+    teamInfoViews.render();
 
     chatsModel.fetch();
     statusModel.fetch();
@@ -72,6 +75,7 @@
     $('#draft-buttons-holder').prop('on', true);
 
     function beforeShow() {
+        teamInfoViews.hide();
         $('#draft-buttons-holder').hide().prop('on', false);
     }
 
@@ -97,13 +101,16 @@
     $('body').on('keyup', function(evt) {
         if ($('#draft-buttons-holder').prop('on')) {
             if (evt.which == 81 || evt.which == 113) {
+                teamInfoViews.hide();
                 queueView.toggleVisibility(true);
             } else if (evt.which == 67 || evt.which == 99) {
+                teamInfoViews.hide();
                 chatView.toggleVisibility(true);
             }
         } else if (evt.which == 27) {
             queueView.toggleVisibility(false);
             chatView.toggleVisibility(false);
+            teamInfoViews.hide();
         }
     });
 

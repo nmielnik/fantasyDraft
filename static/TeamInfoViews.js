@@ -28,8 +28,24 @@ define([
     var TeamInfoView = Backbone.View.extend({
         tagName: 'div',
         className: 'team-info-holder',
+        events: {
+            'click a.close': 'handleClose'
+        },
 
         template: _.template(teamInfoTemplate),
+
+        handleClose: function (event) {
+            event.preventDefault();
+            this.hide();
+        },
+
+        hide: function () {
+            this.$el.hide();
+        },
+
+        show: function () {
+            this.$el.show();
+        },
 
         render: function () {
             this.$el.empty();
@@ -57,22 +73,12 @@ define([
             this.model.on('change reset add remove', this.onUpdate, this);
             this.views = {};
             this.updateTeamInfo();
-            Object.keys(this.teamInfo).forEach(function (userId) {
+            _.each(this.teamInfo, function (team, userId) {
                 this.views[userId] = new TeamInfoView({
                     model: new Backbone.Model(this.teamInfo[userId])
                 });
                 this.$el.append(this.views[userId].render().$el);
             }, this);
-            this.currView = 1;
-            this.views['' + 1].$el.show();
-            setInterval(function() {
-                this.views['' + this.currView].$el.hide();
-                if (this.currView === 12) {
-                    this.currView = 0;
-                }
-                this.currView++;
-                this.views['' + this.currView].$el.show();
-            }.bind(this), 3000);
         },
 
         onUpdate: function () {
@@ -85,20 +91,33 @@ define([
             }
         },
 
+        hide: function () {
+            _.each(this.views, function (view) {
+                view.hide();
+            });
+        },
+
+        showTeamInfo: function (teamId) {
+            this.hide();
+            if (this.views[teamId]) {
+                this.views[teamId].show();
+            }
+        },
+
         render: function () {
             this.updateTeamInfo();
-            Object.keys(this.teamInfo).forEach(function (userId) {
-                this.views[userId].model = new Backbone.Model(this.teamInfo[userId]);
+            _.each(this.teamInfo, function (info, userId) {
+                this.views[userId].model = new Backbone.Model(info);
                 this.views[userId].render();
             }, this);
         },
 
         updateTeamInfo: function () {
             this.teamInfo = {};
-            Object.keys(UserMap).forEach(function (userId) {
+            _.each(UserMap, function (userInfo, userId) {
                 this.teamInfo[userId] = {
                     Positions: {},
-                    Team: UserMap[userId]
+                    Team: userInfo
                 };
                 ['QB', 'RB', 'WR', 'TE'].forEach(function (pos) {
                     this.teamInfo[userId].Positions[pos] = [];

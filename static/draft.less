@@ -341,6 +341,7 @@
 			-webkit-font-smoothing: antialiased;
 			background-color: @blue-grey-400;
 			color: @text-light-1;
+			display: block;
 
 			> div {
 				text-align: center;
@@ -562,11 +563,17 @@
 	display: none;
 	z-index: 3;
 	background-color: @blue-grey-900;
-	position: absolute;
-	top: 100px;
-	left: 100px;
 	height: auto;
 	width: 810px;
+
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	margin-left: -405px; /* Negative half of width. */
+	// margin-top: -100px; /* Negative half of height. */
+
+	border: 2px solid @text-light-1;
+	border-radius: 10px;
 
 	.team-info-header {
 		height: @square-height;
@@ -600,8 +607,49 @@
 		color: @text-light;
 		width: 180px;
 
-		> h5 {
-			margin: 10px 0;
+		ul {
+			margin: 0 0 0 10px;
+			padding: 0;
+
+			li {
+				margin-top: -10px;
+			}
+		}
+	}
+
+	.close {
+		position: absolute;
+		right: 16px;
+		top: 16px;
+		width: 32px;
+		height: 32px;
+		opacity: 0.6;
+		border: 2px solid @deep-orange-700;
+		border-radius: 10%;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:before {
+			transform: rotate(45deg);
+			margin-top: -1px;
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+			margin-top: -2px;
+		}
+
+		&:after, &:before {
+			position: absolute;
+			left: 13px;
+			content: ' ';
+			height: 32px;
+			width: 2px;
+			background-color: @deep-orange-700;
+			//margin-top: -2px;
+			//margin-left: 1px;
 		}
 	}
 }
