@@ -12,9 +12,24 @@
     var DraftPicksView = Backbone.View.extend({
         template: _.template(template),
 
+        events: {
+            'click a.draft-square.logo': 'onDraftHeadClick'
+        },
+
         initialize: function (options) {
             this.DraftPicks = options.DraftPicks;
             this.Status = options.Status;
+            if (options.showTeamInfo) {
+                this.showTeamInfo = options.showTeamInfo;
+            }
+        },
+
+        onDraftHeadClick: function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if (this.showTeamInfo) {
+                this.showTeamInfo($(event.currentTarget).attr('data-user-id'));
+            }
         },
 
         render: function () {

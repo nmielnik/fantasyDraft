@@ -341,6 +341,7 @@
 			-webkit-font-smoothing: antialiased;
 			background-color: @blue-grey-400;
 			color: @text-light-1;
+			display: block;
 
 			> div {
 				text-align: center;
@@ -558,77 +559,155 @@
 	}
 }
 
+.team-info-holder {
+	display: none;
+	z-index: 3;
+	background-color: @blue-grey-900;
+	height: auto;
+	width: 810px;
+
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	margin-left: -405px; /* Negative half of width. */
+	// margin-top: -100px; /* Negative half of height. */
+
+	border: 2px solid @text-light-1;
+	border-radius: 10px;
+
+	.team-info-header {
+		height: @square-height;
+		margin: 20px 0 0 20px;
+
+		div.logo {
+			width: @square-width;
+			height: 100%;
+			margin: 0 10px 0 0;
+			font-size: 10px;
+			-webkit-font-smoothing: antialiased;
+			background-color: @blue-grey-400;
+			color: @text-light-1;
+			display: inline-block;
+			background-repeat: no-repeat;
+		    background-position: 80% 20%;
+		    background-size: 125px 125px;
+		    position: relative;
+		    float: left;
+		}
+
+		h2 {
+			color: @text-light-1;
+			float: left;
+		}
+	}
+
+	.pos-col {
+		float: left;
+		margin-left: 20px;
+		color: @text-light;
+		width: 180px;
+
+		ul {
+			margin: 0 0 0 10px;
+			padding: 0;
+
+			li {
+				margin-top: -10px;
+			}
+		}
+	}
+
+	.close {
+		position: absolute;
+		right: 16px;
+		top: 16px;
+		width: 32px;
+		height: 32px;
+		opacity: 0.6;
+		border: 2px solid @deep-orange-700;
+		border-radius: 10%;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:before {
+			transform: rotate(45deg);
+			margin-top: -1px;
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+			margin-top: -2px;
+		}
+
+		&:after, &:before {
+			position: absolute;
+			left: 13px;
+			content: ' ';
+			height: 32px;
+			width: 2px;
+			background-color: @deep-orange-700;
+		}
+	}
+}
+
 .kennelz {
 	background-image: url('logos/kennelz.png');
-	//color: #007a85;
-	color: #f36a24;
+	color: @kennelz-orange;
 }
 
 .meathooks {
 	background-image: url('logos/meathooks.png');
-	color: #ffe62d;
-	// #FEE933
+	color: @meathooks-yellow-1;
 }
 
 .nannies {
 	background-image: url('logos/nannies.png');
-	// #cda418
-	color: #fcd427;
+	color: @nannies-yellow;
 }
 
 .titties {
 	background-image: url('logos/titties.png');
-	// #6c90a0
-	color: #cfc76d;
-	// #E19267
+	color: @titties-gold;
 }
 
 .jihad {
 	background-image: url('logos/jihad.png');
-	// #ffffff
-	color: #666666;
-	// #BEB78F
+	color: @jihad-grey;
 }
 
 .puerburrito {
 	background-image: url('logos/puerburrito.png');
-	color: #666666;
-	//color: #004890;
+	color: @puerburrito-grey;
 }
 
 .turner {
 	background-image: url('logos/turner.png');
-	color: #ca233d;
+	color: @turner-red;
 }
 
 .aficionados {
 	background-image: url('logos/aficionados.png');
-	// #9a01cc
-	color: #ff33cc;
+	color: @aficionados-pink;
 }
 
 .seattlites {
 	background-image: url('logos/seattlites.png');
-	color: #f997b9;
-	// #ece239
-	// #FB619F
-	// #B456BE
+	color: @seattlites-pink-1;
 }
 
 .stepdads {
 	background-image: url('logos/stepdads.png');
-	color: #fcb813;
-	// color: #402985;
+	color: @stepdads-yellow;
 }
 
 .ganggreen {
 	background-image: url('logos/ganggreen.png');
-	color: #ffffff;
-	// color: #0e4524;
+	color: @ganggreen-white;
 }
 
 .tomahawks {
 	background-image: url('logos/tomahawks.png');
-	color: #bbc4c9;
-	// #F64F22
+	color: @tomahawks-grey;
 }

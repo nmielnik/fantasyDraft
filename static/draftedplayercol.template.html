@@ -1,0 +1,7 @@
+<h3><%= position %> (<%= players.length %>)</h3>
+<ul>
+<% players.forEach(function (player) { %>
+    <% var pickNum = player.PickInfo.Type == '1' ? 'K' : player.PickInfo.TotalPick; %>
+    <li><h5><%= player.Name %> [<%= pickNum %>]</h5></li>
+<% }) %>
+</ul>
