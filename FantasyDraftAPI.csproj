@@ -167,6 +167,7 @@
     <Content Include="static\controls.css" />
     <Content Include="static\adminonclock.template.html" />
     <Content Include="static\draft.app.js" />
+    <Content Include="static\draftedplayercol.template.html" />
     <Content Include="static\drafthead.template.html" />
     <Content Include="static\DraftHeadView.js" />
     <Content Include="static\draftpicks.template.html" />
@@ -200,6 +201,8 @@
     <Content Include="static\picks.template.html" />
     <Content Include="static\PicksView.js" />
     <Content Include="static\PickView.js" />
+    <Content Include="static\teaminfo.template.html" />
+    <Content Include="static\TeamInfoViews.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
