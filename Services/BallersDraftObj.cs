@@ -36,6 +36,10 @@ namespace FantasyDraftAPI.Services
                     int intMoveType = (int)DraftMoveType.Empty;
                     DateTime runTime = DateTime.Now;
                     Dictionary<int, int> draftOrder = GetDraftOrder();
+                    if (draftOrder.Count == 0)
+                    {
+                        throw new InvalidOperationException("There is no draft order for the current season, please ensure there is valid draft order data in the database");
+                    }
                     Dictionary<QuickPick, DraftMoveObj> existing = new Dictionary<QuickPick, DraftMoveObj>();
                     foreach (DraftMoveObj nextMove in query)
                     {
@@ -47,7 +51,8 @@ namespace FantasyDraftAPI.Services
                         for (index.Pick = 1; index.Pick <= Settings.TeamsPerDraft; index.Pick++)
                         {
                             if (!existing.ContainsKey(index))
-                                db.DraftMoves.InsertOnSubmit(new DraftMove()
+                            {
+                                DraftMove temp = new DraftMove()
                                 {
                                     Round = index.Round,
                                     Pick = index.Pick,
@@ -56,7 +61,9 @@ namespace FantasyDraftAPI.Services
                                     SeasonID = Settings.DraftSeasonID,
                                     Time = runTime,
                                     UserID = overrides.ContainsKey(index) ? overrides[index] : draftOrder[index.Pick]
-                                });
+                                };
+                                db.DraftMoves.InsertOnSubmit(temp);
+                            }
                         }
                     }
                     db.SubmitChanges();
