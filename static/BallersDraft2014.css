@@ -171,6 +171,10 @@ div.draft-square.logo.tomahawks {
 	background-image: url('logos/tomahawks.png');
 }
 
+div.draft-square.logo.mooreslaw {
+    background-image: url('logos/mooreslaw.png');
+}
+
 .red-text {
 	color: #e51c23;
 }
