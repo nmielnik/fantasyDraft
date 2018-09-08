@@ -27,13 +27,13 @@ namespace FantasyDraftAPI.Models
             ClockWarningSeconds = 30;
             TeamsPerDraft = 12;
             RoundsPerDraft = 17;
-            DraftSeasonID = 11;
+            DraftSeasonID = 12;
             ChatRoomCache = 50;
             MSPerRefresh = 1000;
             MSPerChatRefresh = 1500;
             MSPerStatusRefresh = 5000;
             ActiveUserSeconds = 15;
-            ChatFilter = new DateTime(2017, 8, 16, 12, 0, 0);
+            ChatFilter = new DateTime(2018, 8, 16, 12, 0, 0);
             PositionMaxes = new Dictionary<string,int>
             {
                 {"QB", 4},
